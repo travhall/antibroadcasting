@@ -1,0 +1,6 @@
+{
+  "question": "What payment methods do you accept?",
+  "answer": "We accept checks, cash, and Venmo. Credit cards and PayPal incur a 3.6% convenience fee. We require payment in full when you place your order. NET 30 terms are available when discussed prior to production and require ACH payments to be set up in advance.",
+  "category": "payment",
+  "order": 1
+}
