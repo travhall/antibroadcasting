@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 const dominique = localFont({
-  src: "../public/fonts/Dominique-VF.ttf",
+  src: "../public/fonts/Dominique-VF.woff2",
   variable: "--font-dominique",
   display: "swap",
 });

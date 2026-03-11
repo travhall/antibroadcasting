@@ -16,7 +16,8 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-email": "^5.2.9",
-    "resend": "^6.9.3"
+    "resend": "^6.9.3",
+    "ttf2woff2": "^8.0.1"
   },
   "pnpm": {
     "overrides": {
