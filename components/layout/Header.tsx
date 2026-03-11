@@ -23,7 +23,9 @@ function NavLink({
       href={href}
       onClick={onClick}
       className={`transition-colors ${
-        active ? "text-zinc-900 font-semibold" : "text-zinc-500 hover:text-zinc-900"
+        active
+          ? "text-text-primary font-semibold"
+          : "text-text-muted hover:text-text-primary"
       }`}
     >
       {children}
@@ -41,13 +43,18 @@ export function Header() {
   // Prevent scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white border-b border-zinc-200">
-        <Link href="/" className="font-bold tracking-tight text-lg">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-bg-base border-b border-border-default">
+        <Link
+          href="/"
+          className="font-black tracking-tight text-lg text-text-primary"
+        >
           Antibroadcasting
         </Link>
 
@@ -68,17 +75,17 @@ export function Header() {
           aria-expanded={open}
         >
           <span
-            className={`block h-0.5 w-full bg-zinc-900 transition-transform origin-center ${
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${
               open ? "translate-y-2 rotate-45" : ""
             }`}
           />
           <span
-            className={`block h-0.5 w-full bg-zinc-900 transition-opacity ${
+            className={`block h-0.5 w-full bg-foreground transition-opacity ${
               open ? "opacity-0" : ""
             }`}
           />
           <span
-            className={`block h-0.5 w-full bg-zinc-900 transition-transform origin-center ${
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${
               open ? "-translate-y-2 -rotate-45" : ""
             }`}
           />
@@ -94,17 +101,19 @@ export function Header() {
         />
       )}
       <nav
-        className={`fixed top-0 right-0 z-50 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-0 right-0 z-50 h-full w-72 bg-bg-base shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
         aria-label="Mobile navigation"
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
-          <span className="font-bold tracking-tight">Menu</span>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border-default">
+          <span className="font-bold tracking-tight text-text-primary">
+            Menu
+          </span>
           <button
             onClick={() => setOpen(false)}
             aria-label="Close menu"
-            className="text-zinc-500 hover:text-zinc-900"
+            className="text-text-muted hover:text-text-primary transition-colors"
           >
             ✕
           </button>
@@ -116,15 +125,18 @@ export function Header() {
               href={item.href}
               onClick={() => setOpen(false)}
             >
-              <span className="block py-3 text-lg border-b border-zinc-100">
+              <span className="block py-3 text-lg border-b border-border-subtle">
                 {item.label}
               </span>
             </NavLink>
           ))}
         </div>
-        <div className="absolute bottom-8 px-6 text-sm text-zinc-400 space-y-1">
+        <div className="absolute bottom-8 px-6 text-sm text-text-muted space-y-1">
           <p>
-            <a href="tel:6128369488" className="hover:text-zinc-900 transition-colors">
+            <a
+              href="tel:6128369488"
+              className="hover:text-text-primary transition-colors"
+            >
               612.836.9488
             </a>
           </p>

@@ -20,18 +20,24 @@ export default async function HowItWorksPage() {
       order: entry.entry.order ?? 99,
     }))
     .sort((a, b) => {
-      if (a.category !== b.category) return a.category.localeCompare(b.category);
+      if (a.category !== b.category)
+        return a.category.localeCompare(b.category);
       return a.order - b.order;
     });
 
   return (
-    <main className="pt-32 pb-24 px-6">
+    <main className="min-h-screen bg-bg-base pt-32 pb-24 px-6">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">How It Works</h1>
-        <p className="text-zinc-500 mb-12">
-          Everything you need to know before placing an order — from art requirements
-          to payment. Still have questions?{" "}
-          <a href="/contact" className="underline underline-offset-2 hover:text-zinc-900">
+        <h1 className="text-3xl font-bold tracking-tight text-text-primary mb-2">
+          How It Works
+        </h1>
+        <p className="text-text-secondary mb-12">
+          Everything you need to know before placing an order — from art
+          requirements to payment. Still have questions?{" "}
+          <a
+            href="/contact"
+            className="underline underline-offset-2 hover:text-text-primary transition-colors"
+          >
             Just ask.
           </a>
         </p>
@@ -56,15 +62,23 @@ export default async function HowItWorksPage() {
             },
           ].map((s) => (
             <div key={s.step}>
-              <span className="text-xs font-mono text-zinc-400 tracking-widest">{s.step}</span>
-              <h2 className="mt-1 text-lg font-semibold mb-2">{s.title}</h2>
-              <p className="text-sm text-zinc-500 leading-relaxed">{s.body}</p>
+              <span className="text-xs font-mono text-text-muted tracking-widest">
+                {s.step}
+              </span>
+              <h2 className="mt-1 text-lg font-semibold text-text-primary mb-2">
+                {s.title}
+              </h2>
+              <p className="text-sm text-text-secondary leading-relaxed">
+                {s.body}
+              </p>
             </div>
           ))}
         </div>
 
         {/* FAQ */}
-        <h2 className="text-xl font-bold mb-6">Frequently Asked Questions</h2>
+        <h2 className="text-xl font-bold text-text-primary mb-6">
+          Frequently Asked Questions
+        </h2>
         <FaqAccordion items={items} />
       </div>
     </main>

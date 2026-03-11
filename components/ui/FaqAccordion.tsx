@@ -22,7 +22,10 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
-  const categories = ["all", ...Array.from(new Set(items.map((i) => i.category)))];
+  const categories = [
+    "all",
+    ...Array.from(new Set(items.map((i) => i.category))),
+  ];
 
   const filtered =
     activeCategory === "all"
@@ -36,20 +39,23 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
         {categories.map((cat) => (
           <button
             key={cat}
-            onClick={() => { setActiveCategory(cat); setOpen(null); }}
+            onClick={() => {
+              setActiveCategory(cat);
+              setOpen(null);
+            }}
             className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
               activeCategory === cat
-                ? "bg-zinc-900 text-white border-zinc-900"
-                : "bg-white text-zinc-600 border-zinc-300 hover:border-zinc-500"
+                ? "bg-bg-inverse text-text-inverse border-bg-inverse"
+                : "bg-bg-elevated text-text-secondary border-border-default hover:border-border-strong"
             }`}
           >
-            {cat === "all" ? "All" : CATEGORY_LABELS[cat] ?? cat}
+            {cat === "all" ? "All" : (CATEGORY_LABELS[cat] ?? cat)}
           </button>
         ))}
       </div>
 
       {/* Accordion items */}
-      <div className="divide-y divide-zinc-200 border-y border-zinc-200">
+      <div className="divide-y divide-border-default border-y border-border-default">
         {filtered.map((item) => {
           const isOpen = open === item.slug;
           return (
@@ -59,9 +65,11 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                 className="flex w-full items-center justify-between py-5 text-left gap-4"
                 aria-expanded={isOpen}
               >
-                <span className="font-medium text-zinc-900">{item.question}</span>
+                <span className="font-medium text-text-primary">
+                  {item.question}
+                </span>
                 <span
-                  className={`flex-shrink-0 text-zinc-400 text-lg transition-transform ${
+                  className={`flex-shrink-0 text-text-muted text-lg transition-transform ${
                     isOpen ? "rotate-45" : ""
                   }`}
                 >
@@ -69,7 +77,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                 </span>
               </button>
               {isOpen && (
-                <div className="pb-5 text-sm text-zinc-600 leading-relaxed max-w-2xl">
+                <div className="pb-5 text-sm text-text-secondary leading-relaxed max-w-2xl">
                   {item.answer}
                 </div>
               )}

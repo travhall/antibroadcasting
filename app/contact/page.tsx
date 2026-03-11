@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="pt-32 pb-24 px-6">
+    <main className="min-h-screen bg-bg-base pt-32 pb-24 px-6">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold tracking-tight mb-2">Get a Quote</h1>
         <p className="text-zinc-500 mb-10">

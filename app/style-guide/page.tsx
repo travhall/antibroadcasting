@@ -42,17 +42,28 @@ export default function StyleGuide() {
 
   const renderColorRow = (name: string, shades: Record<string, string>) => (
     <div className="mb-8">
-      <h3 className="text-sm font-medium text-neutral-600 mb-3 uppercase tracking-wider">
+      <h3 className="text-sm font-medium text-text-muted mb-3 uppercase tracking-wider">
         {name}
       </h3>
       <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
         {Object.entries(shades).map(([shade, color]) => (
           <div key={shade} className="group">
-            <div
-              className="h-16 rounded-lg shadow-sm border border-neutral-200"
-              style={{ backgroundColor: color }}
-            />
-            <p className="text-xs text-neutral-500 mt-1 text-center">{shade}</p>
+            <div className="h-16 rounded-lg shadow-sm border border-border-subtle relative overflow-hidden">
+              {/* Checkerboard background for transparency/visibility */}
+              <div
+                className="absolute inset-0 opacity-30"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E")`,
+                }}
+              />
+              <div
+                className="absolute inset-0"
+                style={{ backgroundColor: color }}
+              />
+            </div>
+            <p className="text-xs text-text-secondary mt-1 text-center">
+              {shade}
+            </p>
           </div>
         ))}
       </div>
@@ -60,60 +71,99 @@ export default function StyleGuide() {
   );
 
   return (
-    <main className="min-h-screen bg-neutral-100">
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <header className="mb-16 pb-8 border-b border-neutral-300">
-          <p className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
+    <main className="min-h-screen bg-bg-base pt-32 pb-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <header className="mb-16 pb-8 border-b border-border-default">
+          <p className="text-sm font-medium text-text-muted uppercase tracking-wider mb-2">
             Antibroadcasting Inc.
           </p>
-          <h1 className="text-5xl font-bold text-primary-950 mb-4">
+          <h1 className="text-5xl font-bold text-text-primary mb-4">
             Style Guide
           </h1>
-          <p className="text-lg text-neutral-600">
+          <p className="text-lg text-text-secondary">
             Typography, colors, and components reference
           </p>
         </header>
 
         {/* Typography Section */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-primary-950 mb-8 pb-2 border-b border-neutral-300">
+          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
             Typography
           </h2>
 
+          {/* Background Variance Demo */}
+          <div className="mb-12">
+            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+              Background Variance Tokens
+            </h3>
+            <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="bg-bg-base rounded-card p-4 border border-border-subtle">
+                <p className="text-sm text-text-primary font-medium">bg-base</p>
+                <p className="text-xs text-text-tertiary">Page background</p>
+              </div>
+              <div className="bg-bg-subtle rounded-card p-4 border border-border-subtle">
+                <p className="text-sm text-text-primary font-medium">
+                  bg-subtle
+                </p>
+                <p className="text-xs text-text-tertiary">Subtle sections</p>
+              </div>
+              <div className="bg-bg-elevated rounded-card p-4 border border-border-subtle">
+                <p className="text-sm text-text-primary font-medium">
+                  bg-elevated
+                </p>
+                <p className="text-xs text-text-tertiary">Cards, popovers</p>
+              </div>
+              <div className="bg-bg-inset rounded-card p-4 border border-border-subtle">
+                <p className="text-sm text-text-primary font-medium">
+                  bg-inset
+                </p>
+                <p className="text-xs text-text-tertiary">Inset areas</p>
+              </div>
+              <div className="bg-bg-inverse rounded-card p-4 border border-border-inverse">
+                <p className="text-sm text-text-inverse font-medium">
+                  bg-inverse
+                </p>
+                <p className="text-xs text-text-inverse opacity-70">
+                  Banners, footers
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Geist Sans */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
               Geist Sans — Primary UI Font (var(--font-sans))
             </h3>
             <div className="space-y-4">
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16">H1</span>
-                <h1 className="text-5xl font-bold text-primary-950">
+                <span className="text-sm text-text-tertiary w-16">H1</span>
+                <h1 className="text-5xl font-bold text-text-primary">
                   Heading One
                 </h1>
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16">H2</span>
-                <h2 className="text-4xl font-bold text-primary-950">
+                <span className="text-sm text-text-tertiary w-16">H2</span>
+                <h2 className="text-4xl font-bold text-text-primary">
                   Heading Two
                 </h2>
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16">H3</span>
-                <h3 className="text-3xl font-semibold text-primary-950">
+                <span className="text-sm text-text-tertiary w-16">H3</span>
+                <h3 className="text-3xl font-semibold text-text-primary">
                   Heading Three
                 </h3>
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16">Body</span>
-                <p className="text-base text-neutral-700 leading-relaxed">
+                <span className="text-sm text-text-tertiary w-16">Body</span>
+                <p className="text-base text-text-secondary leading-relaxed">
                   The quick brown fox jumps over the lazy dog. Pack my box with
                   five dozen liquor jugs.
                 </p>
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16">Small</span>
-                <p className="text-sm text-neutral-500">
+                <span className="text-sm text-text-tertiary w-16">Small</span>
+                <p className="text-sm text-text-tertiary">
                   Secondary text, captions, and metadata information.
                 </p>
               </div>
@@ -122,44 +172,56 @@ export default function StyleGuide() {
 
           {/* Dominique Variable Font */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
               Dominique — Display Font (var(--font-display))
             </h3>
             <div className="space-y-4 font-display">
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16 font-sans">
+                <span className="text-sm text-text-muted w-16 font-sans">
                   900
                 </span>
-                <p className="text-4xl text-primary-950" style={{ fontWeight: 900 }}>
+                <p
+                  className="text-4xl text-text-primary"
+                  style={{ fontWeight: 900 }}
+                >
                   Heavy Weight Display
                 </p>
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16 font-sans">
+                <span className="text-sm text-text-muted w-16 font-sans">
                   700
                 </span>
-                <p className="text-3xl text-primary-950" style={{ fontWeight: 700 }}>
+                <p
+                  className="text-3xl text-text-primary"
+                  style={{ fontWeight: 700 }}
+                >
                   Bold Display Text
                 </p>
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16 font-sans">
+                <span className="text-sm text-text-muted w-16 font-sans">
                   500
                 </span>
-                <p className="text-2xl text-primary-950" style={{ fontWeight: 500 }}>
+                <p
+                  className="text-2xl text-text-primary"
+                  style={{ fontWeight: 500 }}
+                >
                   Medium Weight Display
                 </p>
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500 w-16 font-sans">
+                <span className="text-sm text-text-muted w-16 font-sans">
                   400
                 </span>
-                <p className="text-xl text-primary-950" style={{ fontWeight: 400 }}>
+                <p
+                  className="text-xl text-text-primary"
+                  style={{ fontWeight: 400 }}
+                >
                   Regular Display Text
                 </p>
               </div>
             </div>
-            <p className="text-sm text-neutral-500 mt-4 font-sans">
+            <p className="text-sm text-text-muted mt-4 font-sans">
               Variable font — supports weights 100-900 (or full range depending
               on font capabilities)
             </p>
@@ -167,17 +229,17 @@ export default function StyleGuide() {
 
           {/* Geist Mono */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
               Geist Mono — Monospace Font (var(--font-mono))
             </h3>
             <div className="space-y-4 font-mono">
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-neutral-500">Code Block</span>
-                <code className="px-3 py-2 bg-neutral-200 rounded text-sm text-primary-950">
+                <span className="text-sm text-text-muted">Code Block</span>
+                <code className="px-3 py-2 bg-bg-subtle rounded text-sm text-text-primary border border-border-subtle">
                   const fontWeight = 400;
                 </code>
               </div>
-              <p className="text-sm text-neutral-600 leading-relaxed">
+              <p className="text-sm text-text-secondary leading-relaxed">
                 Monospace font for code, technical content, and data display.
                 Excellent readability at small sizes.
               </p>
@@ -187,7 +249,7 @@ export default function StyleGuide() {
 
         {/* Colors Section */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-primary-950 mb-8 pb-2 border-b border-neutral-300">
+          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
             Colors
           </h2>
 
@@ -199,45 +261,45 @@ export default function StyleGuide() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
             <div>
               <div
-                className="h-20 rounded-lg shadow-sm border border-neutral-200"
+                className="h-20 rounded-lg shadow-sm border border-border-subtle"
                 style={{ backgroundColor: colors.accent }}
               />
-              <p className="text-sm text-neutral-600 mt-2">Accent</p>
-              <p className="text-xs text-neutral-500">{colors.accent}</p>
+              <p className="text-sm text-text-secondary mt-2">Accent</p>
+              <p className="text-xs text-text-muted">{colors.accent}</p>
             </div>
             <div>
               <div
-                className="h-20 rounded-lg shadow-sm border border-neutral-200"
+                className="h-20 rounded-lg shadow-sm border border-border-subtle"
                 style={{ backgroundColor: colors.muted }}
               />
-              <p className="text-sm text-neutral-600 mt-2">Muted</p>
-              <p className="text-xs text-neutral-500">{colors.muted}</p>
+              <p className="text-sm text-text-secondary mt-2">Muted</p>
+              <p className="text-xs text-text-muted">{colors.muted}</p>
             </div>
           </div>
         </section>
 
         {/* Components Section */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-primary-950 mb-8 pb-2 border-b border-neutral-300">
+          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
             Components
           </h2>
 
           {/* Buttons */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-4">
-              Buttons
+            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+              Buttons (Token-Based)
             </h3>
             <div className="flex flex-wrap gap-4">
-              <button className="px-6 py-3 bg-primary-950 text-white rounded-lg font-medium hover:bg-primary-800 transition-colors">
+              <button className="px-6 py-3 bg-button-primary-surface text-button-primary-text rounded-button font-medium hover:bg-button-primary-surface-hover transition-colors">
                 Primary Button
               </button>
-              <button className="px-6 py-3 bg-secondary-600 text-white rounded-lg font-medium hover:bg-secondary-700 transition-colors">
+              <button className="px-6 py-3 bg-button-secondary-surface text-button-secondary-text rounded-button font-medium hover:bg-button-secondary-surface-hover transition-colors">
                 Secondary Button
               </button>
-              <button className="px-6 py-3 bg-neutral-200 text-primary-950 rounded-lg font-medium hover:bg-neutral-300 transition-colors">
+              <button className="px-6 py-3 bg-button-neutral-surface text-button-neutral-text rounded-button font-medium hover:bg-button-neutral-surface-hover transition-colors">
                 Neutral Button
               </button>
-              <button className="px-6 py-3 border-2 border-primary-950 text-primary-950 rounded-lg font-medium hover:bg-primary-950 hover:text-white transition-colors">
+              <button className="px-6 py-3 bg-button-outline-surface border-2 border-button-outline-border text-button-outline-text rounded-button font-medium hover:bg-button-outline-surface-hover hover:text-button-outline-text-hover transition-colors">
                 Outline Button
               </button>
             </div>
@@ -245,28 +307,28 @@ export default function StyleGuide() {
 
           {/* Form Elements */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-4">
-              Form Elements
+            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+              Form Elements (Token-Based)
             </h3>
             <div className="max-w-md space-y-4">
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-1">
+                <label className="block text-sm font-medium text-label-text mb-1">
                   Text Input
                 </label>
                 <input
                   type="text"
                   placeholder="Enter text..."
-                  className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg text-primary-950 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-input-surface border border-input-border rounded-input text-input-text placeholder:text-input-text-placeholder focus:outline-none focus:ring-2 focus:ring-input-border-focus focus:border-transparent"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-1">
+                <label className="block text-sm font-medium text-label-text mb-1">
                   Textarea
                 </label>
                 <textarea
                   rows={3}
                   placeholder="Enter longer text..."
-                  className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg text-primary-950 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-y"
+                  className="w-full px-4 py-3 bg-input-surface border border-input-border rounded-input text-input-text placeholder:text-input-text-placeholder focus:outline-none focus:ring-2 focus:ring-input-border-focus focus:border-transparent resize-y"
                 />
               </div>
             </div>
@@ -274,62 +336,144 @@ export default function StyleGuide() {
 
           {/* Cards */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-4">
-              Cards
+            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+              Cards (Token-Based)
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-neutral-200">
-                <h4 className="text-lg font-semibold text-primary-950 mb-2">
+              <div className="bg-card-surface rounded-card p-6 shadow-sm border border-card-border">
+                <h4 className="text-lg font-semibold text-card-text mb-2">
                   Standard Card
                 </h4>
-                <p className="text-neutral-600 text-sm leading-relaxed">
-                  A clean card component with subtle shadow and border for
-                  content separation.
+                <p className="text-card-text text-sm leading-relaxed opacity-70">
+                  Uses card-surface, card-border, and card-text tokens for a
+                  clean appearance.
                 </p>
               </div>
-              <div className="bg-primary-950 rounded-xl p-6">
-                <h4 className="text-lg font-semibold text-white mb-2">
+              <div className="bg-card-surface-inverse rounded-card p-6">
+                <h4 className="text-lg font-semibold text-card-text-inverse mb-2">
                   Inverse Card
                 </h4>
-                <p className="text-primary-200 text-sm leading-relaxed">
-                  A card using the primary dark color for emphasis and contrast.
+                <p className="text-card-text-inverse-muted text-sm leading-relaxed">
+                  Uses card-surface-inverse and card-text-inverse tokens for
+                  contrast.
                 </p>
               </div>
-              <div className="bg-secondary-100 rounded-xl p-6 border border-secondary-200">
-                <h4 className="text-lg font-semibold text-secondary-900 mb-2">
+              <div className="bg-card-surface-tonal rounded-card p-6 border border-card-border-tonal">
+                <h4 className="text-lg font-semibold text-card-text-tonal mb-2">
                   Tonal Card
                 </h4>
-                <p className="text-secondary-700 text-sm leading-relaxed">
-                  A card using secondary color tones for a different visual
-                  hierarchy.
+                <p className="text-card-text-tonal-muted text-sm leading-relaxed">
+                  Uses card-surface-tonal and card-border-tonal for secondary
+                  emphasis.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
+        {/* Design Tokens Reference */}
+        <section className="mb-20">
+          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
+            Design Tokens Reference
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+            <div>
+              <h3 className="font-semibold text-text-primary mb-3">
+                Button Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--button-primary-surface</li>
+                <li>--button-primary-surface-hover</li>
+                <li>--button-primary-text</li>
+                <li>--button-secondary-surface</li>
+                <li>--button-neutral-surface</li>
+                <li>--button-outline-border</li>
+                <li>--button-outline-text-hover</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-text-primary mb-3">
+                Form Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--input-surface</li>
+                <li>--input-border</li>
+                <li>--input-border-focus</li>
+                <li>--input-text</li>
+                <li>--input-text-placeholder</li>
+                <li>--label-text</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-text-primary mb-3">
+                Card Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--card-surface</li>
+                <li>--card-surface-inverse</li>
+                <li>--card-surface-tonal</li>
+                <li>--card-border</li>
+                <li>--card-text</li>
+                <li>--card-text-inverse</li>
+                <li>--card-text-tonal</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-text-primary mb-3">
+                Border Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--border-default</li>
+                <li>--border-subtle</li>
+                <li>--border-strong</li>
+                <li>--border-inverse</li>
+                <li>--border-focus</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-text-primary mb-3">
+                Text Color Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--text-primary</li>
+                <li>--text-secondary</li>
+                <li>--text-tertiary</li>
+                <li>--text-muted</li>
+                <li>--text-inverse</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         {/* Usage Notes */}
         <section>
-          <h2 className="text-2xl font-bold text-primary-950 mb-8 pb-2 border-b border-neutral-300">
+          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
             Usage Notes
           </h2>
-          <div className="prose prose-neutral max-w-none">
-            <ul className="space-y-2 text-neutral-700">
+          <div className="prose prose-neutral dark:prose-invert max-w-none">
+            <ul className="space-y-2 text-text-secondary">
               <li>
-                <strong>Fonts:</strong> Use <code>font-sans</code> for UI text,{" "}
-                <code>font-display</code> for headlines/accents,{" "}
-                <code>font-mono</code> for code
+                <strong className="text-text-primary">Fonts:</strong> Use{" "}
+                <code>font-sans</code> for UI text, <code>font-display</code>{" "}
+                for headlines/accents, <code>font-mono</code> for code
               </li>
               <li>
-                <strong>Colors:</strong> Use primary for brand elements,
-                secondary for accents, neutral for structure
+                <strong className="text-text-primary">Colors:</strong> Use
+                primary for brand elements, secondary for accents, neutral for
+                structure
               </li>
               <li>
-                <strong>Spacing:</strong> Default Tailwind spacing scale applies
+                <strong className="text-text-primary">Spacing:</strong> Default
+                Tailwind spacing scale applies
               </li>
               <li>
-                <strong>Border Radius:</strong> Use <code>rounded-lg</code> for
-                buttons, <code>rounded-xl</code> for cards
+                <strong className="text-text-primary">Border Radius:</strong>{" "}
+                Use <code>rounded-lg</code> for buttons, <code>rounded-xl</code>{" "}
+                for cards
+              </li>
+              <li>
+                <strong className="text-text-primary">Accessibility:</strong>{" "}
+                All text meets WCAG 2.2 AA contrast (4.5:1)
               </li>
             </ul>
           </div>
