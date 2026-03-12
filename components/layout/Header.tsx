@@ -3,13 +3,9 @@
 import { useState, useEffect } from "react";
 import Link, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
+import { siteConfig } from "@/lib/site-config";
 
-const nav = [
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "How It Works", href: "/how-it-works" },
-  { label: "About", href: "/about" },
-  { label: "Get a Quote", href: "/contact" },
-];
+const nav = siteConfig.navigation;
 
 function NavLink({
   href,
@@ -53,9 +49,9 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-bg-base border-b border-border-default">
         <Link
           href="/"
-          className="font-black tracking-tight text-lg text-text-primary"
+          className="font-black font-display text-2xl tracking-wider text-text-primary uppercase hover:opacity-50 transition-opacity duration-300 max-w-[13ch] leading-5"
         >
-          Antibroadcasting
+          {siteConfig.company.nickname}
         </Link>
 
         {/* Desktop nav */}
@@ -134,13 +130,13 @@ export function Header() {
         <div className="absolute bottom-8 px-6 text-sm text-text-muted space-y-1">
           <p>
             <a
-              href="tel:6128369488"
+              href={siteConfig.contact.phoneHref}
               className="hover:text-text-primary transition-colors"
             >
-              612.836.9488
+              {siteConfig.contact.phone}
             </a>
           </p>
-          <p>Minneapolis, MN</p>
+          <p>{siteConfig.contact.location}</p>
         </div>
       </nav>
     </>

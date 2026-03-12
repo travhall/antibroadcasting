@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Figtree, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const figtreeSans = Figtree({
+  variable: "--font-figtree-sans",
   subsets: ["latin"],
 });
 
@@ -23,13 +24,9 @@ const dominique = localFont({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Antibroadcasting Inc. — Minneapolis Screen Printing",
-    template: "%s | Antibroadcasting Inc.",
-  },
-  description:
-    "Artist-run screen printing shop in Minneapolis. Quality prints for bands, artists, and events. 50pc minimums, 7–10 day turnaround.",
-  metadataBase: new URL("https://antibroadcasting.com"),
+  title: siteConfig.site.title,
+  description: siteConfig.site.description,
+  metadataBase: new URL(siteConfig.site.url),
 };
 
 export default function RootLayout({
@@ -54,7 +51,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dominique.variable} antialiased`}
+        className={`${figtreeSans.variable} ${geistMono.variable} ${dominique.variable} antialiased`}
       >
         <Header />
         <div className="fixed top-4 right-4 z-50">

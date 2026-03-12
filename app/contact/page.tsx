@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { QuoteForm } from "@/components/ui/QuoteForm";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Get a Quote",
-  description:
-    "Ready to print? Tell us about your project and we'll get back to you within 1–2 business days.",
+  description: siteConfig.forms.quote.responseTime
+    ? `Ready to print? Tell us about your project and we'll get back to you within ${siteConfig.forms.quote.responseTime}.`
+    : "Ready to print? Tell us about your project and we'll get back to you within 1–2 business days.",
 };
 
 export default function ContactPage() {
@@ -24,18 +26,18 @@ export default function ContactPage() {
           <p>Prefer to call or email directly?</p>
           <p>
             <a
-              href="tel:6128369488"
+              href={siteConfig.contact.phoneHref}
               className="font-medium text-zinc-900 hover:underline"
             >
-              612.836.9488
+              {siteConfig.contact.phone}
             </a>
           </p>
           <p>
             <a
-              href="mailto:info@antibroadcasting.com"
+              href={siteConfig.contact.emailHref}
               className="font-medium text-zinc-900 hover:underline"
             >
-              info@antibroadcasting.com
+              {siteConfig.contact.email}
             </a>
           </p>
         </div>

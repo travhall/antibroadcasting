@@ -28,16 +28,16 @@
   --color-muted: oklch(80% 0.03 60);
 
   /* Neutral (adjusted for WCAG 2.2 AA compliance) */
-  --color-neutral-100: oklch(97% 0.002 12);
-  --color-neutral-200: oklch(90% 0.004 12);
-  --color-neutral-300: oklch(80% 0.006 12);
-  --color-neutral-400: oklch(65% 0.008 12);
-  --color-neutral-500: oklch(50% 0.01 12);
-  --color-neutral-600: oklch(40% 0.009 12);
-  --color-neutral-700: oklch(32% 0.008 12);
-  --color-neutral-800: oklch(24% 0.006 12);
-  --color-neutral-900: oklch(18% 0.005 12);
-  --color-neutral-950: oklch(12% 0.004 12);
+  --color-neutral-100: oklch(97% 0.002 195);
+  --color-neutral-200: oklch(90% 0.004 195);
+  --color-neutral-300: oklch(80% 0.006 195);
+  --color-neutral-400: oklch(65% 0.008 195);
+  --color-neutral-500: oklch(50% 0.01 195);
+  --color-neutral-600: oklch(40% 0.009 195);
+  --color-neutral-700: oklch(32% 0.008 195);
+  --color-neutral-800: oklch(24% 0.006 195);
+  --color-neutral-900: oklch(18% 0.005 195);
+  --color-neutral-950: oklch(12% 0.004 195);
 
   --background: var(--color-neutral-100);
   --foreground: var(--color-primary-950);
@@ -126,10 +126,11 @@
   --border-focus: var(--color-primary-600);
 }
 
+/* Tailwind CSS v4 @theme rule - valid syntax */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-figtree-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-dominique);
 
@@ -195,11 +196,6 @@
   --color-border-strong: var(--border-strong);
   --color-border-inverse: var(--border-inverse);
   --color-border-focus: var(--border-focus);
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
 }
 
 /* Dark Mode Overrides */
@@ -280,4 +276,9 @@ body {
   --border-strong: var(--color-neutral-700);
   --border-inverse: var(--color-neutral-950);
   --border-focus: var(--color-primary-400);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
 }

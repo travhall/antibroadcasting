@@ -69,7 +69,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                   {item.question}
                 </span>
                 <span
-                  className={`flex-shrink-0 text-text-muted text-lg transition-transform ${
+                  className={`shrink-0 text-text-muted text-lg transition-transform ${
                     isOpen ? "rotate-45" : ""
                   }`}
                 >

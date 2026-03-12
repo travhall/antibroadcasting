@@ -77,7 +77,10 @@ export default function StyleGuide() {
           <p className="text-sm font-medium text-text-muted uppercase tracking-wider mb-2">
             Antibroadcasting Inc.
           </p>
-          <h1 className="text-5xl font-bold text-text-primary mb-4">
+          <h1
+            className="text-5xl font-display text-text-primary mb-4"
+            style={{ fontWeight: 700 }}
+          >
             Style Guide
           </h1>
           <p className="text-lg text-text-secondary">
@@ -87,13 +90,19 @@ export default function StyleGuide() {
 
         {/* Typography Section */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
+          <h2
+            className="text-3xl font-display text-text-primary mb-8 pb-2 border-b border-border-default"
+            style={{ fontWeight: 600 }}
+          >
             Typography
           </h2>
 
           {/* Background Variance Demo */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+            <h3
+              className="text-xl font-display text-text-primary mb-3"
+              style={{ fontWeight: 500 }}
+            >
               Background Variance Tokens
             </h3>
             <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -130,27 +139,39 @@ export default function StyleGuide() {
             </div>
           </div>
 
-          {/* Geist Sans */}
+          {/* Figtree Sans */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
-              Geist Sans — Primary UI Font (var(--font-sans))
+            <h3
+              className="text-xl font-display text-text-primary mb-4"
+              style={{ fontWeight: 500 }}
+            >
+              Figtree Sans — Primary UI Font (var(--font-sans))
             </h3>
             <div className="space-y-4">
               <div className="flex items-baseline gap-4">
                 <span className="text-sm text-text-tertiary w-16">H1</span>
-                <h1 className="text-5xl font-bold text-text-primary">
+                <h1
+                  className="text-5xl font-sans text-text-primary"
+                  style={{ fontWeight: 700 }}
+                >
                   Heading One
                 </h1>
               </div>
               <div className="flex items-baseline gap-4">
                 <span className="text-sm text-text-tertiary w-16">H2</span>
-                <h2 className="text-4xl font-bold text-text-primary">
+                <h2
+                  className="text-4xl font-sans text-text-primary"
+                  style={{ fontWeight: 600 }}
+                >
                   Heading Two
                 </h2>
               </div>
               <div className="flex items-baseline gap-4">
                 <span className="text-sm text-text-tertiary w-16">H3</span>
-                <h3 className="text-3xl font-semibold text-text-primary">
+                <h3
+                  className="text-3xl font-sans text-text-primary"
+                  style={{ fontWeight: 500 }}
+                >
                   Heading Three
                 </h3>
               </div>
@@ -172,7 +193,10 @@ export default function StyleGuide() {
 
           {/* Dominique Variable Font */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+            <h3
+              className="text-xl font-display text-text-primary mb-4"
+              style={{ fontWeight: 500 }}
+            >
               Dominique — Display Font (var(--font-display))
             </h3>
             <div className="space-y-4 font-display">
@@ -229,7 +253,10 @@ export default function StyleGuide() {
 
           {/* Geist Mono */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+            <h3
+              className="text-xl font-display text-text-primary mb-4"
+              style={{ fontWeight: 500 }}
+            >
               Geist Mono — Monospace Font (var(--font-mono))
             </h3>
             <div className="space-y-4 font-mono">
@@ -245,11 +272,130 @@ export default function StyleGuide() {
               </p>
             </div>
           </div>
+
+          {/* Font Pairings */}
+          <div className="mb-12">
+            <h3
+              className="text-xl font-display text-text-primary mb-4"
+              style={{ fontWeight: 500 }}
+            >
+              Font Pairings — Reusable Typographic Styles
+            </h3>
+
+            {/* Hero Heading Style */}
+            <div className="mb-8 p-6 bg-bg-elevated rounded-card border border-border-subtle">
+              <h4 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">
+                Hero Heading
+              </h4>
+              <h2
+                className="text-4xl md:text-5xl font-display text-text-primary mb-4"
+                style={{ fontWeight: 700 }}
+              >
+                Make a Statement with Dominique
+              </h2>
+              <p className="text-lg text-text-secondary leading-relaxed font-sans">
+                Pair bold display typography with clean, readable body text for
+                maximum impact and clarity.
+              </p>
+            </div>
+
+            {/* Section Heading Style */}
+            <div className="mb-8 p-6 bg-bg-elevated rounded-card border border-border-subtle">
+              <h4 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">
+                Section Heading
+              </h4>
+              <h3
+                className="text-2xl md:text-3xl font-display text-text-primary mb-3"
+                style={{ fontWeight: 600 }}
+              >
+                Section Title with Purpose
+              </h3>
+              <p className="text-base text-text-secondary leading-relaxed font-sans">
+                Clear hierarchy helps users navigate content. Use medium weight
+                display fonts for section breaks and content organization.
+              </p>
+            </div>
+
+            {/* Card Heading Style */}
+            <div className="mb-8 p-6 bg-bg-elevated rounded-card border border-border-subtle">
+              <h4 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">
+                Card Heading
+              </h4>
+              <h3
+                className="text-xl font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
+                Card Component Title
+              </h3>
+              <p className="text-sm text-text-secondary leading-relaxed font-sans">
+                Compact headings work well in constrained spaces. Use lighter
+                weights for cards, sidebars, and nested content.
+              </p>
+            </div>
+
+            {/* Body Text Variations */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="p-6 bg-bg-elevated rounded-card border border-border-subtle">
+                <h4 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">
+                  Primary Body Text
+                </h4>
+                <p className="text-base text-text-primary leading-relaxed font-sans">
+                  This is the main body text style. It's designed for optimal
+                  readability with comfortable line height and clear contrast.
+                  Perfect for articles, descriptions, and primary content.
+                </p>
+              </div>
+
+              <div className="p-6 bg-bg-elevated rounded-card border border-border-subtle">
+                <h4 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">
+                  Secondary Body Text
+                </h4>
+                <p className="text-sm text-text-secondary leading-relaxed font-sans">
+                  Secondary text uses a smaller size and muted color. Ideal for
+                  captions, metadata, supporting information, and content that
+                  should be present but not prominent.
+                </p>
+              </div>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="mt-8 p-4 bg-bg-subtle rounded-lg border border-border-subtle">
+              <h4 className="text-sm font-medium text-text-primary mb-2">
+                Usage Guidelines
+              </h4>
+              <ul className="text-sm text-text-secondary space-y-1 font-sans">
+                <li>
+                  • Use{" "}
+                  <span className="font-display font-medium">Dominique</span>{" "}
+                  for headings and display text
+                </li>
+                <li>
+                  • Use <span className="font-sans font-medium">Figtree</span>{" "}
+                  for body text and UI elements
+                </li>
+                <li>
+                  • Reserve heavier weights (700-900) for hero sections and
+                  major headings
+                </li>
+                <li>
+                  • Use medium weights (500-600) for section headings and card
+                  titles
+                </li>
+                <li>
+                  • Apply lighter weights (400-500) for secondary headings and
+                  accents
+                </li>
+              </ul>
+            </div>
+          </div>
         </section>
 
         {/* Colors Section */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
+          <h2
+            className="text-3xl font-display text-text-primary mb-8 pb-2 border-b border-border-default"
+            style={{ fontWeight: 600 }}
+          >
             Colors
           </h2>
 
@@ -280,13 +426,19 @@ export default function StyleGuide() {
 
         {/* Components Section */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
+          <h2
+            className="text-3xl font-display text-text-primary mb-8 pb-2 border-b border-border-default"
+            style={{ fontWeight: 600 }}
+          >
             Components
           </h2>
 
           {/* Buttons */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+            <h3
+              className="text-xl font-display text-text-primary mb-4"
+              style={{ fontWeight: 500 }}
+            >
               Buttons (Token-Based)
             </h3>
             <div className="flex flex-wrap gap-4">
@@ -307,7 +459,10 @@ export default function StyleGuide() {
 
           {/* Form Elements */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+            <h3
+              className="text-xl font-display text-text-primary mb-4"
+              style={{ fontWeight: 500 }}
+            >
               Form Elements (Token-Based)
             </h3>
             <div className="max-w-md space-y-4">
@@ -336,12 +491,18 @@ export default function StyleGuide() {
 
           {/* Cards */}
           <div className="mb-12">
-            <h3 className="text-sm font-medium text-text-muted uppercase tracking-wider mb-4">
+            <h3
+              className="text-xl font-display text-text-primary mb-4"
+              style={{ fontWeight: 500 }}
+            >
               Cards (Token-Based)
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-card-surface rounded-card p-6 shadow-sm border border-card-border">
-                <h4 className="text-lg font-semibold text-card-text mb-2">
+                <h4
+                  className="text-lg font-display text-card-text mb-2"
+                  style={{ fontWeight: 500 }}
+                >
                   Standard Card
                 </h4>
                 <p className="text-card-text text-sm leading-relaxed opacity-70">
@@ -350,7 +511,10 @@ export default function StyleGuide() {
                 </p>
               </div>
               <div className="bg-card-surface-inverse rounded-card p-6">
-                <h4 className="text-lg font-semibold text-card-text-inverse mb-2">
+                <h4
+                  className="text-lg font-display text-card-text-inverse mb-2"
+                  style={{ fontWeight: 500 }}
+                >
                   Inverse Card
                 </h4>
                 <p className="text-card-text-inverse-muted text-sm leading-relaxed">
@@ -359,7 +523,10 @@ export default function StyleGuide() {
                 </p>
               </div>
               <div className="bg-card-surface-tonal rounded-card p-6 border border-card-border-tonal">
-                <h4 className="text-lg font-semibold text-card-text-tonal mb-2">
+                <h4
+                  className="text-lg font-display text-card-text-tonal mb-2"
+                  style={{ fontWeight: 500 }}
+                >
                   Tonal Card
                 </h4>
                 <p className="text-card-text-tonal-muted text-sm leading-relaxed">
@@ -373,12 +540,18 @@ export default function StyleGuide() {
 
         {/* Design Tokens Reference */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
+          <h2
+            className="text-3xl font-display text-text-primary mb-8 pb-2 border-b border-border-default"
+            style={{ fontWeight: 600 }}
+          >
             Design Tokens Reference
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
             <div>
-              <h3 className="font-semibold text-text-primary mb-3">
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
                 Button Tokens
               </h3>
               <ul className="space-y-1 text-text-secondary font-mono text-xs">
@@ -392,7 +565,10 @@ export default function StyleGuide() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary mb-3">
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
                 Form Tokens
               </h3>
               <ul className="space-y-1 text-text-secondary font-mono text-xs">
@@ -405,7 +581,10 @@ export default function StyleGuide() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary mb-3">
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
                 Card Tokens
               </h3>
               <ul className="space-y-1 text-text-secondary font-mono text-xs">
@@ -419,7 +598,10 @@ export default function StyleGuide() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary mb-3">
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
                 Border Tokens
               </h3>
               <ul className="space-y-1 text-text-secondary font-mono text-xs">
@@ -431,7 +613,10 @@ export default function StyleGuide() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary mb-3">
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
                 Text Color Tokens
               </h3>
               <ul className="space-y-1 text-text-secondary font-mono text-xs">
@@ -447,15 +632,19 @@ export default function StyleGuide() {
 
         {/* Usage Notes */}
         <section>
-          <h2 className="text-2xl font-bold text-text-primary mb-8 pb-2 border-b border-border-default">
+          <h2
+            className="text-3xl font-display text-text-primary mb-8 pb-2 border-b border-border-default"
+            style={{ fontWeight: 600 }}
+          >
             Usage Notes
           </h2>
           <div className="prose prose-neutral dark:prose-invert max-w-none">
             <ul className="space-y-2 text-text-secondary">
               <li>
                 <strong className="text-text-primary">Fonts:</strong> Use{" "}
-                <code>font-sans</code> for UI text, <code>font-display</code>{" "}
-                for headlines/accents, <code>font-mono</code> for code
+                <code>font-sans</code> (Figtree) for UI text,{" "}
+                <code>font-display</code> for headlines/accents,{" "}
+                <code>font-mono</code> for code
               </li>
               <li>
                 <strong className="text-text-primary">Colors:</strong> Use
