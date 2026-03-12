@@ -6,7 +6,7 @@ export function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-8">
         <div>
           <p className="font-bold text-lg text-text-primary">
-            {siteConfig.company.name}
+            {siteConfig.company.legalName}
           </p>
           <p className="text-sm text-text-secondary mt-1">
             {siteConfig.contact.address.full}
@@ -19,22 +19,17 @@ export function Footer() {
           </a>
         </div>
         <div className="flex gap-6 text-sm text-text-secondary">
-          <a
-            href={siteConfig.social.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-text-primary transition-colors"
-          >
-            {siteConfig.social.instagram.name}
-          </a>
-          <a
-            href={siteConfig.social.facebook.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-text-primary transition-colors"
-          >
-            {siteConfig.social.facebook.name}
-          </a>
+          {Object.entries(siteConfig.social).map(([key, social]) => (
+            <a
+              key={key}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-text-primary transition-colors"
+            >
+              {social.name}
+            </a>
+          ))}
         </div>
       </div>
       <p className="text-center text-xs text-text-muted mt-8">

@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/Button";
+
 export default function StyleGuide() {
   const colors = {
     primary: {
@@ -439,21 +441,85 @@ export default function StyleGuide() {
               className="text-xl font-display text-text-primary mb-4"
               style={{ fontWeight: 500 }}
             >
-              Buttons (Token-Based)
+              Buttons (WCAG 2.2 AA Compliant)
             </h3>
-            <div className="flex flex-wrap gap-4">
-              <button className="px-6 py-3 bg-button-primary-surface text-button-primary-text rounded-button font-medium hover:bg-button-primary-surface-hover transition-colors">
-                Primary Button
-              </button>
-              <button className="px-6 py-3 bg-button-secondary-surface text-button-secondary-text rounded-button font-medium hover:bg-button-secondary-surface-hover transition-colors">
-                Secondary Button
-              </button>
-              <button className="px-6 py-3 bg-button-neutral-surface text-button-neutral-text rounded-button font-medium hover:bg-button-neutral-surface-hover transition-colors">
-                Neutral Button
-              </button>
-              <button className="px-6 py-3 bg-button-outline-surface border-2 border-button-outline-border text-button-outline-text rounded-button font-medium hover:bg-button-outline-surface-hover hover:text-button-outline-text-hover transition-colors">
-                Outline Button
-              </button>
+
+            {/* Button Variants */}
+            <div className="mb-8">
+              <h4 className="text-sm font-medium text-text-muted mb-3 uppercase tracking-wider">
+                Button Variants
+              </h4>
+              <div className="flex flex-wrap gap-4">
+                <Button variant="primary">Primary Button</Button>
+                <Button variant="secondary">Secondary Button</Button>
+                <Button variant="neutral">Neutral Button</Button>
+                <Button variant="outline">Outline Button</Button>
+                <Button variant="ghost">Ghost Button</Button>
+                <Button variant="link">Link Button</Button>
+              </div>
+            </div>
+
+            {/* Button Sizes */}
+            <div className="mb-8">
+              <h4 className="text-sm font-medium text-text-muted mb-3 uppercase tracking-wider">
+                Button Sizes
+              </h4>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button variant="primary" size="sm">
+                  Small
+                </Button>
+                <Button variant="primary" size="md">
+                  Medium
+                </Button>
+                <Button variant="primary" size="lg">
+                  Large
+                </Button>
+                <Button variant="primary" size="icon">
+                  🚀
+                </Button>
+              </div>
+            </div>
+
+            {/* States */}
+            <div className="mb-8">
+              <h4 className="text-sm font-medium text-text-muted mb-3 uppercase tracking-wider">
+                Button States
+              </h4>
+              <div className="flex flex-wrap gap-4">
+                <Button variant="primary">Default</Button>
+                <Button variant="primary" disabled>
+                  Disabled
+                </Button>
+                <Button variant="secondary" disabled>
+                  Disabled
+                </Button>
+                <Button variant="outline" disabled>
+                  Disabled
+                </Button>
+              </div>
+            </div>
+
+            {/* Usage Example */}
+            <div className="bg-bg-elevated rounded-card p-4 border border-border-subtle">
+              <h4 className="text-sm font-medium text-text-primary mb-2">
+                Usage Example
+              </h4>
+              <pre className="text-xs text-text-secondary overflow-x-auto font-mono">
+                {`import { Button } from "@/components/ui/Button";
+
+// Basic usage
+<Button>Click me</Button>
+
+// With variant and size
+<Button variant="primary" size="lg">Large Primary</Button>
+
+// Ghost and link variants
+<Button variant="ghost">Ghost Button</Button>
+<Button variant="link">Link Button</Button>
+
+// Disabled state
+<Button disabled>Disabled</Button>`}
+              </pre>
             </div>
           </div>
 
@@ -557,11 +623,26 @@ export default function StyleGuide() {
               <ul className="space-y-1 text-text-secondary font-mono text-xs">
                 <li>--button-primary-surface</li>
                 <li>--button-primary-surface-hover</li>
+                <li>--button-primary-surface-active</li>
                 <li>--button-primary-text</li>
+                <li>--button-primary-border</li>
                 <li>--button-secondary-surface</li>
+                <li>--button-secondary-surface-hover</li>
+                <li>--button-secondary-surface-active</li>
+                <li>--button-secondary-text</li>
+                <li>--button-secondary-border</li>
                 <li>--button-neutral-surface</li>
-                <li>--button-outline-border</li>
+                <li>--button-neutral-surface-hover</li>
+                <li>--button-neutral-surface-active</li>
+                <li>--button-neutral-text</li>
+                <li>--button-neutral-border</li>
+                <li>--button-outline-surface</li>
+                <li>--button-outline-surface-hover</li>
+                <li>--button-outline-surface-active</li>
+                <li>--button-outline-text</li>
                 <li>--button-outline-text-hover</li>
+                <li>--button-outline-border</li>
+                <li>--button-outline-border-hover</li>
               </ul>
             </div>
             <div>
@@ -573,10 +654,13 @@ export default function StyleGuide() {
               </h3>
               <ul className="space-y-1 text-text-secondary font-mono text-xs">
                 <li>--input-surface</li>
+                <li>--input-surface-focus</li>
                 <li>--input-border</li>
+                <li>--input-border-hover</li>
                 <li>--input-border-focus</li>
                 <li>--input-text</li>
                 <li>--input-text-placeholder</li>
+                <li>--input-ring-focus</li>
                 <li>--label-text</li>
               </ul>
             </div>
@@ -592,9 +676,12 @@ export default function StyleGuide() {
                 <li>--card-surface-inverse</li>
                 <li>--card-surface-tonal</li>
                 <li>--card-border</li>
+                <li>--card-border-tonal</li>
                 <li>--card-text</li>
                 <li>--card-text-inverse</li>
+                <li>--card-text-inverse-muted</li>
                 <li>--card-text-tonal</li>
+                <li>--card-text-tonal-muted</li>
               </ul>
             </div>
             <div>
@@ -625,6 +712,63 @@ export default function StyleGuide() {
                 <li>--text-tertiary</li>
                 <li>--text-muted</li>
                 <li>--text-inverse</li>
+                <li>--text-accent</li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
+                Background Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--bg-base</li>
+                <li>--bg-subtle</li>
+                <li>--bg-elevated</li>
+                <li>--bg-inset</li>
+                <li>--bg-inverse</li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
+                Radius Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--radius-button</li>
+                <li>--radius-card</li>
+                <li>--radius-input</li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
+                Color Palette
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--color-primary-100 to -950</li>
+                <li>--color-secondary-100 to -950</li>
+                <li>--color-neutral-100 to -950</li>
+                <li>--color-accent</li>
+                <li>--color-muted</li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                className="text-lg font-display text-text-primary mb-3"
+                style={{ fontWeight: 500 }}
+              >
+                Typography Tokens
+              </h3>
+              <ul className="space-y-1 text-text-secondary font-mono text-xs">
+                <li>--font-sans (Figtree)</li>
+                <li>--font-display (Dominique)</li>
+                <li>--font-mono (Geist)</li>
               </ul>
             </div>
           </div>
