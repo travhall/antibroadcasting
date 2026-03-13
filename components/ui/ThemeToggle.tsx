@@ -46,7 +46,7 @@ export function ThemeToggle() {
       role="group"
       aria-label="Color theme"
       suppressHydrationWarning
-      className="flex items-center gap-1 p-1 rounded-lg bg-[var(--bg-inset)]"
+      className="flex items-center gap-1 p-1 rounded-lg bg-bg-inset"
     >
       {THEMES.map(({ value, label, icon }) => {
         const isActive = theme === value;
@@ -59,10 +59,10 @@ export function ThemeToggle() {
             title={label}
             className={[
               "p-1.5 rounded-md transition-colors",
-              "text-[var(--text-secondary)]",
+              "text-text-secondary",
               isActive
-                ? "bg-[var(--bg-elevated)] shadow-sm text-[var(--text-primary)]"
-                : "hover:bg-[var(--border-subtle)] hover:text-[var(--text-primary)]",
+                ? "bg-bg-elevated shadow-sm text-text-primary"
+                : "hover:bg-border-subtle hover:text-text-primary",
             ].join(" ")}
           >
             {icon}

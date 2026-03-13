@@ -238,6 +238,13 @@
   --radius-input: var(--radius-input);
 
   /* State color tokens */
+  --color-success: var(--color-success);
+  --color-error: var(--color-error);
+  --color-warning: var(--color-warning);
+  --color-destructive: var(--color-destructive);
+  --color-accent: var(--color-accent);
+  --color-muted: var(--color-muted);
+
   --color-text-success: var(--color-success-text);
   --color-text-error: var(--color-error-text);
   --color-text-warning: var(--color-warning-text);
@@ -245,12 +252,20 @@
   --color-text-accent: var(--color-accent-text);
   --color-text-muted: var(--color-muted-text);
   --color-text-destructive: var(--color-destructive-text);
+
   --color-bg-success: var(--color-success-surface);
   --color-bg-error: var(--color-error-surface);
   --color-bg-warning: var(--color-warning-surface);
   --color-bg-destructive: var(--color-destructive-surface);
   --color-bg-accent: var(--color-accent-surface);
   --color-bg-muted: var(--color-muted-surface);
+
+  --color-border-success: var(--color-success-border);
+  --color-border-error: var(--color-error-border);
+  --color-border-warning: var(--color-warning-border);
+  --color-border-destructive: var(--color-destructive-border);
+  --color-border-accent: var(--color-accent-border);
+  --color-border-muted: var(--color-muted-border);
 
   /* Background variance tokens */
   --color-bg-base: var(--bg-base);

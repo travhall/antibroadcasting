@@ -4,152 +4,78 @@ import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
 import { FileUpload } from "@/components/ui/FileUpload";
 
-export default function StyleGuide() {
-  const colors = {
-    primary: {
-      100: "oklch(96% 0.02 12)",
-      200: "oklch(90% 0.05 12)",
-      300: "oklch(80% 0.1 12)",
-      400: "oklch(60% 0.15 12)",
-      500: "oklch(42% 0.2 12)",
-      600: "oklch(35% 0.18 12)",
-      700: "oklch(28% 0.15 12)",
-      800: "oklch(22% 0.12 12)",
-      900: "oklch(18% 0.1 12)",
-      950: "oklch(12% 0.08 12)",
-    },
-    secondary: {
-      100: "oklch(96% 0.01 195)",
-      200: "oklch(90% 0.03 195)",
-      300: "oklch(80% 0.05 195)",
-      400: "oklch(70% 0.08 195)",
-      500: "oklch(60% 0.1 195)",
-      600: "oklch(52% 0.09 195)",
-      700: "oklch(44% 0.08 195)",
-      800: "oklch(36% 0.07 195)",
-      900: "oklch(28% 0.06 195)",
-      950: "oklch(20% 0.05 195)",
-    },
-    neutral: {
-      100: "oklch(98% 0.002 12)",
-      200: "oklch(92% 0.004 12)",
-      300: "oklch(85% 0.006 12)",
-      400: "oklch(70% 0.008 12)",
-      500: "oklch(55% 0.01 12)",
-      600: "oklch(40% 0.009 12)",
-      700: "oklch(30% 0.008 12)",
-      800: "oklch(25% 0.006 12)",
-      900: "oklch(20% 0.005 12)",
-      950: "oklch(15% 0.004 12)",
-    },
-    accent: {
-      base: "oklch(60% 0.35 12)",
-      text: "oklch(50% 0.28 12)",
-      surface: "oklch(95% 0.06 12)",
-      border: "oklch(55% 0.32 12)",
-    },
-    muted: {
-      base: "oklch(80% 0.03 60)",
-      text: "oklch(32% 0.04 60)",
-      surface: "oklch(94% 0.02 60)",
-      border: "oklch(70% 0.04 60)",
-    },
-    success: {
-      base: "oklch(45% 0.2 145)",
-      text: "oklch(40% 0.18 145)",
-      surface: "oklch(95% 0.05 145)",
-      border: "oklch(45% 0.2 145)",
-    },
-    error: {
-      base: "oklch(50% 0.22 12)",
-      text: "oklch(55% 0.2 12)",
-      surface: "oklch(95% 0.03 12)",
-      border: "oklch(50% 0.22 12)",
-    },
-    warning: {
-      base: "oklch(60% 0.15 60)",
-      text: "oklch(55% 0.15 60)",
-      surface: "oklch(95% 0.04 60)",
-      border: "oklch(60% 0.15 60)",
-    },
-    destructive: {
-      base: "oklch(45% 0.25 12)",
-      text: "oklch(50% 0.2 12)",
-      surface: "oklch(92% 0.04 12)",
-      border: "oklch(40% 0.28 12)",
-    },
-    // Dark mode variations for demonstration
-    darkMode: {
-      accent: {
-        base: "oklch(75% 0.22 12)",
-        text: "oklch(90% 0.18 12)",
-        surface: "oklch(22% 0.06 12)",
-        border: "oklch(75% 0.22 12)",
-      },
-      muted: {
-        base: "oklch(70% 0.015 60)",
-        text: "oklch(80% 0.025 60)",
-        surface: "oklch(22% 0.015 60)",
-        border: "oklch(70% 0.015 60)",
-      },
-      success: {
-        base: "oklch(75% 0.15 145)",
-        text: "oklch(90% 0.12 145)",
-        surface: "oklch(22% 0.06 145)",
-        border: "oklch(75% 0.15 145)",
-      },
-      error: {
-        base: "oklch(75% 0.18 12)",
-        text: "oklch(90% 0.15 12)",
-        surface: "oklch(22% 0.06 12)",
-        border: "oklch(75% 0.18 12)",
-      },
-      warning: {
-        base: "oklch(80% 0.12 60)",
-        text: "oklch(90% 0.1 60)",
-        surface: "oklch(22% 0.04 60)",
-        border: "oklch(80% 0.12 60)",
-      },
-      destructive: {
-        base: "oklch(75% 0.18 12)",
-        text: "oklch(90% 0.12 12)",
-        surface: "oklch(20% 0.05 12)",
-        border: "oklch(75% 0.18 12)",
-      },
-    },
-  };
+// ─── Token Definitions ──────────────────────────────────────────────────────
+// All color data references CSS custom properties directly.
+// Changing globals.css automatically flows through — no manual sync needed.
 
-  const renderColorRow = (name: string, shades: Record<string, string>) => (
-    <div className="mb-8">
+const PALETTE_SCALES = [
+  {
+    name: "Primary (hue 12 — --color-primary)",
+    prefix: "--color-primary",
+    shades: [100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
+  },
+  {
+    name: "Secondary (hue 195 — --color-secondary)",
+    prefix: "--color-secondary",
+    shades: [100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
+  },
+  {
+    name: "Neutral (hue 195 — near-achromatic)",
+    prefix: "--color-neutral",
+    shades: [100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
+  },
+] as const;
+
+const STATE_COLORS = [
+  "accent",
+  "muted",
+  "success",
+  "error",
+  "warning",
+  "destructive",
+] as const;
+
+type StateColor = (typeof STATE_COLORS)[number];
+
+function stateTokens(name: StateColor) {
+  return {
+    base: `--color-${name}`,
+    text: `--color-${name}-text`,
+    surface: `--color-${name}-surface`,
+    border: `--color-${name}-border`,
+  };
+}
+
+function renderPaletteScale(scale: (typeof PALETTE_SCALES)[number]) {
+  return (
+    <div className="mb-8" key={scale.name}>
       <h3 className="text-sm font-medium text-text-muted mb-3 uppercase tracking-wider">
-        {name}
+        {scale.name}
       </h3>
       <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
-        {Object.entries(shades).map(([shade, color]) => (
-          <div key={shade} className="group">
-            <div className="h-16 rounded-lg shadow-sm border border-border-subtle relative overflow-hidden">
-              {/* Checkerboard background for transparency/visibility */}
+        {scale.shades.map((shade) => {
+          const token = `${scale.prefix}-${shade}`;
+          return (
+            <div key={shade} className="group">
               <div
-                className="absolute inset-0 opacity-30"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E")`,
-                }}
+                className="h-16 rounded-lg shadow-sm border border-border-subtle"
+                style={{ backgroundColor: `var(${token})` }}
+                title={token}
               />
-              <div
-                className="absolute inset-0"
-                style={{ backgroundColor: color }}
-              />
+              <p className="text-xs text-text-secondary mt-1 text-center">
+                {shade}
+              </p>
             </div>
-            <p className="text-xs text-text-secondary mt-1 text-center">
-              {shade}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
+}
 
+export default function StyleGuide() {
   return (
+
     <main className="min-h-screen bg-bg-base pt-32 pb-24 px-6">
       <div className="max-w-6xl mx-auto">
         <header className="mb-16 pb-8 border-b border-border-default">
@@ -478,9 +404,7 @@ export default function StyleGuide() {
             Colors
           </h2>
 
-          {renderColorRow("Primary (Red/Brown)", colors.primary)}
-          {renderColorRow("Secondary (Blue/Green)", colors.secondary)}
-          {renderColorRow("Neutral (Grays)", colors.neutral)}
+          {PALETTE_SCALES.map(renderPaletteScale)}
 
           {/* State Color Swatches - Compact Grid */}
           <div className="mb-12">
@@ -491,87 +415,78 @@ export default function StyleGuide() {
               State Colors (Full Variation Sets)
             </h3>
 
-            {Object.entries({
-              accent: colors.accent,
-              muted: colors.muted,
-              success: colors.success,
-              error: colors.error,
-              warning: colors.warning,
-              destructive: colors.destructive,
-            }).map(([name, variations]) => (
-              <div key={name} className="mb-6">
-                <h4 className="text-sm font-medium text-text-muted mb-3 capitalize">
-                  {name}
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div>
-                    <div
-                      className="h-16 rounded-lg shadow-sm border border-border-subtle"
-                      style={{ backgroundColor: variations.base }}
-                    />
-                    <p className="text-xs text-text-secondary mt-1">Base</p>
-                    <p className="text-xs text-text-muted font-mono">
-                      {variations.base}
-                    </p>
-                  </div>
-                  <div>
-                    <div
-                      className="h-16 rounded-lg shadow-sm border border-border-subtle"
-                      style={{ backgroundColor: variations.surface }}
-                    />
-                    <p className="text-xs text-text-secondary mt-1">Surface</p>
-                    <p className="text-xs text-text-muted font-mono">
-                      {variations.surface}
-                    </p>
-                  </div>
-                  <div>
-                    <div
-                      className="h-16 rounded-lg shadow-sm border border-border-subtle flex items-center justify-center"
-                      style={{
-                        backgroundColor: variations.surface,
-                        borderColor: variations.border,
-                        borderWidth: "2px",
-                      }}
-                    >
-                      <span
-                        className="text-sm font-medium"
-                        style={{ color: variations.text }}
-                      >
-                        Text
-                      </span>
+            {STATE_COLORS.map((name) => {
+              const t = stateTokens(name);
+              return (
+                <div key={name} className="mb-6">
+                  <h4 className="text-sm font-medium text-text-muted mb-3 capitalize">
+                    {name}
+                  </h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {/* Base */}
+                    <div>
+                      <div
+                        className="h-16 rounded-lg shadow-sm border border-border-subtle"
+                        style={{ backgroundColor: `var(${t.base})` }}
+                        title={t.base}
+                      />
+                      <p className="text-xs text-text-secondary mt-1">Base</p>
+                      <p className="text-xs text-text-muted font-mono">{t.base}</p>
                     </div>
-                    <p className="text-xs text-text-secondary mt-1">
-                      Text+Border
-                    </p>
-                    <p className="text-xs text-text-muted font-mono">
-                      {variations.text}
-                    </p>
-                  </div>
-                  <div>
-                    <div
-                      className="h-16 rounded-lg shadow-sm border-2 flex items-center justify-center"
-                      style={{
-                        backgroundColor: "var(--bg-base)",
-                        borderColor: variations.border,
-                      }}
-                    >
-                      <span
-                        className="text-sm font-medium"
-                        style={{ color: variations.base }}
-                      >
-                        Border
-                      </span>
+                    {/* Surface */}
+                    <div>
+                      <div
+                        className="h-16 rounded-lg shadow-sm border border-border-subtle"
+                        style={{ backgroundColor: `var(${t.surface})` }}
+                        title={t.surface}
+                      />
+                      <p className="text-xs text-text-secondary mt-1">Surface</p>
+                      <p className="text-xs text-text-muted font-mono">{t.surface}</p>
                     </div>
-                    <p className="text-xs text-text-secondary mt-1">
-                      Border Only
-                    </p>
-                    <p className="text-xs text-text-muted font-mono">
-                      {variations.border}
-                    </p>
+                    {/* Text on surface */}
+                    <div>
+                      <div
+                        className="h-16 rounded-lg shadow-sm flex items-center justify-center"
+                        style={{
+                          backgroundColor: `var(${t.surface})`,
+                          borderColor: `var(${t.border})`,
+                          borderWidth: "2px",
+                        }}
+                      >
+                        <span
+                          className="text-sm font-medium"
+                          style={{ color: `var(${t.text})` }}
+                        >
+                          Text
+                        </span>
+                      </div>
+                      <p className="text-xs text-text-secondary mt-1">Text + Border</p>
+                      <p className="text-xs text-text-muted font-mono">{t.text}</p>
+                    </div>
+                    {/* Border on base */}
+                    <div>
+                      <div
+                        className="h-16 rounded-lg shadow-sm border-2 flex items-center justify-center"
+                        style={{
+                          backgroundColor: "var(--bg-base)",
+                          borderColor: `var(${t.border})`,
+                        }}
+                      >
+                        <span
+                          className="text-sm font-medium"
+                          style={{ color: `var(${t.base})` }}
+                        >
+                          Border
+                        </span>
+                      </div>
+                      <p className="text-xs text-text-secondary mt-1">Border Only</p>
+                      <p className="text-xs text-text-muted font-mono">{t.border}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
+
           </div>
 
           {/* State Color Usage Examples */}
@@ -585,79 +500,79 @@ export default function StyleGuide() {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* Success Example */}
-              <div className="bg-color-bg-success rounded-card p-4 border border-color-success">
+              <div className="bg-bg-success rounded-card p-4 border border-border-success">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-color-success"></div>
-                  <h5 className="text-sm font-medium text-color-success-text">
+                  <div className="w-2 h-2 rounded-full bg-success"></div>
+                  <h5 className="text-sm font-medium text-text-success">
                     Success
                   </h5>
                 </div>
-                <p className="text-xs text-color-success-text">
+                <p className="text-xs text-text-success">
                   Operation completed successfully
                 </p>
               </div>
 
               {/* Error Example */}
-              <div className="bg-color-bg-error rounded-card p-4 border border-color-error">
+              <div className="bg-bg-error rounded-card p-4 border border-border-error">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-color-error"></div>
-                  <h5 className="text-sm font-medium text-color-error-text">
+                  <div className="w-2 h-2 rounded-full bg-error"></div>
+                  <h5 className="text-sm font-medium text-text-error">
                     Error
                   </h5>
                 </div>
-                <p className="text-xs text-color-error-text">
+                <p className="text-xs text-text-error">
                   Validation failed
                 </p>
               </div>
 
               {/* Warning Example */}
-              <div className="bg-color-bg-warning rounded-card p-4 border border-color-warning">
+              <div className="bg-bg-warning rounded-card p-4 border border-border-warning">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-color-warning"></div>
-                  <h5 className="text-sm font-medium text-color-warning-text">
+                  <div className="w-2 h-2 rounded-full bg-warning"></div>
+                  <h5 className="text-sm font-medium text-text-warning">
                     Warning
                   </h5>
                 </div>
-                <p className="text-xs text-color-warning-text">
+                <p className="text-xs text-text-warning">
                   Action required
                 </p>
               </div>
 
               {/* Accent Example */}
-              <div className="bg-color-accent-surface rounded-card p-4 border border-color-accent-border">
+              <div className="bg-bg-accent rounded-card p-4 border border-border-accent">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-color-accent"></div>
-                  <h5 className="text-sm font-medium text-color-accent-text">
+                  <div className="w-2 h-2 rounded-full bg-accent"></div>
+                  <h5 className="text-sm font-medium text-text-accent">
                     Accent Feature
                   </h5>
                 </div>
-                <p className="text-xs text-color-accent-text">
+                <p className="text-xs text-text-accent">
                   Highlighted feature or CTA
                 </p>
               </div>
 
               {/* Muted Example */}
-              <div className="bg-color-muted-surface rounded-card p-4 border border-color-muted-border">
+              <div className="bg-bg-muted rounded-card p-4 border border-border-muted">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-color-muted"></div>
-                  <h5 className="text-sm font-medium text-color-muted-text">
+                  <div className="w-2 h-2 rounded-full bg-muted"></div>
+                  <h5 className="text-sm font-medium text-text-muted">
                     Muted Element
                   </h5>
                 </div>
-                <p className="text-xs text-color-muted-text">
+                <p className="text-xs text-text-muted">
                   Subtle information
                 </p>
               </div>
 
               {/* Destructive Example */}
-              <div className="bg-color-bg-destructive rounded-card p-4 border border-color-destructive">
+              <div className="bg-bg-destructive rounded-card p-4 border border-border-destructive">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-color-destructive"></div>
-                  <h5 className="text-sm font-medium text-color-destructive-text">
+                  <div className="w-2 h-2 rounded-full bg-destructive"></div>
+                  <h5 className="text-sm font-medium text-text-destructive">
                     Destructive Action
                   </h5>
                 </div>
-                <p className="text-xs text-color-destructive-text">
+                <p className="text-xs text-text-destructive">
                   Permanent deletion
                 </p>
               </div>
@@ -1252,10 +1167,6 @@ export default function StyleGuide() {
                 <li>--color-warning-surface</li>
                 <li>--color-warning-text</li>
                 <li>--color-warning-border</li>
-                <li>--color-destructive</li>
-                <li>--color-destructive-surface</li>
-                <li>--color-destructive-text</li>
-                <li>--color-destructive-border</li>
                 <li>--color-bg-success</li>
                 <li>--color-bg-error</li>
                 <li>--color-bg-warning</li>
@@ -1313,8 +1224,8 @@ export default function StyleGuide() {
               </li>
               <li>
                 <strong className="text-text-primary">Border Radius:</strong>{" "}
-                Use <code>rounded-lg</code> for buttons, <code>rounded-xl</code>{" "}
-                for cards
+                Use <code>rounded-button</code> for buttons, <code>rounded-card</code>{" "}
+                for cards — both map to your design token values
               </li>
               <li>
                 <strong className="text-text-primary">Accessibility:</strong>{" "}
