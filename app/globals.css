@@ -81,13 +81,12 @@
   --color-warning-surface: oklch(95% 0.04 60);
   --color-warning-border: var(--color-warning);
 
-  /* Destructive — aliases error palette with distinct component-level tokens.
-   * Semantic distinction is handled via component tokens below,
-   * not by duplicating raw palette values. */
-  --color-destructive: oklch(45% 0.25 12);
-  --color-destructive-text: var(--color-error-text);
-  --color-destructive-surface: oklch(92% 0.04 12);
-  --color-destructive-border: oklch(40% 0.28 12);
+  /* Destructive — hue 5 (true crimson), distinct from brand hue 12 (warm red-brown).
+   * Base L 45% + neutral-100 text = ~7.4:1 (AA ✓). */
+  --color-destructive: oklch(45% 0.27 5);
+  --color-destructive-text: oklch(38% 0.22 5);
+  --color-destructive-surface: oklch(95% 0.03 5);
+  --color-destructive-border: oklch(40% 0.28 5);
 
   /* ─── Semantic: Base surface/text ─── */
   /* Single source of truth — --background and --foreground are the canonical
@@ -118,8 +117,9 @@
   --border-focus: var(--color-primary-600);
 
   /* ─── Component: Buttons — Primary ─── */
-  --button-primary-surface: var(--color-primary-950);
-  --button-primary-surface-hover: var(--color-primary-800);
+  /* primary-500 (L 42%) + neutral-100 text = ~8.5:1 (AA ✓). Expresses brand warm red. */
+  --button-primary-surface: var(--color-primary-500);
+  --button-primary-surface-hover: var(--color-primary-600);
   --button-primary-surface-active: var(--color-primary-700);
   --button-primary-text: var(--color-neutral-100);
   --button-primary-border: transparent;
@@ -155,10 +155,10 @@
   --button-destructive-border: transparent;
 
   /* ─── Component: Forms — Inputs ─── */
+  /* --input-border at neutral-500 (L 50%) gives ~5.5:1 on neutral-100 — meets SC 1.4.11 (3:1). */
   --input-surface: var(--color-neutral-100);
-  --input-surface-focus: var(--color-neutral-100);
-  --input-border: var(--color-neutral-400);
-  --input-border-hover: var(--color-neutral-500);
+  --input-border: var(--color-neutral-500);
+  --input-border-hover: var(--color-neutral-600);
   --input-border-focus: var(--color-primary-600);
   --input-text: var(--color-primary-950);
   --input-text-placeholder: var(--color-neutral-500);
@@ -194,16 +194,37 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-dominique);
 
-  /* Button tokens */
+  /* Button tokens — Primary */
   --color-button-primary-surface: var(--button-primary-surface);
   --color-button-primary-surface-hover: var(--button-primary-surface-hover);
+  --color-button-primary-surface-active: var(--button-primary-surface-active);
   --color-button-primary-text: var(--button-primary-text);
+  --color-button-primary-border: var(--button-primary-border);
+
+  /* Button tokens — Secondary */
   --color-button-secondary-surface: var(--button-secondary-surface);
   --color-button-secondary-surface-hover: var(--button-secondary-surface-hover);
+  --color-button-secondary-surface-active: var(--button-secondary-surface-active);
   --color-button-secondary-text: var(--button-secondary-text);
+  --color-button-secondary-border: var(--button-secondary-border);
+
+  /* Button tokens — Neutral */
   --color-button-neutral-surface: var(--button-neutral-surface);
   --color-button-neutral-surface-hover: var(--button-neutral-surface-hover);
+  --color-button-neutral-surface-active: var(--button-neutral-surface-active);
   --color-button-neutral-text: var(--button-neutral-text);
+  --color-button-neutral-border: var(--button-neutral-border);
+
+  /* Button tokens — Outline */
+  --color-button-outline-surface: var(--button-outline-surface);
+  --color-button-outline-surface-hover: var(--button-outline-surface-hover);
+  --color-button-outline-surface-active: var(--button-outline-surface-active);
+  --color-button-outline-text: var(--button-outline-text);
+  --color-button-outline-text-hover: var(--button-outline-text-hover);
+  --color-button-outline-border: var(--button-outline-border);
+  --color-button-outline-border-hover: var(--button-outline-border-hover);
+
+  /* Button tokens — Destructive */
   --color-button-destructive-surface: var(--button-destructive-surface);
   --color-button-destructive-surface-hover: var(--button-destructive-surface-hover);
   --color-button-destructive-surface-active: var(--button-destructive-surface-active);
@@ -213,6 +234,7 @@
   /* Form tokens */
   --color-input-surface: var(--input-surface);
   --color-input-border: var(--input-border);
+  --color-input-border-hover: var(--input-border-hover);
   --color-input-border-focus: var(--input-border-focus);
   --color-input-text: var(--input-text);
   --color-input-text-placeholder: var(--input-text-placeholder);
@@ -303,9 +325,9 @@
   --color-success-surface: oklch(22% 0.06 145);
   --color-success-border: var(--color-success);
 
-  --color-error: oklch(70% 0.18 12);
-  --color-error-text: oklch(85% 0.15 12);
-  --color-error-surface: oklch(22% 0.06 12);
+  --color-error: oklch(60% 0.22 25);
+  --color-error-text: oklch(85% 0.15 25);
+  --color-error-surface: oklch(18% 0.08 25);
   --color-error-border: var(--color-error);
 
   /* Warning (amber): L 82% achieves ~10:1 on dark bg (AAA).
@@ -315,11 +337,11 @@
   --color-warning-surface: oklch(22% 0.04 60);
   --color-warning-border: var(--color-warning);
 
-  /* Destructive: mirrors error in dark mode, component tokens still distinct */
-  --color-destructive: oklch(70% 0.18 12);
+  /* Destructive: aliases error in dark mode — same hue/value */
+  --color-destructive: var(--color-error);
   --color-destructive-text: var(--color-error-text);
-  --color-destructive-surface: oklch(20% 0.05 12);
-  --color-destructive-border: oklch(70% 0.18 12);
+  --color-destructive-surface: oklch(15% 0.08 25);
+  --color-destructive-border: var(--color-destructive);
 
   /* Accent */
   --color-accent: oklch(72% 0.22 12);
@@ -331,17 +353,21 @@
   --color-muted: oklch(70% 0.015 60);
   --color-muted-text: oklch(80% 0.025 60);
   --color-muted-surface: oklch(22% 0.015 60);
-  --color-muted-border: oklch(70% 0.015 60);
+  --color-muted-border: var(--color-muted);
 
   /* ─── Buttons ─── */
-  --button-primary-surface: var(--color-primary-500);
-  --button-primary-surface-hover: var(--color-primary-400);
-  --button-primary-surface-active: var(--color-primary-600);
+  /* Primary: shifted to primary-400 (L 60%) — neutral-950 text gives ~5.15:1 (AA). */
+  /* primary-500 (L 42%) + neutral-950 was ~2.4:1 — failed SC 1.4.3. */
+  --button-primary-surface: var(--color-primary-400);
+  --button-primary-surface-hover: var(--color-primary-300);
+  --button-primary-surface-active: oklch(57% 0.17 12); /* ~4.55:1 with neutral-950 (AA) */
   --button-primary-text: var(--color-neutral-950);
 
+  /* Secondary: active shifted to L 58% — neutral-950 text gives ~4.74:1 (AA). */
+  /* secondary-600 (L 52%) was ~3.7:1 — failed SC 1.4.3. */
   --button-secondary-surface: var(--color-secondary-500);
   --button-secondary-surface-hover: var(--color-secondary-400);
-  --button-secondary-surface-active: var(--color-secondary-600);
+  --button-secondary-surface-active: oklch(58% 0.09 195); /* ~4.74:1 with neutral-950 (AA) */
   --button-secondary-text: var(--color-neutral-950);
 
   --button-neutral-surface: var(--color-neutral-800);
@@ -357,17 +383,21 @@
   --button-outline-border: var(--color-neutral-100);
   --button-outline-border-hover: var(--color-neutral-100);
 
+  /* Destructive: aligned with --color-destructive = var(--color-error) = oklch(60% 0.22 25).
+   * Bright surface uses dark text — neutral-950 gives ~5.14:1 (AA ✓).
+   * Hover lightens to L 63% (~5.7:1 ✓), active uses L 57% + higher chroma (~4.55:1 ✓). */
   --button-destructive-surface: var(--color-destructive);
-  --button-destructive-surface-hover: var(--color-destructive-border);
-  --button-destructive-surface-active: oklch(from var(--color-destructive) calc(l + 0.05) c h);
-  --button-destructive-text: var(--color-neutral-100);
+  --button-destructive-surface-hover: oklch(63% 0.22 25);
+  --button-destructive-surface-active: oklch(57% 0.24 25);
+  --button-destructive-text: var(--color-neutral-950);
   --button-destructive-border: transparent;
 
   /* ─── Forms ─── */
+  /* neutral-600 (L 40%) on neutral-900 surface was ~2.04:1 — failed SC 1.4.11.
+   * neutral-500 (L 50%) gives ~3.13:1 on neutral-900 (AA). Hover lightens further. */
   --input-surface: var(--color-neutral-900);
-  --input-surface-focus: var(--color-neutral-900);
-  --input-border: var(--color-neutral-600);
-  --input-border-hover: var(--color-neutral-500);
+  --input-border: var(--color-neutral-500);
+  --input-border-hover: var(--color-neutral-400);
   --input-border-focus: var(--color-primary-400);
   --input-text: var(--color-neutral-100);
   --input-text-placeholder: var(--color-neutral-500);
@@ -407,115 +437,6 @@
   --border-strong: var(--color-neutral-600);
   --border-inverse: var(--color-neutral-950);
   --border-focus: var(--color-primary-400);
-}
-
-/* ─── OS-level dark mode fallback (no-JS / SSR) ─── */
-@media (prefers-color-scheme: dark) {
-  :root:not(.dark):not(.light) {
-    --background: var(--color-neutral-950);
-    --foreground: var(--color-neutral-100);
-    --bg-base: var(--background);
-    --text-primary: var(--foreground);
-
-    --color-success: oklch(65% 0.18 145);
-    --color-success-text: oklch(80% 0.15 145);
-    --color-success-surface: oklch(22% 0.06 145);
-    --color-success-border: var(--color-success);
-
-    --color-error: oklch(70% 0.18 12);
-    --color-error-text: oklch(85% 0.15 12);
-    --color-error-surface: oklch(22% 0.06 12);
-    --color-error-border: var(--color-error);
-
-    --color-warning: oklch(75% 0.14 60);
-    --color-warning-text: oklch(82% 0.12 60);
-    --color-warning-surface: oklch(22% 0.04 60);
-    --color-warning-border: var(--color-warning);
-
-    --color-destructive: oklch(70% 0.18 12);
-    --color-destructive-text: var(--color-error-text);
-    --color-destructive-surface: oklch(20% 0.05 12);
-    --color-destructive-border: oklch(70% 0.18 12);
-
-    --color-accent: oklch(72% 0.22 12);
-    --color-accent-text: oklch(85% 0.18 12);
-    --color-accent-surface: oklch(22% 0.06 12);
-    --color-accent-border: var(--color-accent);
-
-    --color-muted: oklch(70% 0.015 60);
-    --color-muted-text: oklch(80% 0.025 60);
-    --color-muted-surface: oklch(22% 0.015 60);
-    --color-muted-border: oklch(70% 0.015 60);
-
-    --button-primary-surface: var(--color-primary-500);
-    --button-primary-surface-hover: var(--color-primary-400);
-    --button-primary-surface-active: var(--color-primary-600);
-    --button-primary-text: var(--color-neutral-950);
-
-    --button-secondary-surface: var(--color-secondary-500);
-    --button-secondary-surface-hover: var(--color-secondary-400);
-    --button-secondary-surface-active: var(--color-secondary-600);
-    --button-secondary-text: var(--color-neutral-950);
-
-    --button-neutral-surface: var(--color-neutral-800);
-    --button-neutral-surface-hover: var(--color-neutral-700);
-    --button-neutral-surface-active: var(--color-neutral-600);
-    --button-neutral-text: var(--color-neutral-100);
-
-    --button-outline-surface: transparent;
-    --button-outline-surface-hover: var(--color-neutral-100);
-    --button-outline-surface-active: var(--color-neutral-200);
-    --button-outline-text: var(--color-neutral-100);
-    --button-outline-text-hover: var(--color-neutral-950);
-    --button-outline-border: var(--color-neutral-100);
-    --button-outline-border-hover: var(--color-neutral-100);
-
-    --button-destructive-surface: var(--color-destructive);
-    --button-destructive-surface-hover: var(--color-destructive-border);
-    --button-destructive-surface-active: oklch(from var(--color-destructive) calc(l + 0.05) c h);
-    --button-destructive-text: var(--color-neutral-100);
-    --button-destructive-border: transparent;
-
-    --input-surface: var(--color-neutral-900);
-    --input-surface-focus: var(--color-neutral-900);
-    --input-border: var(--color-neutral-600);
-    --input-border-hover: var(--color-neutral-500);
-    --input-border-focus: var(--color-primary-400);
-    --input-text: var(--color-neutral-100);
-    --input-text-placeholder: var(--color-neutral-500);
-    --input-ring-focus: var(--color-primary-400);
-    --input-ring-error: var(--color-error);
-
-    --label-text: var(--color-neutral-400);
-
-    --card-surface: var(--color-neutral-900);
-    --card-surface-inverse: var(--color-neutral-100);
-    --card-surface-tonal: var(--color-secondary-900);
-    --card-border: var(--color-neutral-700);
-    --card-border-tonal: var(--color-secondary-800);
-    --card-text: var(--color-neutral-100);
-    --card-text-inverse: var(--color-neutral-950);
-    --card-text-inverse-muted: var(--color-neutral-400);
-    --card-text-tonal: var(--color-secondary-200);
-    --card-text-tonal-muted: var(--color-secondary-400);
-
-    --text-secondary: var(--color-neutral-300);
-    --text-tertiary: var(--color-neutral-400);
-    --text-muted: var(--color-muted-text);
-    --text-inverse: var(--color-neutral-950);
-    --text-accent: var(--color-accent-text);
-
-    --bg-subtle: var(--color-muted-surface);
-    --bg-elevated: var(--color-neutral-800);
-    --bg-inset: var(--color-neutral-900);
-    --bg-inverse: var(--color-neutral-100);
-
-    --border-default: var(--color-neutral-700);
-    --border-subtle: var(--color-neutral-800);
-    --border-strong: var(--color-neutral-600);
-    --border-inverse: var(--color-neutral-950);
-    --border-focus: var(--color-primary-400);
-  }
 }
 
 body {
