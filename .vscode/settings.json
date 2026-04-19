@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["figtree"]
+  "cSpell.words": ["figtree"],
+  "css.customData": [".vscode/tailwind.json"]
 }
