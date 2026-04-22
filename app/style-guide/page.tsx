@@ -76,7 +76,7 @@ function renderPaletteScale(scale: (typeof PALETTE_SCALES)[number]) {
 export default function StyleGuide() {
   return (
 
-    <main className="min-h-screen bg-bg-base pt-32 pb-24 px-6">
+    <section>
       <div className="max-w-6xl mx-auto">
         <header className="mb-16 pb-8 border-b border-border-default">
           <p className="text-sm font-medium text-text-muted uppercase tracking-wider mb-2">
@@ -1235,6 +1235,6 @@ export default function StyleGuide() {
           </div>
         </section>
       </div>
-    </main>
+    </section>
   );
 }

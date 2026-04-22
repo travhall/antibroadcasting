@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <main>
+    <section>
       <h1>Portfolio</h1>
-    </main>
+    </section>
   );
 }

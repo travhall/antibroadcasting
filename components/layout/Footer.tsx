@@ -2,7 +2,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border-default px-6 py-12 mt-24 bg-bg-base">
+    <footer className="px-6 py-12 bg-bg-base sticky bottom-0 z-0">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-8">
         <div>
           <p className="font-bold text-lg text-text-primary">
@@ -32,7 +32,7 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <p className="text-center text-xs text-text-muted mt-8">
+      <p className="md:text-center text-xs text-pretty text-text-muted mt-8">
         &copy; {new Date().getFullYear()} {siteConfig.company.name}. All rights
         reserved.
       </p>

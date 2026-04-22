@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
@@ -18,11 +18,10 @@ function NavLink({
     <Link
       href={href}
       onClick={onClick}
-      className={`transition-colors ${
-        active
-          ? "text-text-primary font-semibold"
-          : "text-text-muted hover:text-text-primary"
-      }`}
+      className={`transition-colors self-start ${active
+        ? "text-text-primary font-semibold"
+        : "text-text-muted hover:text-text-primary"
+        }`}
     >
       {children}
     </Link>
@@ -31,10 +30,27 @@ function NavLink({
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   // Close drawer on route change
   const pathname = usePathname();
   useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const diff = currentY - lastScrollY.current;
+      if (diff > 8 && currentY > 80) {
+        setHidden(true);
+      } else if (diff < -8) {
+        setHidden(false);
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Prevent scroll when drawer is open
   useEffect(() => {
@@ -46,7 +62,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-bg-base border-b border-border-default">
+      <header className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-bg-base border-b border-border-default transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}>
         <Link
           href="/"
           className="font-black font-display text-2xl tracking-wider text-text-primary uppercase hover:opacity-50 transition-opacity duration-300 max-w-[13ch] leading-5"
@@ -71,19 +87,16 @@ export function Header() {
           aria-expanded={open}
         >
           <span
-            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${
-              open ? "translate-y-2 rotate-45" : ""
-            }`}
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "translate-y-2 rotate-45" : ""
+              }`}
           />
           <span
-            className={`block h-0.5 w-full bg-foreground transition-opacity ${
-              open ? "opacity-0" : ""
-            }`}
+            className={`block h-0.5 w-full bg-foreground transition-opacity ${open ? "opacity-0" : ""
+              }`}
           />
           <span
-            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${
-              open ? "-translate-y-2 -rotate-45" : ""
-            }`}
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "-translate-y-2 -rotate-45" : ""
+              }`}
           />
         </button>
       </header>
@@ -91,29 +104,16 @@ export function Header() {
       {/* Mobile drawer */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+          className="fixed inset-0 z-40 bg-bg-inset/80 backdrop-blur-xs md:hidden"
           onClick={() => setOpen(false)}
           aria-hidden
         />
       )}
       <nav
-        className={`fixed top-0 right-0 z-50 h-full w-72 bg-bg-base shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-18 right-0 z-40 h-full w-72 bg-bg-base shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${open ? "translate-x-0" : "translate-x-full"
+          }`}
         aria-label="Mobile navigation"
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border-default">
-          <span className="font-bold tracking-tight text-text-primary">
-            Menu
-          </span>
-          <button
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-            className="text-text-muted hover:text-text-primary transition-colors"
-          >
-            ✕
-          </button>
-        </div>
         <div className="flex flex-col gap-1 p-6">
           {nav.map((item) => (
             <NavLink
@@ -121,7 +121,7 @@ export function Header() {
               href={item.href}
               onClick={() => setOpen(false)}
             >
-              <span className="block py-3 text-lg border-b border-border-subtle">
+              <span className="block py-3 text-lg">
                 {item.label}
               </span>
             </NavLink>

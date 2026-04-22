@@ -54,10 +54,12 @@ export default function RootLayout({
         className={`${figtreeSans.variable} ${geistMono.variable} ${dominique.variable} antialiased`}
       >
         <Header />
-        <div className="fixed top-4 right-4 z-50">
+        <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />
         </div>
-        {children}
+        <main className="flex flex-col min-h-screen pt-32 pb-16 px-6 bg-bg-base relative z-10 border-b border-border-default">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

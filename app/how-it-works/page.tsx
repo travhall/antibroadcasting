@@ -26,7 +26,7 @@ export default async function HowItWorksPage() {
     });
 
   return (
-    <main className="min-h-screen bg-bg-base pt-32 pb-24 px-6">
+    <section>
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold tracking-tight text-text-primary mb-2">
           How It Works
@@ -81,6 +81,6 @@ export default async function HowItWorksPage() {
         </h2>
         <FaqAccordion items={items} />
       </div>
-    </main>
+    </section>
   );
 }
