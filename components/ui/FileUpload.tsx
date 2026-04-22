@@ -85,9 +85,12 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
     return (
       <div className="space-y-1.5" ref={ref}>
         {label && (
-          <label className="block text-sm font-medium text-label-text">
+          <label
+            htmlFor={inputId}
+            className="block text-sm font-medium text-label-text"
+          >
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span className="text-text-error ml-1">*</span>}
           </label>
         )}
 
@@ -96,7 +99,7 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
             dragActive
               ? "border-input-border-focus bg-bg-subtle"
               : error
-                ? "border-red-400"
+                ? "border-color-error"
                 : "border-input-border hover:border-input-border-hover"
           } ${className}`}
           onDragEnter={handleDrag}
@@ -107,7 +110,10 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
           <input
             id={inputId}
             type="file"
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            aria-describedby={error ? `${inputId}-error` : undefined}
+            aria-required={required}
+            aria-invalid={error ? true : undefined}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer focus-visible:outline-none"
             accept={accept}
             multiple={multiple}
             onChange={handleChange}
@@ -142,16 +148,25 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
                 <button
                   type="button"
                   onClick={() => removeFile(index)}
-                  className="text-text-muted hover:text-text-primary ml-2"
+                  aria-label={`Remove ${file.name}`}
+                  className="text-text-muted hover:text-text-primary ml-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
                 >
-                  ×
+                  <span aria-hidden="true">×</span>
                 </button>
               </div>
             ))}
           </div>
         )}
 
-        {error && <p className="text-xs text-red-500">{error}</p>}
+        {error && (
+          <p
+            id={`${inputId}-error`}
+            className="text-xs text-text-error"
+            role="alert"
+          >
+            {error}
+          </p>
+        )}
       </div>
     );
   },

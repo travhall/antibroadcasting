@@ -11,17 +11,23 @@ function NavLink({
   href,
   children,
   onClick,
-}: LinkProps & { children: React.ReactNode; onClick?: () => void }) {
+  className,
+}: LinkProps & {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}) {
   const pathname = usePathname();
   const active = pathname === href;
   return (
     <Link
       href={href}
       onClick={onClick}
-      className={`transition-colors self-start ${active
-        ? "text-text-primary font-semibold"
-        : "text-text-muted hover:text-text-primary"
-        }`}
+      className={`transition-colors self-start rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+        active
+          ? "text-text-primary font-semibold"
+          : "text-text-muted hover:text-text-primary"
+      } ${className || ""}`}
     >
       {children}
     </Link>
@@ -62,41 +68,60 @@ export function Header() {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-bg-base border-b border-border-default transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}>
-        <Link
-          href="/"
-          className="font-black font-display text-2xl tracking-wider text-text-primary uppercase hover:opacity-50 transition-opacity duration-300 max-w-[13ch] leading-5"
-        >
-          {siteConfig.company.nickname}
-        </Link>
+      <a
+        href="#main-content"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-100 focus-visible:rounded-md focus-visible:bg-bg-base focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-medium focus-visible:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        Skip to main content
+      </a>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-bg-base border-b border-border-default transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
+      >
+        <div className="w-full md:max-w-400 md:mx-auto inline-block md:flex md:items-center md:justify-between">
+          <div className="max-w-48 inline-block">
+            <Link
+              href="/"
+              className="font-black font-display text-2xl tracking-wider text-text-primary uppercase hover:opacity-50 transition-opacity duration-300 leading-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              {siteConfig.company.nickname}
+            </Link>
+          </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {nav.map((item) => (
-            <NavLink key={item.href} href={item.href}>
-              <span className="text-sm font-medium">{item.label}</span>
-            </NavLink>
-          ))}
-        </nav>
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-2">
+            {nav.map((item) => (
+              <NavLink
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium p-3 text-text-muted hover:text-text-primary transition-colors"
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8"
+          className="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
           <span
-            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "translate-y-2 rotate-45" : ""
-              }`}
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${
+              open ? "translate-y-2 rotate-45" : ""
+            }`}
           />
           <span
-            className={`block h-0.5 w-full bg-foreground transition-opacity ${open ? "opacity-0" : ""
-              }`}
+            className={`block h-0.5 w-full bg-foreground transition-opacity ${
+              open ? "opacity-0" : ""
+            }`}
           />
           <span
-            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "-translate-y-2 -rotate-45" : ""
-              }`}
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${
+              open ? "-translate-y-2 -rotate-45" : ""
+            }`}
           />
         </button>
       </header>
@@ -110,9 +135,12 @@ export function Header() {
         />
       )}
       <nav
-        className={`fixed top-18 right-0 z-40 h-full w-72 bg-bg-base shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${open ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-18 right-0 z-40 h-full w-72 bg-bg-base shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
         aria-label="Mobile navigation"
+        aria-modal={open ? "true" : undefined}
+        aria-hidden={!open}
       >
         <div className="flex flex-col gap-1 p-6">
           {nav.map((item) => (
@@ -121,9 +149,7 @@ export function Header() {
               href={item.href}
               onClick={() => setOpen(false)}
             >
-              <span className="block py-3 text-lg">
-                {item.label}
-              </span>
+              <span className="block py-3 text-lg">{item.label}</span>
             </NavLink>
           ))}
         </div>
@@ -131,7 +157,7 @@ export function Header() {
           <p>
             <a
               href={siteConfig.contact.phoneHref}
-              className="hover:text-text-primary transition-colors"
+              className="hover:text-text-primary transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {siteConfig.contact.phone}
             </a>

@@ -35,7 +35,11 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
   return (
     <div>
       {/* Category filter */}
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div
+        role="group"
+        aria-label="Filter by category"
+        className="flex flex-wrap gap-2 mb-8"
+      >
         {categories.map((cat) => (
           <button
             key={cat}
@@ -43,7 +47,8 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
               setActiveCategory(cat);
               setOpen(null);
             }}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+            aria-pressed={activeCategory === cat}
+            className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
               activeCategory === cat
                 ? "bg-bg-inverse text-text-inverse border-bg-inverse"
                 : "bg-bg-elevated text-text-secondary border-border-default hover:border-border-strong"
@@ -61,14 +66,17 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
           return (
             <div key={item.slug}>
               <button
+                id={`faq-question-${item.slug}`}
                 onClick={() => setOpen(isOpen ? null : item.slug)}
-                className="flex w-full items-center justify-between py-5 text-left gap-4"
+                className="flex w-full items-center justify-between py-5 text-left gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
                 aria-expanded={isOpen}
+                aria-controls={`faq-answer-${item.slug}`}
               >
                 <span className="font-medium text-text-primary">
                   {item.question}
                 </span>
                 <span
+                  aria-hidden="true"
                   className={`shrink-0 text-text-muted text-lg transition-transform ${
                     isOpen ? "rotate-45" : ""
                   }`}
@@ -76,11 +84,15 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                   +
                 </span>
               </button>
-              {isOpen && (
-                <div className="pb-5 text-sm text-text-secondary leading-relaxed max-w-2xl">
-                  {item.answer}
-                </div>
-              )}
+              <div
+                id={`faq-answer-${item.slug}`}
+                role="region"
+                aria-labelledby={`faq-question-${item.slug}`}
+                hidden={!isOpen}
+                className="pb-5 text-sm text-text-secondary leading-relaxed max-w-2xl"
+              >
+                {item.answer}
+              </div>
             </div>
           );
         })}

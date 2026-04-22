@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 export type Theme = "light" | "dark" | "system";
 
@@ -15,28 +15,34 @@ function applyTheme(theme: Theme) {
     root.classList.add("light");
     root.classList.remove("dark");
   } else {
-    // system + prefers light: remove both, let CSS media query govern
     root.classList.remove("dark");
     root.classList.remove("light");
   }
+
+  root.dataset.theme = theme;
 }
 
 export function useTheme() {
+  // Always start as "system" so the server render and initial client render
+  // match (no hydration mismatch). useLayoutEffect then syncs the real value
+  // synchronously before the browser paints — no visible flash.
   const [theme, setThemeState] = useState<Theme>("system");
 
-  // Read stored theme and sync on mount
-  useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const resolved: Theme = stored ?? "system";
-    setThemeState(resolved);
-    applyTheme(resolved);
+  useLayoutEffect(() => {
+    const stored = (localStorage.getItem("theme") as Theme | null) ?? "system";
+    setThemeState(stored);
+    // applyTheme is mostly a no-op here since the inline <head> script already
+    // set the dark class, but it keeps data-theme and the class list in sync.
+    applyTheme(stored);
+  }, []);
 
-    // Respond to OS preference changes when in system mode
+  useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = () => {
-      const current = localStorage.getItem("theme") as Theme | null;
-      if (!current || current === "system") {
+      const current = (localStorage.getItem("theme") as Theme | null) ?? "system";
+      if (current === "system") {
         applyTheme("system");
+        setThemeState("system");
       }
     };
 

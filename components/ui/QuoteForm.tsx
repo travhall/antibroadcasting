@@ -168,15 +168,24 @@ export function QuoteForm() {
 
       {/* Feedback */}
       {state === "success" && (
-        <div className="rounded-md bg-bg-success text-text-success px-4 py-3 text-sm border border-green-200">
+        <div
+          role="alert"
+          className="rounded-md bg-bg-success text-text-success px-4 py-3 text-sm border border-border-success"
+        >
           Got it — we'll review your request and get back to you within{" "}
           {siteConfig.forms.quote.responseTime || "1–2 business days"}.
         </div>
       )}
       {state === "error" && (
-        <div className="rounded-md bg-bg-error text-text-error px-4 py-3 text-sm border border-red-200">
+        <div
+          role="alert"
+          className="rounded-md bg-bg-error text-text-error px-4 py-3 text-sm border border-border-error"
+        >
           Something went wrong. Try emailing us directly at{" "}
-          <a href={siteConfig.contact.emailHref} className="underline">
+          <a
+            href={siteConfig.contact.emailHref}
+            className="underline rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring-error focus-visible:ring-offset-1 focus-visible:ring-offset-background"
+          >
             {siteConfig.contact.email}
           </a>
           .

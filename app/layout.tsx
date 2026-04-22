@@ -41,10 +41,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const theme = localStorage.getItem('theme');
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                }
+                try {
+                  var t = localStorage.getItem('theme');
+                  var dark = t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  if (dark) document.documentElement.classList.add('dark');
+                  document.documentElement.dataset.theme = t || 'system';
+                } catch (_) {}
               })();
             `,
           }}
@@ -54,13 +56,14 @@ export default function RootLayout({
         className={`${figtreeSans.variable} ${geistMono.variable} ${dominique.variable} antialiased`}
       >
         <Header />
-        <div className="fixed bottom-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
-        <main className="flex flex-col min-h-screen pt-32 pb-16 px-6 bg-bg-base relative z-10 border-b border-border-default">
+        <main
+          id="main-content"
+          className="flex flex-col min-h-screen pt-32 pb-16 px-6 bg-bg-base relative z-10 border-b border-border-default"
+        >
           {children}
         </main>
         <Footer />
+        <ThemeToggle className="fixed bottom-4 right-4 z-50" />
       </body>
     </html>
   );
