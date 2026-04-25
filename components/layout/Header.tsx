@@ -24,7 +24,7 @@ function NavLink({
     <TransitionLink
       href={href}
       onClick={onClick}
-      className={`relative hover:text-text-inverse rounded-xs transition-colors self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${active
+      className={`relative md:hover:text-text-inverse rounded-xs transition-colors self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${active
         ? "font-black pointer-events-none md:before:absolute md:before:inset-0 md:before:-z-10 md:before:scale-y-100 md:before:h-0.5 md:before:bg-(--color-primary-500)"
         : "text-text-muted"
         } ${className || ""}`}
@@ -83,7 +83,9 @@ export function Header() {
     const handleScroll = () => {
       const currentY = window.scrollY;
       const diff = currentY - lastScrollY.current;
-      if (diff > 8 && currentY > 80) {
+      if (currentY < 10) {
+        setHidden(false);
+      } else if (diff > 8) {
         setHidden(true);
       } else if (diff < -8) {
         setHidden(false);

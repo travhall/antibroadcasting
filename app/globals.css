@@ -49,14 +49,14 @@
   --color-accent-surface: oklch(95% 0.06 12);
   --color-accent-border: oklch(55% 0.32 12);
 
-  /* ─── Semantic: Muted (hue 60, near-neutral warm) ────────────────────────
+  /* ─── Semantic: Muted (hue 60, near-neutral) ─────────────────────────────
    * --color-muted-text L 32% measures ~7.2:1 on white (AAA).
    * --color-muted is a tonal surface/decorative value, not for text.
    * ─────────────────────────────────────────────────────────────────────── */
-  --color-muted: oklch(80% 0.03 60);
-  --color-muted-text: oklch(32% 0.04 60);
-  --color-muted-surface: oklch(94% 0.02 60);
-  --color-muted-border: oklch(70% 0.04 60);
+  --color-muted: oklch(85% 0.005 60);
+  --color-muted-text: oklch(32% 0.015 60);
+  --color-muted-surface: oklch(96% 0.002 60);
+  --color-muted-border: oklch(52% 0.005 60);
 
   /* ─── State Colors: WCAG 2.2 AA — Light Mode ─────────────────────────────
    * Text tokens: min 4.5:1 on --bg-base (neutral-100, ~97% L).
@@ -441,9 +441,9 @@
   --color-accent-surface: oklch(22% 0.06 12);
   --color-accent-border: var(--color-accent);
 
-  --color-muted: oklch(70% 0.015 60);
-  --color-muted-text: oklch(80% 0.025 60);
-  --color-muted-surface: oklch(22% 0.015 60);
+  --color-muted: oklch(70% 0.005 60);
+  --color-muted-text: oklch(80% 0.015 60);
+  --color-muted-surface: oklch(22% 0.005 60);
   --color-muted-border: var(--color-muted);
 
   /* ─── Focus System: Dark Mode ────────────────────────────────────────────
@@ -594,14 +594,4 @@ body {
 @keyframes logo-hover-out {
   from { background-position: 0 50%; }
   to   { background-position: 0 0; }
-}
-
-@keyframes page-flood {
-  from { transform: translateY(-100%); }
-  to   { transform: translateY(0); }
-}
-
-@keyframes page-print {
-  from { transform: translateY(0); }
-  to   { transform: translateY(100%); }
 }

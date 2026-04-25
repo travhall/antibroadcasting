@@ -24,7 +24,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     // Create the overlay outside React's DOM — it has no React lifecycle
     const overlay = document.createElement("div");
     overlay.style.cssText =
-      "position:fixed;inset:0;z-index:200;background:var(--bg-subtle);pointer-events:none;transform:translateY(-100%)";
+      "position:fixed;inset:0;z-index:90;background:var(--foreground);pointer-events:none;transform:translateY(-100%)";
     document.body.appendChild(overlay);
     overlayRef.current = overlay;
 
