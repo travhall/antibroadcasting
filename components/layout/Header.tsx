@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Link, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
+import { TransitionLink } from "./TransitionLink";
 
 const nav = siteConfig.navigation;
 
@@ -12,7 +12,8 @@ function NavLink({
   children,
   onClick,
   className,
-}: LinkProps & {
+}: {
+  href: string;
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
@@ -20,7 +21,7 @@ function NavLink({
   const pathname = usePathname();
   const active = pathname === href;
   return (
-    <Link
+    <TransitionLink
       href={href}
       onClick={onClick}
       className={`relative hover:text-text-inverse rounded-xs transition-colors self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${active
@@ -29,7 +30,7 @@ function NavLink({
         } ${className || ""}`}
     >
       {children}
-    </Link>
+    </TransitionLink>
   );
 }
 
@@ -44,12 +45,10 @@ export function Header() {
   const handleLogoEnter = useCallback(() => {
     const el = logoRef.current;
     if (!el) return;
-    // Cancel any pending hover-out listener
     logoCleanup.current?.();
     logoCleanup.current = null;
-    // Restart hover-in from scratch
     el.style.animation = 'none';
-    void el.offsetWidth; // force reflow so new animation is picked up
+    void el.offsetWidth;
     el.style.animation = 'logo-hover-in 275ms ease forwards';
   }, []);
 
@@ -65,7 +64,6 @@ export function Header() {
     const onEnd = () => {
       el.removeEventListener('animationend', onEnd);
       logoCleanup.current = null;
-      // Snap back to top with no animation, then clear inline styles
       el.style.animation = 'none';
       el.style.backgroundPosition = '0 100%';
       requestAnimationFrame(() => {
@@ -96,7 +94,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -113,11 +110,11 @@ export function Header() {
         Skip to main content
       </a>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-bg-base border-b border-border-default transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
+        className={`fixed top-0 left-0 right-0 z-100 px-6 py-4 flex items-center justify-between bg-bg-base border-b border-border-default transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
       >
         <div className="w-full md:max-w-400 md:mx-auto inline-block md:flex md:items-center md:justify-between">
 
-          <Link
+          <TransitionLink
             ref={logoRef}
             href="/"
             className="logo font-black font-display text-2xl tracking-wider text-text-primary uppercase leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -125,7 +122,7 @@ export function Header() {
             onMouseLeave={handleLogoLeave}
           >
             {siteConfig.company.nickname}
-          </Link>
+          </TransitionLink>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0.5">
@@ -149,16 +146,13 @@ export function Header() {
           aria-expanded={open}
         >
           <span
-            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "translate-y-2 rotate-45" : ""
-              }`}
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "translate-y-2 rotate-45" : ""}`}
           />
           <span
-            className={`block h-0.5 w-full bg-foreground transition-opacity ${open ? "opacity-0" : ""
-              }`}
+            className={`block h-0.5 w-full bg-foreground transition-opacity ${open ? "opacity-0" : ""}`}
           />
           <span
-            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "-translate-y-2 -rotate-45" : ""
-              }`}
+            className={`block h-0.5 w-full bg-foreground transition-transform origin-center ${open ? "-translate-y-2 -rotate-45" : ""}`}
           />
         </button>
       </header>
@@ -172,8 +166,7 @@ export function Header() {
         />
       )}
       <nav
-        className={`fixed top-18 right-0 z-40 h-full w-72 bg-bg-base shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${open ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-18 right-0 z-40 h-full w-72 bg-bg-base shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${open ? "translate-x-0" : "translate-x-full"}`}
         aria-label="Mobile navigation"
         aria-modal={open ? "true" : undefined}
         aria-hidden={!open}

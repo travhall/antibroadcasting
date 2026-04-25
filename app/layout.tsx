@@ -3,6 +3,7 @@ import { Figtree, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { PageTransitionProvider } from "@/components/layout/PageTransitionProvider";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
@@ -55,15 +56,17 @@ export default function RootLayout({
       <body
         className={`${figtreeSans.variable} ${geistMono.variable} ${dominique.variable} antialiased`}
       >
-        <Header />
-        <main
-          id="main-content"
-          className="flex flex-col min-h-screen pt-32 pb-16 px-6 bg-bg-base relative z-10 border-b border-border-default"
-        >
-          {children}
-        </main>
-        <Footer />
-        <ThemeToggle className="fixed bottom-4 right-4 z-50" />
+        <PageTransitionProvider>
+          <Header />
+          <main
+            id="main-content"
+            className="flex flex-col min-h-screen pt-32 pb-16 px-6 bg-bg-base relative z-10 border-b border-border-default"
+          >
+            {children}
+          </main>
+          <Footer />
+          <ThemeToggle className="fixed bottom-4 right-4 z-50" />
+        </PageTransitionProvider>
       </body>
     </html>
   );
