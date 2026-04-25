@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
@@ -24,7 +24,7 @@ function NavLink({
       href={href}
       onClick={onClick}
       className={`relative hover:text-text-inverse rounded-xs transition-colors self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${active
-        ? "font-black md:font-medium hover:text-text-primary md:before:absolute md:before:inset-0 md:before:-z-10 md:before:scale-y-100 md:before:h-0.5 md:before:bottom-0 md:before:bg-bg-inverse/90"
+        ? "font-black md:font-medium hover:text-text-primary md:before:absolute md:before:inset-0 md:before:-z-10 md:before:scale-y-100 md:before:h-0.5 md:before:bottom-0 md:before:bg-(--color-primary-500)"
         : "text-text-muted"
         } ${className || ""}`}
     >
@@ -37,6 +37,45 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
+
+  const logoRef = useRef<HTMLAnchorElement>(null);
+  const logoCleanup = useRef<(() => void) | null>(null);
+
+  const handleLogoEnter = useCallback(() => {
+    const el = logoRef.current;
+    if (!el) return;
+    // Cancel any pending hover-out listener
+    logoCleanup.current?.();
+    logoCleanup.current = null;
+    // Restart hover-in from scratch
+    el.style.animation = 'none';
+    void el.offsetWidth; // force reflow so new animation is picked up
+    el.style.animation = 'logo-hover-in 275ms ease forwards';
+  }, []);
+
+  const handleLogoLeave = useCallback(() => {
+    const el = logoRef.current;
+    if (!el) return;
+    logoCleanup.current?.();
+
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = 'logo-hover-out 275ms ease forwards';
+
+    const onEnd = () => {
+      el.removeEventListener('animationend', onEnd);
+      logoCleanup.current = null;
+      // Snap back to top with no animation, then clear inline styles
+      el.style.animation = 'none';
+      el.style.backgroundPosition = '0 0';
+      requestAnimationFrame(() => {
+        el.style.backgroundPosition = '';
+        el.style.animation = '';
+      });
+    };
+    el.addEventListener('animationend', onEnd);
+    logoCleanup.current = () => el.removeEventListener('animationend', onEnd);
+  }, []);
 
   // Close drawer on route change
   const pathname = usePathname();
@@ -79,8 +118,11 @@ export function Header() {
         <div className="w-full md:max-w-400 md:mx-auto inline-block md:flex md:items-center md:justify-between">
           {/* <div className="max-w-48 inline-block"> */}
           <Link
+            ref={logoRef}
             href="/"
             className="logo font-black font-display text-2xl tracking-wider text-text-primary uppercase leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            onMouseEnter={handleLogoEnter}
+            onMouseLeave={handleLogoLeave}
           >
             {siteConfig.company.nickname}
           </Link>
@@ -92,7 +134,7 @@ export function Header() {
               <NavLink
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium p-3 relative overflow-hidden before:absolute before:inset-0 before:-z-10 before:transform before:scale-y-0 before:origin-bottom before:transition-transform before:duration-300 before:ease-in-out hover:before:scale-y-100 hover:before:origin-top before:bg-bg-inverse/90 transition-all"
+                className="text-sm font-medium p-3 relative overflow-hidden before:absolute before:inset-0 before:-z-10 before:transform before:scale-y-0 before:origin-bottom before:transition-transform before:duration-300 before:ease-in-out hover:before:scale-y-100 hover:before:origin-top before:bg-(--color-primary-500) transition-all"
               >
                 {item.label}
               </NavLink>
