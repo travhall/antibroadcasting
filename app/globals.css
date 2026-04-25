@@ -579,16 +579,16 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 100% 300%;
-  background-position: 0 0;
+  background-position: 0 100%;
   text-decoration: none;
 }
 
 @keyframes logo-hover-in {
-  from { background-position: 0 0; }
+  from { background-position: 0 100%; }
   to   { background-position: 0 50%; }
 }
 
 @keyframes logo-hover-out {
   from { background-position: 0 50%; }
-  to   { background-position: 0 100%; }
+  to   { background-position: 0 0; }
 }

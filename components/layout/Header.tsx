@@ -24,7 +24,7 @@ function NavLink({
       href={href}
       onClick={onClick}
       className={`relative hover:text-text-inverse rounded-xs transition-colors self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${active
-        ? "font-black md:font-medium hover:text-text-primary md:before:absolute md:before:inset-0 md:before:-z-10 md:before:scale-y-100 md:before:h-0.5 md:before:bottom-0 md:before:bg-(--color-primary-500)"
+        ? "font-black pointer-events-none md:before:absolute md:before:inset-0 md:before:-z-10 md:before:scale-y-100 md:before:h-0.5 md:before:bg-(--color-primary-500)"
         : "text-text-muted"
         } ${className || ""}`}
     >
@@ -67,7 +67,7 @@ export function Header() {
       logoCleanup.current = null;
       // Snap back to top with no animation, then clear inline styles
       el.style.animation = 'none';
-      el.style.backgroundPosition = '0 0';
+      el.style.backgroundPosition = '0 100%';
       requestAnimationFrame(() => {
         el.style.backgroundPosition = '';
         el.style.animation = '';
@@ -113,10 +113,10 @@ export function Header() {
         Skip to main content
       </a>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-1 flex items-center justify-between bg-bg-base border-b border-border-default transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-bg-base border-b border-border-default transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
       >
         <div className="w-full md:max-w-400 md:mx-auto inline-block md:flex md:items-center md:justify-between">
-          {/* <div className="max-w-48 inline-block"> */}
+
           <Link
             ref={logoRef}
             href="/"
@@ -126,7 +126,6 @@ export function Header() {
           >
             {siteConfig.company.nickname}
           </Link>
-          {/* </div> */}
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0.5">
@@ -134,7 +133,7 @@ export function Header() {
               <NavLink
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium p-3 relative overflow-hidden before:absolute before:inset-0 before:-z-10 before:transform before:scale-y-0 before:origin-bottom before:transition-transform before:duration-300 before:ease-in-out hover:before:scale-y-100 hover:before:origin-top before:bg-(--color-primary-500) transition-all"
+                className="text-base font-medium px-5 py-4 relative overflow-hidden before:absolute before:inset-0 before:-z-10 before:transform before:scale-y-0 before:origin-bottom before:transition-transform before:duration-300 before:ease-in-out hover:before:scale-y-100 hover:before:origin-top before:bg-(--color-primary-500) transition-all"
               >
                 {item.label}
               </NavLink>

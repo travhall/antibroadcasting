@@ -2,7 +2,7 @@ export const siteConfig = {
   // Company Information
   company: {
     name: "Antibroadcasting Screen Printing",
-    nickname: "Antibroadcasting Incorporated",
+    nickname: "Antibroadcasting",
     legalName: "Antibroadcasting, Inc.",
     description:
       "Artist-run screen printing shop in Minneapolis. Quality prints for bands, artists, and events. 50pc minimums, 7–10 day turnaround.",
