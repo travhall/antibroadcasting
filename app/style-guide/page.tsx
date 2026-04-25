@@ -58,7 +58,7 @@ function renderPaletteScale(scale: (typeof PALETTE_SCALES)[number]) {
           return (
             <div key={shade} className="group">
               <div
-                className="h-16 rounded-lg shadow-sm border border-border-subtle"
+                className="h-16 rounded-md shadow-sm border border-border-subtle"
                 style={{ backgroundColor: `var(${token})` }}
                 title={token}
               />
@@ -364,7 +364,7 @@ export default function StyleGuide() {
             </div>
 
             {/* Usage Guidelines */}
-            <div className="mt-8 p-4 bg-bg-subtle rounded-lg border border-border-subtle">
+            <div className="mt-8 p-4 bg-bg-subtle rounded-md border border-border-subtle">
               <h4 className="text-sm font-medium text-text-primary mb-2">
                 Usage Guidelines
               </h4>
@@ -426,7 +426,7 @@ export default function StyleGuide() {
                     {/* Base */}
                     <div>
                       <div
-                        className="h-16 rounded-lg shadow-sm border border-border-subtle"
+                        className="h-16 rounded-md shadow-sm border border-border-subtle"
                         style={{ backgroundColor: `var(${t.base})` }}
                         title={t.base}
                       />
@@ -436,7 +436,7 @@ export default function StyleGuide() {
                     {/* Surface */}
                     <div>
                       <div
-                        className="h-16 rounded-lg shadow-sm border border-border-subtle"
+                        className="h-16 rounded-md shadow-sm border border-border-subtle"
                         style={{ backgroundColor: `var(${t.surface})` }}
                         title={t.surface}
                       />
@@ -446,7 +446,7 @@ export default function StyleGuide() {
                     {/* Text on surface */}
                     <div>
                       <div
-                        className="h-16 rounded-lg shadow-sm flex items-center justify-center"
+                        className="h-16 rounded-md shadow-sm flex items-center justify-center"
                         style={{
                           backgroundColor: `var(${t.surface})`,
                           borderColor: `var(${t.border})`,
@@ -466,7 +466,7 @@ export default function StyleGuide() {
                     {/* Border on base */}
                     <div>
                       <div
-                        className="h-16 rounded-lg shadow-sm border-2 flex items-center justify-center"
+                        className="h-16 rounded-md shadow-sm border-2 flex items-center justify-center"
                         style={{
                           backgroundColor: "var(--bg-base)",
                           borderColor: `var(${t.border})`,

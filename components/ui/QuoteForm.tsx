@@ -170,7 +170,7 @@ export function QuoteForm() {
       {state === "success" && (
         <div
           role="alert"
-          className="rounded-md bg-bg-success text-text-success px-4 py-3 text-sm border border-border-success"
+          className="rounded-input bg-bg-success text-text-success px-4 py-3 text-sm border border-border-success"
         >
           Got it — we'll review your request and get back to you within{" "}
           {siteConfig.forms.quote.responseTime || "1–2 business days"}.
@@ -179,7 +179,7 @@ export function QuoteForm() {
       {state === "error" && (
         <div
           role="alert"
-          className="rounded-md bg-bg-error text-text-error px-4 py-3 text-sm border border-border-error"
+          className="rounded-input bg-bg-error text-text-error px-4 py-3 text-sm border border-border-error"
         >
           Something went wrong. Try emailing us directly at{" "}
           <a

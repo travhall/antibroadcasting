@@ -95,13 +95,12 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
         )}
 
         <div
-          className={`relative rounded-input border-2 border-dashed transition-colors ${
-            dragActive
+          className={`relative rounded-input border-2 border-dashed transition-colors ${dragActive
               ? "border-input-border-focus bg-bg-subtle"
               : error
                 ? "border-color-error"
                 : "border-input-border hover:border-input-border-hover"
-          } ${className}`}
+            } ${className}`}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
@@ -140,7 +139,7 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
             {files.map((file, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-2 bg-bg-subtle rounded-md text-sm"
+                className="flex items-center justify-between p-2 bg-bg-subtle rounded-input text-sm"
               >
                 <span className="text-text-secondary truncate">
                   {file.name} ({(file.size / 1024).toFixed(1)}KB)

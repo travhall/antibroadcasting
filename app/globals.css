@@ -107,7 +107,7 @@
 
   /* ─── Semantic: Background Variance ─── */
   --bg-subtle: var(--color-muted-surface);
-  --bg-elevated: var(--color-neutral-100);
+  --bg-elevated: var(--color-neutral-100); /* intentionally same as --background; elevation is expressed via shadow, not color-lift */
   --bg-inset: var(--color-neutral-200);
   --bg-inverse: var(--color-primary-950);
 
@@ -134,38 +134,40 @@
   --focus-ring-offset: 2px;
 
   /* ─── Semantic: Motion ───────────────────────────────────────────────────
-   * Reference --duration-* and --ease-* in transition shorthand for
-   * consistency. Use @media (prefers-reduced-motion: reduce) to override.
+   * Prefixed --scale-duration-* / --scale-ease-* in :root so @theme inline
+   * can reference them as --duration-* / --ease-* without circular self-refs.
+   * Use @media (prefers-reduced-motion: reduce) to override.
    * ─────────────────────────────────────────────────────────────────────── */
-  --duration-fast: 100ms;
-  --duration-base: 150ms;
-  --duration-slow: 250ms;
-  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --scale-duration-fast: 100ms;
+  --scale-duration-base: 150ms;
+  --scale-duration-slow: 250ms;
+  --scale-ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --scale-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --scale-ease-out: cubic-bezier(0, 0, 0.2, 1);
 
   /* ─── Semantic: Elevation (Shadows) ─────────────────────────────────────
-   * Light-mode shadows use pure black at low opacity for crisp edges.
-   * Dark-mode overrides in .dark raise opacity — shadows vanish otherwise.
+   * Prefixed --scale-shadow-* so @theme inline can alias them as --shadow-*
+   * without circular self-refs. Dark mode overrides these same vars.
    * Compound values layer ambient + directional for more natural depth.
    * ─────────────────────────────────────────────────────────────────────── */
-  --shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.05);
-  --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.07), 0 1px 2px oklch(0% 0 0 / 0.05);
-  --shadow-md: 0 4px 8px oklch(0% 0 0 / 0.08), 0 2px 4px oklch(0% 0 0 / 0.05);
-  --shadow-lg: 0 10px 20px oklch(0% 0 0 / 0.1), 0 4px 8px oklch(0% 0 0 / 0.06);
-  --shadow-xl: 0 20px 40px oklch(0% 0 0 / 0.12), 0 8px 16px oklch(0% 0 0 / 0.07);
+  --scale-shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.05);
+  --scale-shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.07), 0 1px 2px oklch(0% 0 0 / 0.05);
+  --scale-shadow-md: 0 4px 8px oklch(0% 0 0 / 0.08), 0 2px 4px oklch(0% 0 0 / 0.05);
+  --scale-shadow-lg: 0 10px 20px oklch(0% 0 0 / 0.1), 0 4px 8px oklch(0% 0 0 / 0.06);
+  --scale-shadow-xl: 0 20px 40px oklch(0% 0 0 / 0.12), 0 8px 16px oklch(0% 0 0 / 0.07);
 
   /* ─── Semantic: Radius Scale ─────────────────────────────────────────────
-   * Component tokens (--radius-button, --radius-card, --radius-input) alias
-   * scale steps — change a scale step to shift all related components at once.
+   * Prefixed --scale-radius-* so @theme inline can alias them as --radius-*
+   * without circular self-refs. Component tokens alias these scale steps —
+   * change a step to shift all related components at once.
    * ─────────────────────────────────────────────────────────────────────── */
-  --radius-xs: 0.25rem;   /* 4px  */
-  --radius-sm: 0.375rem;  /* 6px  */
-  --radius-md: 0.5rem;    /* 8px  */
-  --radius-lg: 0.75rem;   /* 12px */
-  --radius-xl: 1rem;      /* 16px */
-  --radius-2xl: 1.5rem;   /* 24px */
-  --radius-full: 9999px;
+  --scale-radius-xs:   0.125rem; /* 2px  */
+  --scale-radius-sm:   0.25rem;  /* 4px  */
+  --scale-radius-md:   0.5rem;   /* 8px  */
+  --scale-radius-lg:   0.75rem;  /* 12px */
+  --scale-radius-xl:   1rem;     /* 16px */
+  --scale-radius-2xl:  1.5rem;   /* 24px */
+  --scale-radius-full: 9999px;
 
   /* ─── Component: Buttons — Primary ─── */
   /* primary-500 (L 42%) + neutral-100 text = ~8.5:1 (AA ✓) */
@@ -208,9 +210,9 @@
   --button-destructive-border: transparent;
 
   /* ─── Component: Radius aliases ─── */
-  --radius-button: var(--radius-md);
-  --radius-card: var(--radius-lg);
-  --radius-input: var(--radius-md);
+  --radius-button: var(--scale-radius-sm);
+  --radius-card: var(--scale-radius-md);
+  --radius-input: var(--scale-radius-sm);
 
   /* ─── Component: Forms — Inputs ─── */
   /* --input-border at neutral-500 (L 50%) gives ~5.5:1 on neutral-100 — meets SC 1.4.11 (3:1). */
@@ -313,24 +315,32 @@
   --color-card-text-tonal: var(--card-text-tonal);
   --color-card-text-tonal-muted: var(--card-text-tonal-muted);
 
-  /* Radius tokens */
-  --radius-xs: var(--radius-xs);
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius-2xl: var(--radius-2xl);
-  --radius-full: var(--radius-full);
+  /* Radius tokens — ref --scale-radius-* to avoid circular self-ref */
+  --radius-xs:   var(--scale-radius-xs);
+  --radius-sm:   var(--scale-radius-sm);
+  --radius-md:   var(--scale-radius-md);
+  --radius-lg:   var(--scale-radius-lg);
+  --radius-xl:   var(--scale-radius-xl);
+  --radius-2xl:  var(--scale-radius-2xl);
+  --radius-full: var(--scale-radius-full);
   --radius-button: var(--radius-button);
   --radius-card: var(--radius-card);
   --radius-input: var(--radius-input);
 
-  /* Shadow tokens */
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
+  /* Shadow tokens — ref --scale-shadow-* to avoid circular self-ref */
+  --shadow-xs: var(--scale-shadow-xs);
+  --shadow-sm: var(--scale-shadow-sm);
+  --shadow-md: var(--scale-shadow-md);
+  --shadow-lg: var(--scale-shadow-lg);
+  --shadow-xl: var(--scale-shadow-xl);
+
+  /* Motion tokens — ref --scale-* to avoid circular self-ref */
+  --duration-fast: var(--scale-duration-fast);
+  --duration-base: var(--scale-duration-base);
+  --duration-slow: var(--scale-duration-slow);
+  --ease-default: var(--scale-ease-default);
+  --ease-brand-in: var(--scale-ease-in);
+  --ease-brand-out: var(--scale-ease-out);
 
   /* Focus tokens */
   --color-focus-ring: var(--focus-ring-color);
@@ -443,12 +453,13 @@
 
   /* ─── Elevation: Dark Mode ───────────────────────────────────────────────
    * Higher opacity required — black shadows are nearly invisible on dark bg.
+   * Override --scale-shadow-* so @theme aliases pick up dark values.
    * ─────────────────────────────────────────────────────────────────────── */
-  --shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.2);
-  --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.3), 0 1px 2px oklch(0% 0 0 / 0.2);
-  --shadow-md: 0 4px 8px oklch(0% 0 0 / 0.35), 0 2px 4px oklch(0% 0 0 / 0.2);
-  --shadow-lg: 0 10px 20px oklch(0% 0 0 / 0.4), 0 4px 8px oklch(0% 0 0 / 0.25);
-  --shadow-xl: 0 20px 40px oklch(0% 0 0 / 0.5), 0 8px 16px oklch(0% 0 0 / 0.3);
+  --scale-shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.2);
+  --scale-shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.3), 0 1px 2px oklch(0% 0 0 / 0.2);
+  --scale-shadow-md: 0 4px 8px oklch(0% 0 0 / 0.35), 0 2px 4px oklch(0% 0 0 / 0.2);
+  --scale-shadow-lg: 0 10px 20px oklch(0% 0 0 / 0.4), 0 4px 8px oklch(0% 0 0 / 0.25);
+  --scale-shadow-xl: 0 20px 40px oklch(0% 0 0 / 0.5), 0 8px 16px oklch(0% 0 0 / 0.3);
 
   /* ─── Buttons ─── */
   /* Primary: shifted to primary-400 (L 60%) — neutral-950 text gives ~5.15:1 (AA). */
@@ -549,4 +560,25 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.logo {
+  position: relative;
+  display: inline-block;
+  font-size: 2em;
+  font-weight: 800;
+  color: var(--background);
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--color-primary-500), var(--color-primary-500) 50%, var(--foreground) 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 100% 200%;
+  background-position: 0 100%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+}
+
+.logo:hover {
+  background-position: 0 0;
 }
