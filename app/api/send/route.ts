@@ -170,6 +170,7 @@ export async function POST(req: NextRequest) {
       const { error: confirmationError } = await resend.emails.send({
         from: siteInfo.forms.quote.emailFrom,
         to: email,
+        replyTo: siteInfo.forms.quote.emailTo,
         subject: "We received your quote request",
         html: confirmation.html,
         text: confirmation.text,

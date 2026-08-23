@@ -18,7 +18,8 @@ export const EMAIL_BRAND = {
   border: "#DDD9CE",
 } as const;
 
-const FONT_STACK = "'Helvetica Neue', Helvetica, Arial, sans-serif";
+export const EMAIL_FONT_STACK = "'Helvetica Neue', Helvetica, Arial, sans-serif";
+const FONT_STACK = EMAIL_FONT_STACK;
 
 export type FooterInfo = {
   companyName: string;

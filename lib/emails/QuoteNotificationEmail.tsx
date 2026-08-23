@@ -1,5 +1,5 @@
 import { render, Heading, Text } from "@react-email/components";
-import { BrandedEmailLayout, EMAIL_BRAND, type FooterInfo } from "./BrandedEmailLayout";
+import { BrandedEmailLayout, EMAIL_BRAND, EMAIL_FONT_STACK, type FooterInfo } from "./BrandedEmailLayout";
 
 type QuoteNotificationEmailProps = {
   name: string;
@@ -12,7 +12,7 @@ type QuoteNotificationEmailProps = {
   footer: FooterInfo;
 };
 
-const fieldStyle = { fontSize: "14px", color: EMAIL_BRAND.ink, margin: "0 0 4px" };
+const fieldStyle = { fontFamily: EMAIL_FONT_STACK, fontSize: "14px", color: EMAIL_BRAND.ink, margin: "0 0 4px" };
 const labelStyle = { fontWeight: 700 };
 
 export function QuoteNotificationEmail({
@@ -30,7 +30,7 @@ export function QuoteNotificationEmail({
       previewText={`New quote request from ${name}`}
       footer={footer}
     >
-      <Heading as="h1" style={{ fontSize: "16px", fontWeight: 700, color: EMAIL_BRAND.ink, margin: "0 0 16px" }}>
+      <Heading as="h1" style={{ fontFamily: EMAIL_FONT_STACK, fontSize: "16px", fontWeight: 700, color: EMAIL_BRAND.ink, margin: "0 0 16px" }}>
         New Quote Request
       </Heading>
       <Text style={fieldStyle}><span style={labelStyle}>Name:</span> {name}</Text>
@@ -41,7 +41,7 @@ export function QuoteNotificationEmail({
       <Text style={{ ...fieldStyle, margin: "0 0 16px" }}>
         <span style={labelStyle}>Timeline:</span> {timeline ?? "Not specified"}
       </Text>
-      <Text style={{ fontSize: "14px", color: EMAIL_BRAND.ink, whiteSpace: "pre-wrap" }}>
+      <Text style={{ fontFamily: EMAIL_FONT_STACK, fontSize: "14px", color: EMAIL_BRAND.ink, whiteSpace: "pre-wrap" }}>
         {message}
       </Text>
     </BrandedEmailLayout>
@@ -57,4 +57,23 @@ export async function renderQuoteNotificationEmail(
     render(element, { plainText: true }),
   ]);
   return { html, text };
+}
+
+export default function QuoteNotificationEmailPreview() {
+  return (
+    <QuoteNotificationEmail
+      name="Jane Doe"
+      email="jane@example.com"
+      quantity={50}
+      colors={2}
+      garment="T-Shirt"
+      timeline="Standard (7–10 business days)"
+      message="Hi, please quote this job for our upcoming event."
+      footer={{
+        companyName: "Antibroadcasting Screen Printing",
+        phone: "612.836.9488",
+        addressFull: "3715 Oregon Ave S #5, Minneapolis, MN 55426",
+      }}
+    />
+  );
 }

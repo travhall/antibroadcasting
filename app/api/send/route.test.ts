@@ -42,11 +42,15 @@ describe("POST /api/send", () => {
   });
 
   it("sends a branded HTML notification with a plain-text fallback", async () => {
-    sendMock.mockResolvedValueOnce({ data: { id: "abc" }, error: null });
+    sendMock.mockResolvedValue({ data: { id: "abc" }, error: null });
 
     await POST(makeRequest(validPayload, "8.8.8.8"));
 
-    expect(sendMock).toHaveBeenCalledWith(
+    // The first call is always the business notification per the sequential
+    // send design — check it explicitly rather than an un-indexed
+    // toHaveBeenCalledWith, since the confirmation email's HTML also
+    // contains "Test User" (it greets the customer by name).
+    expect(sendMock.mock.calls[0][0]).toEqual(
       expect.objectContaining({
         html: expect.stringContaining("Test User"),
         text: expect.stringContaining("Test User"),
@@ -93,7 +97,7 @@ describe("POST /api/send", () => {
   });
 
   it("forwards a valid attachment to resend.emails.send", async () => {
-    sendMock.mockResolvedValueOnce({ data: { id: "abc" }, error: null });
+    sendMock.mockResolvedValue({ data: { id: "abc" }, error: null });
     const attachments = [
       { filename: "art.png", content: "aGVsbG8=", contentType: "image/png" },
     ];

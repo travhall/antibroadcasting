@@ -56,7 +56,7 @@ export const getSiteInfo = cache(async () => {
     forms: {
       quote: {
         responseTime: raw.business.responseTime ?? "1–2 business days",
-        emailFrom: raw.quoteForm.emailFrom ?? "Quote Request <quotes@antibroadcasting.com>",
+        emailFrom: raw.quoteForm.emailFrom ?? "Antibroadcasting Quotes <quotes@send.antibroadcasting.com>",
         emailTo: raw.quoteForm.emailTo ?? "info@antibroadcasting.com",
         garmentOptions: [...(raw.quoteForm.garmentOptions ?? [])],
         timelineOptions: [...(raw.quoteForm.timelineOptions ?? [])],
