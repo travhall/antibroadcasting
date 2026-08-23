@@ -48,7 +48,7 @@
     ]
   },
   "quoteForm": {
-    "emailFrom": "Quote Request <quotes@antibroadcasting.com>",
+    "emailFrom": "Antibroadcasting Quotes <quotes@send.antibroadcasting.com>",
     "emailTo": "info@antibroadcasting.com",
     "garmentOptions": [
       "T-Shirt",
