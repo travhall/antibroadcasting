@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { z } from "zod";
 import { getSiteInfo } from "@/lib/get-site-info";
 import { quoteFormFieldsSchema } from "@/lib/quote-request-schema";
+import { renderQuoteNotificationEmail } from "@/lib/emails/QuoteNotificationEmail";
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 
@@ -122,6 +123,21 @@ export async function POST(req: NextRequest) {
 
     const siteInfo = await getSiteInfo();
     const resend = new Resend(process.env.RESEND_API_KEY);
+    const footer = {
+      companyName: siteInfo.company.name,
+      phone: siteInfo.contact.phone,
+      addressFull: siteInfo.contact.address.full,
+    };
+    const notification = await renderQuoteNotificationEmail({
+      name,
+      email,
+      quantity,
+      colors,
+      garment,
+      timeline,
+      message,
+      footer,
+    });
     const { data, error } = await resend.emails.send({
       from: siteInfo.forms.quote.emailFrom,
       to: siteInfo.forms.quote.emailTo
@@ -130,17 +146,8 @@ export async function POST(req: NextRequest) {
         .filter(Boolean),
       replyTo: email,
       subject: `New Quote Request from ${name}`,
-      text: `
-Name: ${name}
-Email: ${email}
-Quantity: ${quantity ?? "Not specified"}
-Colors: ${colors ?? "Not specified"}
-Garment: ${garment ?? "Not specified"}
-Timeline: ${timeline ?? "Not specified"}
-
-Message:
-${message}
-      `.trim(),
+      html: notification.html,
+      text: notification.text,
       attachments,
     });
 

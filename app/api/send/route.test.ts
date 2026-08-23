@@ -40,6 +40,19 @@ describe("POST /api/send", () => {
     expect(sendMock).toHaveBeenCalledOnce();
   });
 
+  it("sends a branded HTML notification with a plain-text fallback", async () => {
+    sendMock.mockResolvedValueOnce({ data: { id: "abc" }, error: null });
+
+    await POST(makeRequest(validPayload, "8.8.8.8"));
+
+    expect(sendMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        html: expect.stringContaining("Test User"),
+        text: expect.stringContaining("Test User"),
+      }),
+    );
+  });
+
   it("returns a generic error and does not leak Resend's internal error details when the send fails", async () => {
     sendMock.mockResolvedValueOnce({
       data: null,
