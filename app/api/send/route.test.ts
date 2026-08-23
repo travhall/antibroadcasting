@@ -32,12 +32,13 @@ afterEach(() => {
 
 describe("POST /api/send", () => {
   it("sends the email and returns 200 for a valid payload", async () => {
-    sendMock.mockResolvedValueOnce({ data: { id: "abc" }, error: null });
+    sendMock.mockResolvedValue({ data: { id: "abc" }, error: null });
 
     const res = await POST(makeRequest(validPayload, "1.1.1.1"));
 
     expect(res.status).toBe(200);
-    expect(sendMock).toHaveBeenCalledOnce();
+    // Business notification + customer confirmation.
+    expect(sendMock).toHaveBeenCalledTimes(2);
   });
 
   it("sends a branded HTML notification with a plain-text fallback", async () => {
@@ -108,7 +109,7 @@ describe("POST /api/send", () => {
   });
 
   it("accepts null for unselected optional Select fields (colors/garment/timeline)", async () => {
-    sendMock.mockResolvedValueOnce({ data: { id: "abc" }, error: null });
+    sendMock.mockResolvedValue({ data: { id: "abc" }, error: null });
 
     const res = await POST(
       makeRequest(
@@ -118,7 +119,8 @@ describe("POST /api/send", () => {
     );
 
     expect(res.status).toBe(200);
-    expect(sendMock).toHaveBeenCalledOnce();
+    // Business notification + customer confirmation.
+    expect(sendMock).toHaveBeenCalledTimes(2);
   });
 
   it("returns 400 when attachments exceed the combined size limit", async () => {
@@ -133,5 +135,41 @@ describe("POST /api/send", () => {
 
     expect(res.status).toBe(400);
     expect(sendMock).not.toHaveBeenCalled();
+  });
+
+  it("also sends a confirmation email to the customer", async () => {
+    sendMock.mockResolvedValue({ data: { id: "abc" }, error: null });
+
+    await POST(makeRequest(validPayload, "9.9.9.9"));
+
+    expect(sendMock).toHaveBeenCalledTimes(2);
+    const confirmationCall = sendMock.mock.calls.find(
+      (call) => call[0].to === validPayload.email,
+    );
+    expect(confirmationCall).toBeDefined();
+    expect(confirmationCall![0]).toMatchObject({
+      to: validPayload.email,
+      html: expect.stringContaining("Test User"),
+    });
+  });
+
+  it("still returns 200 to the customer even if the confirmation email fails to send", async () => {
+    sendMock
+      .mockResolvedValueOnce({ data: { id: "abc" }, error: null }) // business notification
+      .mockResolvedValueOnce({ data: null, error: { message: "boom" } }); // confirmation
+
+    const res = await POST(makeRequest(validPayload, "10.10.10.10"));
+
+    expect(res.status).toBe(200);
+    expect(sendMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not attempt the confirmation email if the business notification fails", async () => {
+    sendMock.mockResolvedValueOnce({ data: null, error: { message: "boom" } });
+
+    const res = await POST(makeRequest(validPayload, "11.11.11.11"));
+
+    expect(res.status).toBe(500);
+    expect(sendMock).toHaveBeenCalledTimes(1);
   });
 });

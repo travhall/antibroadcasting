@@ -4,6 +4,7 @@ import { z } from "zod";
 import { getSiteInfo } from "@/lib/get-site-info";
 import { quoteFormFieldsSchema } from "@/lib/quote-request-schema";
 import { renderQuoteNotificationEmail } from "@/lib/emails/QuoteNotificationEmail";
+import { renderQuoteConfirmationEmail } from "@/lib/emails/QuoteConfirmationEmail";
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 
@@ -157,6 +158,27 @@ export async function POST(req: NextRequest) {
         { error: "Failed to send email" },
         { status: 500 },
       );
+    }
+
+    // Best-effort customer confirmation — never fails the customer's submission.
+    try {
+      const confirmation = await renderQuoteConfirmationEmail({
+        name,
+        responseTime: siteInfo.forms.quote.responseTime,
+        footer,
+      });
+      const { error: confirmationError } = await resend.emails.send({
+        from: siteInfo.forms.quote.emailFrom,
+        to: email,
+        subject: "We received your quote request",
+        html: confirmation.html,
+        text: confirmation.text,
+      });
+      if (confirmationError) {
+        console.error("Quote confirmation send failed:", confirmationError);
+      }
+    } catch (confirmationSendError) {
+      console.error("Quote confirmation send threw:", confirmationSendError);
     }
 
     return NextResponse.json({ data });
