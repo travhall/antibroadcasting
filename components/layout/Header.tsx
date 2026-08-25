@@ -367,7 +367,7 @@ export function Header({
                   href={item.href}
                   onClick={() => setOpen(false)}
                   aria-current={isActive ? "page" : undefined}
-                  className="group flex items-center gap-4 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bg-menu"
+                  className="group flex items-center gap-4 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg-menu"
                 >
                   <span className="font-mono text-3xs uppercase tracking-widest text-text-menu-accent shrink-0 w-5">
                     {String(i + 1).padStart(2, "0")}
@@ -411,7 +411,7 @@ export function Header({
           <div className="flex flex-wrap items-center justify-between gap-x-8 px-4 gap-y-1.5">
             <a
               href={siteInfo.contact.phoneHref}
-              className="font-mono text-xs uppercase tracking-widest text-text-menu-dim hover:text-text-menu transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold"
+              className="font-mono text-xs uppercase tracking-widest text-text-menu-dim hover:text-text-menu transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
               aria-label={`Call ${siteInfo.contact.phone}`}
             >
               {siteInfo.contact.phone}

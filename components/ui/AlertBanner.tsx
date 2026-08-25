@@ -83,7 +83,7 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
       {alert.ctaLabel && alert.ctaHref && (
         <TransitionLink
           href={alert.ctaHref}
-          className="font-mono text-xs uppercase tracking-widest underline hover:no-underline text-text-warning shrink-0"
+          className="font-mono text-xs uppercase tracking-widest underline hover:no-underline text-text-warning shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg-warning"
         >
           {alert.ctaLabel}
         </TransitionLink>
@@ -93,7 +93,7 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
           type="button"
           onClick={handleDismiss}
           aria-label="Dismiss"
-          className="shrink-0 text-text-warning/70 hover:text-text-warning"
+          className="shrink-0 text-text-warning/70 hover:text-text-warning focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg-warning"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.5" />
