@@ -19,7 +19,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
     <html lang="en">
       <body className="min-h-screen bg-bg-base flex items-center justify-center px-6">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-text-default mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
             Application Error
           </h1>
           <p className="text-lg text-text-muted mb-2 max-w-md mx-auto">

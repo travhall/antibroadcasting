@@ -3,22 +3,32 @@ import { PageBreadcrumb } from "@/components/ui/PageBreadcrumb";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Learn how Antibroadcasting collects, uses, and protects your personal information.",
+  description:
+    "Learn how Antibroadcasting collects, uses, and protects your personal information.",
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-3xl mx-auto pt-10">
+    <div className="max-w-3xl mx-auto py-10">
       <PageBreadcrumb page="Privacy Policy" />
-      <h1 className="text-4xl font-bold text-text-default mb-8">Privacy Policy</h1>
+      <h1 className="text-4xl font-bold text-text-primary mb-8">
+        Privacy Policy
+      </h1>
 
       <div className="prose prose-lg max-w-none text-text-secondary">
         <p className="text-text-muted mb-6">
-          Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+          Last updated:{" "}
+          {new Date().toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
         </p>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-text-default mb-4">Information We Collect</h2>
+          <h2 className="text-2xl font-semibold text-text-primary mb-4">
+            Information We Collect
+          </h2>
           <p className="mb-4">
             We collect information you provide directly to us when you:
           </p>
@@ -31,10 +41,10 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-text-default mb-4">How We Use Your Information</h2>
-          <p className="mb-4">
-            We use the information we collect to:
-          </p>
+          <h2 className="text-2xl font-semibold text-text-primary mb-4">
+            How We Use Your Information
+          </h2>
+          <p className="mb-4">We use the information we collect to:</p>
           <ul className="list-disc pl-6 mb-4 space-y-2">
             <li>Respond to your inquiries and provide quotes</li>
             <li>Process and fulfill your screen printing orders</li>
@@ -44,10 +54,12 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-text-default mb-4">Information Sharing</h2>
+          <h2 className="text-2xl font-semibold text-text-primary mb-4">
+            Information Sharing
+          </h2>
           <p className="mb-4">
-            We do not sell, trade, or rent your personal information to third parties.
-            We may share your information with:
+            We do not sell, trade, or rent your personal information to third
+            parties. We may share your information with:
           </p>
           <ul className="list-disc pl-6 mb-4 space-y-2">
             <li>Service providers who assist in operating our business</li>
@@ -56,18 +68,21 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-text-default mb-4">Data Security</h2>
+          <h2 className="text-2xl font-semibold text-text-primary mb-4">
+            Data Security
+          </h2>
           <p className="mb-4">
-            We implement appropriate technical and organizational measures to protect
-            your personal information against unauthorized access, alteration, or destruction.
+            We implement appropriate technical and organizational measures to
+            protect your personal information against unauthorized access,
+            alteration, or destruction.
           </p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-text-default mb-4">Your Rights</h2>
-          <p className="mb-4">
-            You have the right to:
-          </p>
+          <h2 className="text-2xl font-semibold text-text-primary mb-4">
+            Your Rights
+          </h2>
+          <p className="mb-4">You have the right to:</p>
           <ul className="list-disc pl-6 mb-4 space-y-2">
             <li>Access your personal information</li>
             <li>Request correction of inaccurate information</li>
@@ -77,10 +92,16 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-text-default mb-4">Contact Us</h2>
+          <h2 className="text-2xl font-semibold text-text-primary mb-4">
+            Contact Us
+          </h2>
           <p>
-            If you have questions about this Privacy Policy, please contact us at{" "}
-            <a href="mailto:info@antibroadcasting.com" className="font-medium text-text-primary hover:underline">
+            If you have questions about this Privacy Policy, please contact us
+            at{" "}
+            <a
+              href="mailto:info@antibroadcasting.com"
+              className="font-medium text-text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
               info@antibroadcasting.com
             </a>
             .

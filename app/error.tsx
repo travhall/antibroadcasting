@@ -18,7 +18,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-6">
-      <h1 className="text-4xl md:text-5xl font-bold text-text-default mb-4">
+      <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
         Something went wrong
       </h1>
       <p className="text-lg text-text-muted mb-2 max-w-md">
