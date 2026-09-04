@@ -335,7 +335,7 @@ code cleanliness).
 |------|-------|----------|--------|------|------------|--------|
 | 030  | [Stop gitignoring plans/ and commit its existing history](030-track-plans-directory-in-git.md) | P1 | S | LOW | — | DONE — 2026-09-04, commit `5583e17` on `main` |
 | 031  | [Fix "Last updated" showing today's date on Privacy/Terms pages](031-fix-privacy-terms-last-updated-date.md) | P1 | S | LOW | — | DONE |
-| 032  | [Remove stale git worktree and scope vitest away from it](032-remove-stale-worktree-and-scope-vitest.md) | P2 | S | LOW | — | TODO |
+| 032  | [Remove stale git worktree and scope vitest away from it](032-remove-stale-worktree-and-scope-vitest.md) | P2 | S | LOW | — | DONE — 2026-09-04, commit `cc81cc8` on `claude/cool-golick-975853` (not yet merged to `main`) |
 | 033  | [Override transitive fast-uri to patch 4 high-severity CVEs](033-override-fast-uri-cves.md) | P3 | S | LOW | — | DONE — 2026-09-04, commit `7476a3c` on `claude/friendly-fermi-7902ec` (not yet merged to `main`) |
 
 Note: plan 032 also explains a loose end in this file's own history — the
