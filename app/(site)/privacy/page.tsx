@@ -7,6 +7,9 @@ export const metadata: Metadata = {
     "Learn how Antibroadcasting collects, uses, and protects your personal information.",
 };
 
+// Bump this manually whenever the policy text below actually changes.
+const LAST_UPDATED = "April 27, 2026";
+
 export default function PrivacyPage() {
   return (
     <div className="max-w-3xl mx-auto py-10">
@@ -16,14 +19,7 @@ export default function PrivacyPage() {
       </h1>
 
       <div className="prose prose-lg max-w-none text-text-secondary">
-        <p className="text-text-muted mb-6">
-          Last updated:{" "}
-          {new Date().toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </p>
+        <p className="text-text-muted mb-6">Last updated: {LAST_UPDATED}</p>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-text-primary mb-4">
