@@ -53,7 +53,7 @@ export function Footer({ siteInfo }: { siteInfo: SiteInfo }) {
             <div className="mt-5 pt-5 border-t border-foreground/10">
               <TransitionLink
                 href="/contact"
-                className={buttonVariants({ variant: "neutral", size: "sm" })}
+                className={buttonVariants({ variant: "neutral", size: "lg" })}
               >
                 Request a Quote →
               </TransitionLink>

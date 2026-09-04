@@ -283,7 +283,7 @@ export function Header({
                   {siteInfo.contact.email}
                 </span>
               </a> */}
-              <Button asChild variant="outline" size="sm">
+              <Button asChild variant="outline">
                 <TransitionLink href="/contact">Get a Quote</TransitionLink>
               </Button>
             </div>
