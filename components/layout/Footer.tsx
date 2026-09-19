@@ -113,7 +113,7 @@ export function Footer({ siteInfo }: { siteInfo: SiteInfo }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram (opens in new tab)"
-                className={`flex items-center gap-2.5 ${COL_LINK}`}
+                className={`tap-target flex items-center gap-2.5 ${COL_LINK}`}
               >
                 <InstagramIcon className="w-4 h-4 shrink-0" />
                 <span className="hidden lg:inline-flex">Instagram</span>
@@ -123,7 +123,7 @@ export function Footer({ siteInfo }: { siteInfo: SiteInfo }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook (opens in new tab)"
-                className={`flex items-center gap-2.5 ${COL_LINK}`}
+                className={`tap-target flex items-center gap-2.5 ${COL_LINK}`}
               >
                 <FacebookIcon className="w-4 h-4 shrink-0" />
                 <span className="hidden lg:inline-flex">Facebook</span>
@@ -133,7 +133,7 @@ export function Footer({ siteInfo }: { siteInfo: SiteInfo }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X / Twitter (opens in new tab)"
-                className={`flex items-center gap-2.5 ${COL_LINK}`}
+                className={`tap-target flex items-center gap-2.5 ${COL_LINK}`}
               >
                 <XIcon className="w-4 h-4 shrink-0" />
                 <span className="hidden lg:inline-flex">X / Twitter</span>
@@ -159,13 +159,13 @@ export function Footer({ siteInfo }: { siteInfo: SiteInfo }) {
           <div className="flex items-center gap-4">
             <TransitionLink
               href="/privacy"
-              className={`font-mono text-3xs uppercase tracking-widest text-text-tertiary hover:text-text-secondary transition-colors ${FOCUS_RING}`}
+              className={`tap-target font-mono text-3xs uppercase tracking-widest text-text-tertiary hover:text-text-secondary transition-colors ${FOCUS_RING}`}
             >
               Privacy
             </TransitionLink>
             <TransitionLink
               href="/terms"
-              className={`font-mono text-3xs uppercase tracking-widest text-text-tertiary hover:text-text-secondary transition-colors ${FOCUS_RING}`}
+              className={`tap-target font-mono text-3xs uppercase tracking-widest text-text-tertiary hover:text-text-secondary transition-colors ${FOCUS_RING}`}
             >
               Terms
             </TransitionLink>

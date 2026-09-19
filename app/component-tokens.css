@@ -87,7 +87,7 @@
   --input-border-hover: var(--color-neutral-300);
   --input-border-focus: var(--color-primary-400);
   --input-text: var(--color-neutral-100);
-  --input-text-placeholder: var(--color-neutral-400);
+  --input-text-placeholder: var(--text-tertiary); /* 62% — 5.33:1 on neutral-800 (neutral-400 was 3.83:1) */
   --input-ring-focus: var(--focus-ring-color);
   --input-ring-error: var(--focus-ring-color-error);
   --label-text: var(--color-neutral-300);

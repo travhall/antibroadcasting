@@ -55,7 +55,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
               setOpen(null);
             }}
             aria-pressed={activeCategory === cat}
-            className={`px-4 py-1.5 font-mono text-xs uppercase tracking-widest border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${activeCategory === cat
+            className={`min-h-11 px-4 py-1.5 font-mono text-xs uppercase tracking-widest border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${activeCategory === cat
               ? "bg-gold text-ink border-gold"
               : "bg-transparent text-text-secondary border-foreground/20 hover:border-gold hover:text-text-accent"
               }`}
@@ -78,7 +78,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                 aria-expanded={isOpen}
                 aria-controls={`faq-answer-${item.slug}`}
               >
-                <span className="font-mono text-xs uppercase tracking-widest text-text-tertiary">
+                <span className="text-base font-medium text-text-primary">
                   {item.question}
                 </span>
                 {/* + / − indicator — aria-hidden, state conveyed by aria-expanded */}

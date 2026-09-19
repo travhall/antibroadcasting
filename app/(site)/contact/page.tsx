@@ -92,7 +92,7 @@ export default async function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Open ${contact.address.full} in Google Maps (opens in new tab)`}
-              className="flex flex-col gap-1 mb-6 self-start font-mono text-xs uppercase tracking-widest text-text-tertiary hover:text-text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="tap-target flex flex-col gap-1 mb-6 self-start font-mono text-xs uppercase tracking-widest text-text-tertiary hover:text-text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <span>{contact.address.street}</span>
               <span>
@@ -105,13 +105,13 @@ export default async function ContactPage() {
             <div className="flex flex-col gap-2 mb-6">
               <a
                 href={contact.phoneHref}
-                className="font-mono text-xs uppercase tracking-widest text-text-accent hover:text-text-primary transition-colors self-start"
+                className="tap-target font-mono text-xs uppercase tracking-widest text-text-accent hover:text-text-primary transition-colors self-start"
               >
                 {contact.phone}
               </a>
               <a
                 href={`mailto:${contact.email}`}
-                className="font-mono text-xs uppercase tracking-widest text-text-accent hover:text-text-primary transition-colors self-start"
+                className="tap-target font-mono text-xs uppercase tracking-widest text-text-accent hover:text-text-primary transition-colors self-start"
               >
                 {contact.email}
               </a>

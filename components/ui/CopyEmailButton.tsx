@@ -29,7 +29,7 @@ export function CopyEmailButton({ email }: { email: string }) {
       <button
         onClick={handleCopy}
         aria-label={`Copy email address: ${email}`}
-        className={`group flex items-center gap-2 text-sm text-text-secondary hover:text-text-accent transition-colors py-0.5 self-start rounded ${FOCUS_RING}`}
+        className={`tap-target group flex items-center gap-2 text-sm text-text-secondary hover:text-text-accent transition-colors py-0.5 self-start rounded ${FOCUS_RING}`}
       >
         <span>{email}</span>
 

@@ -82,8 +82,8 @@
 
   /* Muted */
   --color-muted-text: oklch(
-    58% 0.02 75
-  ); /* corrected from neutral-400 (54%, 4.00:1) — verified 4.73:1 AA via real sRGB-luminance contrast math, not the L%-as-luminance shortcut used elsewhere in this file */
+    62% 0.02 75
+  ); /* real sRGB-luminance contrast: 5.57:1 on ink, 5.33:1 on neutral-800, 4.76:1 on neutral-700 (AA on every dark surface). Was 58% — 4.04:1 on neutral-700. */
   --color-muted-surface: var(--color-neutral-800);
   --color-muted-border: var(--color-neutral-600);
 
@@ -130,8 +130,8 @@
      58%-lightness value (≈4.73:1), not neutral-400 directly — see below. */
   --text-secondary: var(--color-neutral-300);
   --text-tertiary: oklch(
-    58% 0.02 75
-  ); /* corrected from neutral-400 (54%, 4.00:1, failed AA) — verified 4.73:1 via real sRGB-luminance math */
+    62% 0.02 75
+  ); /* 5.57:1 on ink, 5.33:1 on neutral-800, 4.76:1 on neutral-700 — AA on every dark surface (was 58%, 4.04:1 on neutral-700) */
   --text-inverse: var(--color-neutral-950);
   --text-on-inverse-muted: var(
     --color-neutral-600
@@ -197,11 +197,11 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-dominique);
 
-  /* ── Micro type scale — below Tailwind's default text-xs (12px), for the
+  /* ── Micro type scale — 12px floor, one step around Tailwind's text-xs (12px), for the
      recurring "eyebrow/label" idiom (small all-caps mono labels). ── */
-  --text-3xs: 0.625rem; /* 10px */
+  --text-3xs: 0.75rem; /* 12px — content floor; never smaller */
   --text-3xs--line-height: 1.4;
-  --text-2xs: 0.6875rem; /* 11px */
+  --text-2xs: 0.8125rem; /* 13px */
   --text-2xs--line-height: 1.4;
 
   /* ── Tracking — wider step for the micro type scale above. Default
@@ -452,8 +452,8 @@
 
   --text-secondary: var(--color-neutral-300);
   --text-tertiary: oklch(
-    58% 0.02 75
-  ); /* corrected from neutral-400 (54%, 4.00:1, failed AA) — verified 4.73:1 via real sRGB-luminance math */
+    62% 0.02 75
+  ); /* 5.57:1 on ink, 5.33:1 on neutral-800, 4.76:1 on neutral-700 — AA on every dark surface (was 58%, 4.04:1 on neutral-700) */
 
   --focus-ring-color: var(--color-primary-400);
   --focus-ring-offset-color: var(--color-neutral-950);
@@ -539,6 +539,18 @@ dialog.lightbox::backdrop {
   /* neutral-950 at 92% opacity — CSS var() refs can't take /alpha modifiers */
   background: oklch(12% 0.008 40 / 0.96);
   backdrop-filter: blur(8px);
+}
+
+/* Extends the hit area to 44×44 without changing layout. Only grows small
+   * targets: min() keeps the inset at 0 once the element is already 44px. */
+@utility tap-target {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset-block: min(0px, calc((100% - 44px) / 2));
+    inset-inline: min(0px, calc((100% - 44px) / 2));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

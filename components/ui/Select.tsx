@@ -33,7 +33,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           aria-describedby={error ? `${selectId}-error` : undefined}
           aria-required={required}
           aria-invalid={error ? true : undefined}
-          className={`w-full rounded-input bg-input-surface border px-3.5 py-2.5 text-sm text-input-text outline-none transition focus:ring-2 focus:ring-input-ring-focus focus:border-transparent ${
+          className={`w-full rounded-input bg-input-surface border min-h-11 px-3.5 py-2.5 text-base sm:text-sm text-input-text outline-none transition focus:ring-2 focus:ring-input-ring-focus focus:border-transparent ${
             error ? "border-text-error" : "border-input-border"
           } ${className || ""}`}
           ref={ref}

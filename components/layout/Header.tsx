@@ -265,7 +265,7 @@ export function Header({
             <div className="flex items-center gap-6 text-xs">
               <a
                 href={siteInfo.contact.phoneHref}
-                className="flex items-center gap-1 font-medium text-text-primary hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="tap-target flex items-center gap-1 font-medium text-text-primary hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label={`Call ${siteInfo.contact.phone}`}
               >
                 <PhoneIcon className="w-4 h-4 shrink-0" />
@@ -293,7 +293,7 @@ export function Header({
         {/* Mobile hamburger */}
         <button
           ref={hamburgerRef}
-          className="lg:hidden flex flex-col justify-center gap-1.5 w-8 h-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="lg:hidden flex flex-col justify-center gap-1.5 w-11 h-11 px-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -411,7 +411,7 @@ export function Header({
           <div className="flex flex-wrap items-center justify-between gap-x-8 px-4 gap-y-1.5">
             <a
               href={siteInfo.contact.phoneHref}
-              className="font-mono text-xs uppercase tracking-widest text-text-menu-dim hover:text-text-menu transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
+              className="tap-target font-mono text-xs uppercase tracking-widest text-text-menu-dim hover:text-text-menu transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-focus-ring"
               aria-label={`Call ${siteInfo.contact.phone}`}
             >
               {siteInfo.contact.phone}

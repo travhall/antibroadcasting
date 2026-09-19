@@ -30,7 +30,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             onClick={() => setTheme(value)}
             aria-pressed={isActive}
             className={[
-              "font-mono text-3xs uppercase tracking-widest transition-colors whitespace-nowrap",
+              "tap-target font-mono text-3xs uppercase tracking-widest transition-colors whitespace-nowrap",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background rounded-none",
               isActive
                 ? "text-text-accent"

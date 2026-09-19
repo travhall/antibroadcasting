@@ -22,10 +22,10 @@ const buttonVariants = cva(
           "relative z-0 overflow-hidden border-2 border-button-destructive-border bg-button-destructive-surface text-button-destructive-text hover:text-button-destructive-text-hover focus-visible:ring-focus-ring-error before:absolute before:inset-0 before:-z-10 before:bg-button-destructive-surface-hover before:scale-y-0 before:origin-bottom before:transition-transform before:duration-300 before:ease-in-out hover:before:scale-y-100 hover:before:origin-top active:before:bg-button-destructive-surface-active",
       },
       size: {
-        sm: "px-4 py-2 text-sm",
+        sm: "min-h-11 px-4 py-2 text-sm",
         md: "px-6 py-3 text-base",
         lg: "px-8 py-4 text-lg",
-        icon: "px-3 py-2",
+        icon: "min-h-11 min-w-11 px-3 py-2",
       },
     },
     defaultVariants: {

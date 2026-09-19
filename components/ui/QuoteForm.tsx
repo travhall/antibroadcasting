@@ -51,22 +51,33 @@ export function QuoteForm({
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const statusRef = useRef<HTMLSpanElement>(null);
   const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
+  const [verifyMessage, setVerifyMessage] = useState<string | null>(null);
 
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const renderTurnstile = useCallback(() => {
     const w = window as typeof window & {
-      turnstile?: { render: (el: HTMLElement, opts: object) => void };
+      turnstile?: { render: (el: HTMLElement, opts: object) => string };
     };
     if (!siteKey || !w.turnstile || !turnstileRef.current) return;
-    w.turnstile.render(turnstileRef.current, {
+    if (turnstileWidgetId.current) return; // already rendered
+    turnstileWidgetId.current = w.turnstile.render(turnstileRef.current, {
       sitekey: siteKey,
-      callback: (token: string) => setTurnstileToken(token),
+      callback: (token: string) => {
+        setTurnstileToken(token);
+        setVerifyMessage(null);
+      },
       "expired-callback": () => setTurnstileToken(null),
-      "error-callback": () => setTurnstileToken(null),
+      "error-callback": () => {
+        setTurnstileToken(null);
+        setVerifyMessage(
+          `The spam check couldn't load. Refresh the page, or email us at ${email}.`,
+        );
+      },
       theme: "auto",
     });
-  }, [siteKey]);
+  }, [siteKey, email]);
 
   function validate(data: FormData) {
     const result = quoteFormFieldsSchema.safeParse({
@@ -113,7 +124,16 @@ export function QuoteForm({
       return;
     }
 
+    if (siteKey && !turnstileToken) {
+      setVerifyMessage(
+        "Finish the quick spam check above the button, then send again. Your details are saved.",
+      );
+      turnstileRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
+
     setErrors({});
+    setVerifyMessage(null);
     setState("loading");
 
     try {
@@ -141,6 +161,12 @@ export function QuoteForm({
       setArtworkKey((k) => k + 1);
     } catch {
       setState("error");
+      // Turnstile tokens are single-use — a retry needs a fresh one.
+      const w = window as typeof window & {
+        turnstile?: { reset: (id?: string) => void };
+      };
+      if (turnstileWidgetId.current) w.turnstile?.reset(turnstileWidgetId.current);
+      setTurnstileToken(null);
     }
   }
 
@@ -285,6 +311,18 @@ export function QuoteForm({
         </p>
       </div>
 
+      {/* Turnstile — sits above the submit so it is seen and solved first */}
+      {siteKey && (
+        <div>
+          <div ref={turnstileRef} />
+          {verifyMessage && (
+            <p role="alert" className="mt-2 text-sm text-text-error">
+              {verifyMessage}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Submit */}
       <div>
         <Button
@@ -318,7 +356,8 @@ export function QuoteForm({
             Something Went Wrong
           </p>
           <p className="text-sm text-text-secondary leading-relaxed">
-            Try emailing us directly at{" "}
+            Your details are still in the form, so you can send it again. Or
+            email us directly at{" "}
             <a
               href={emailHref}
               className="text-text-accent hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -329,11 +368,6 @@ export function QuoteForm({
           </p>
         </div>
       )}
-
-        {/* Turnstile widget mount point */}
-        {siteKey && (
-          <div ref={turnstileRef} className="mt-2" />
-        )}
       </form>
     </>
   );

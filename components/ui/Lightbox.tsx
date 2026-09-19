@@ -241,7 +241,7 @@ export function Lightbox({
           }}
           disabled={!hasPrev}
           aria-label="Previous image"
-          className="flex items-center justify-center w-10 h-10 text-paper hover:text-gold transition-colors disabled:opacity-25 disabled:pointer-events-none"
+          className="flex items-center justify-center w-11 h-11 text-paper hover:text-gold transition-colors disabled:opacity-25 disabled:pointer-events-none"
         >
           <svg
             className="w-4 h-4"
@@ -272,7 +272,7 @@ export function Lightbox({
           }}
           disabled={!hasNext}
           aria-label="Next image"
-          className="flex items-center justify-center w-10 h-10 text-paper hover:text-gold transition-colors disabled:opacity-25 disabled:pointer-events-none"
+          className="flex items-center justify-center w-11 h-11 text-paper hover:text-gold transition-colors disabled:opacity-25 disabled:pointer-events-none"
         >
           <svg
             className="w-4 h-4"

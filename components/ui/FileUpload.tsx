@@ -34,17 +34,23 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
     const [files, setFiles] = useState<File[]>([]);
     const [dragActive, setDragActive] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+    const [skippedNote, setSkippedNote] = useState<string | null>(null);
     const generatedId = React.useId();
     const inputId = id || `file-upload-${generatedId}`;
 
     const handleFiles = (newFiles: FileList | null) => {
       if (!newFiles) return;
 
-      const validFiles = Array.from(newFiles).filter((file) => {
+      const incoming = Array.from(newFiles);
+      const wrongType: string[] = [];
+      const tooBig: string[] = [];
+      const validFiles = incoming.filter((file) => {
         if (accept && !file.type.match(accept.replace("*", ".*"))) {
+          wrongType.push(file.name);
           return false;
         }
         if (file.size > maxSize) {
+          tooBig.push(file.name);
           return false;
         }
         return true;
@@ -53,6 +59,19 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
       const updatedFiles = multiple
         ? [...files, ...validFiles].slice(0, maxFiles)
         : validFiles.slice(0, 1);
+
+      // Never drop a file silently — say which were skipped and why.
+      const overLimit = files.length + validFiles.length - updatedFiles.length;
+      const notes: string[] = [];
+      if (wrongType.length)
+        notes.push(`Skipped ${wrongType.join(", ")}: not an accepted file type.`);
+      if (tooBig.length)
+        notes.push(
+          `Skipped ${tooBig.join(", ")}: over the ${(maxSize / 1024 / 1024).toFixed(0)}MB limit.`,
+        );
+      if (overLimit > 0 && multiple)
+        notes.push(`Only the first ${maxFiles} files were kept.`);
+      setSkippedNote(notes.length ? notes.join(" ") : null);
       setFiles(updatedFiles);
       onChange?.(updatedFiles);
     };
@@ -151,13 +170,19 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
                   type="button"
                   onClick={() => removeFile(index)}
                   aria-label={`Remove ${file.name}`}
-                  className="text-text-muted hover:text-text-primary ml-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
+                  className="tap-target text-text-muted hover:text-text-primary ml-2 px-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
                 >
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
             ))}
           </div>
+        )}
+
+        {skippedNote && (
+          <p role="status" className="text-xs text-text-error">
+            {skippedNote}
+          </p>
         )}
 
         {error && (

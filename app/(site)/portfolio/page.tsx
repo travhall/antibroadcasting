@@ -85,7 +85,7 @@ export default async function PortfolioPage({
                       : `?category=${cat.value}`
                   }
                   aria-current={isActive ? "true" : undefined}
-                  className={`inline-flex items-center gap-2 px-4 py-1.5 font-mono text-xs uppercase tracking-widest border transition-colors ${
+                  className={`inline-flex items-center gap-2 min-h-11 px-4 py-1.5 font-mono text-xs uppercase tracking-widest border transition-colors ${
                     isActive
                       ? "bg-gold text-ink border-gold"
                       : "bg-transparent text-text-secondary border-foreground/20 hover:border-gold hover:text-text-accent"
