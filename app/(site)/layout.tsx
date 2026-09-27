@@ -28,8 +28,10 @@ export default async function SiteLayout({
       />
       {activeAlert && <AlertBanner alert={activeAlert} />}
       <Header siteInfo={siteInfo} activeAlert={activeAlert} />
-      <MainChrome activeAlert={activeAlert}>{children}</MainChrome>
-      <Footer siteInfo={siteInfo} />
+      <div className="flex flex-col min-h-screen">
+        <MainChrome activeAlert={activeAlert}>{children}</MainChrome>
+        <Footer siteInfo={siteInfo} />
+      </div>
     </PageTransitionProvider>
   );
 }

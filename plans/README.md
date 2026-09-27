@@ -343,6 +343,28 @@ Note: plan 032 also explains a loose end in this file's own history — the
 above was inflated by the same stale-worktree double-counting bug plan 032
 fixes. The real count at that time was roughly half those numbers.
 
+## Sticky-footer gap fix (2026-09-27)
+
+Generated from an external site audit finding a 700-800px dead gap between
+content and footer on short pages (Contact, Privacy, Terms).
+
+| Plan | Title | Priority | Effort | Risk | Depends on | Status |
+|------|-------|----------|--------|------|------------|--------|
+| 034  | [Fix orphaned gap between content and footer on short pages](034-fix-sticky-footer-gap-on-short-pages.md) | P1 | M | LOW | — | DONE — 2026-09-27, not yet committed |
+
+Executed exactly as scoped (3 files: `app/(site)/layout.tsx`,
+`components/layout/MainChrome.tsx`, `components/layout/Footer.tsx`) — wrapped
+`<MainChrome>`+`<Footer>` in a shared `flex flex-col min-h-screen` container,
+switched `<main>` from its own `min-h-screen` to `flex-1`, and removed
+`lg:sticky lg:bottom-0` from the footer. Full verification: `pnpm exec tsc
+--noEmit` ✓, `pnpm lint` ✓ (0 errors, pre-existing unrelated `MailIcon`
+warning only), `pnpm test` ✓ (21 passed), `pnpm build` ✓. Manually confirmed
+in-browser at 1440×900: `/contact`, `/privacy`, `/terms` all render with a
+computed 0px gap between `<main>` and `<footer>` (previously ~700-800px); `/`
+and `/portfolio` (long-content regression check) unaffected; mobile width
+(390px) unchanged as expected. Not committed — waiting on the user's
+go-ahead per this repo's own git-safety convention.
+
 ### Findings considered and rejected
 
 - `script-src 'self' 'unsafe-inline' ...` always allowing `'unsafe-inline'`
