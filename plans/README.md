@@ -337,7 +337,6 @@ code cleanliness).
 | 031  | [Fix "Last updated" showing today's date on Privacy/Terms pages](031-fix-privacy-terms-last-updated-date.md) | P1 | S | LOW | — | DONE |
 | 032  | [Remove stale git worktree and scope vitest away from it](032-remove-stale-worktree-and-scope-vitest.md) | P2 | S | LOW | — | DONE — 2026-09-04, commit `cc81cc8` on `claude/cool-golick-975853` (not yet merged to `main`) |
 | 033  | [Override transitive fast-uri to patch 4 high-severity CVEs](033-override-fast-uri-cves.md) | P3 | S | LOW | — | DONE — 2026-09-04, commit `7476a3c` on `claude/friendly-fermi-7902ec` (not yet merged to `main`) |
-| 037  | [Pre-launch production Lighthouse pass + manual screen-reader check](037-prelaunch-lighthouse-and-screenreader-pass.md) | P2 | S | LOW | none | DONE — 2026-09-27, report at [docs/prelaunch-audit-2026-09-27.md](../docs/prelaunch-audit-2026-09-27.md); screen-reader pass could not be completed (no VoiceOver/NVDA interpretation available in this execution environment — reported per STOP condition), 8 findings recorded, 7 follow-up plans recommended |
 
 Note: plan 032 also explains a loose end in this file's own history — the
 "88/88 passed, 17 files" figure recorded in the 2026-08-24 status update
@@ -362,15 +361,11 @@ Contact/Privacy/Terms layout it measures.
 | 034  | [Fix orphaned gap between content and footer on short pages](034-fix-sticky-footer-gap-on-short-pages.md) | P1 | M | LOW | — | DONE — merged to `main` 2026-09-27 (`claude/reverent-ishizaka-8e1702`). `pnpm exec tsc --noEmit` ✓, `pnpm lint` ✓ (0 errors, pre-existing unrelated `MailIcon` warning only), `pnpm test` ✓ (21 passed), `pnpm build` ✓. Manually confirmed at 1440×900: `/contact`, `/privacy`, `/terms` render with a computed 0px gap between `<main>` and `<footer>` (previously ~700-800px); `/` and `/portfolio` unaffected; mobile (390px) unchanged. |
 | 035  | [Auto-collapse the sitewide alert banner after the first scroll](035-alert-banner-scroll-collapse.md) | P2 | S | LOW | — | DONE — merged to `main` 2026-09-27 (`claude/nifty-swanson-6aca77`). `pnpm exec tsc --noEmit` ✓, `pnpm lint` ✓ (0 errors, pre-existing unrelated `MailIcon` warning only), `pnpm test` ✓ (21 passed), `pnpm build` ✓. Manually verified: banner collapses after ~24px scroll, doesn't reappear on scroll-back-to-top **or on client-side navigation to another route** (module-singleton state persists across SPA route changes, same as the existing `dismissedThisLoad` behavior — only a hard reload/new tab resets it), reappears correctly after a hard reload, and the explicit dismiss button still works and persists independently via `localStorage`. |
 | 036  | [Fix mismatched description on gallery item three](036-fix-gallery-item-three-description-typo.md) | P3 | S | LOW | — | DONE — merged to `main` 2026-09-27 (`claude/trusting-bardeen-9fbc5e`). `tsc` ✓, `pnpm test` 21/21 ✓, `pnpm build` ✓, only `content/gallery/gallery-item-number-three.json` modified. |
-| 037  | [Pre-launch production Lighthouse pass + manual screen-reader check](037-prelaunch-lighthouse-and-screenreader-pass.md) | P2 | S | LOW | — | PARTIAL — executed 2026-09-27 in worktree `claude/competent-einstein-d0ec1f`, not yet merged. Automated Lighthouse + keyboard/DOM proxy checks done; report at `docs/prelaunch-audit-2026-09-27.md` (that worktree only) with 8 findings, feeding plans 038–042 below. **The actual manual screen-reader pass (VoiceOver/NVDA) — this plan's core ask — was correctly reported as un-runnable by an AI agent (its own STOP condition) and is still outstanding.** A human still needs to walk through Steps 4–5 of this plan with a real screen reader; also unresolved: Finding 8 (whether the lightbox's native `<dialog>` role is actually announced as "dialog"). |
+| 037  | [Pre-launch production Lighthouse pass + manual screen-reader check](037-prelaunch-lighthouse-and-screenreader-pass.md) | P2 | S | LOW | — | PARTIAL — merged to `main` 2026-09-27 (`claude/competent-einstein-d0ec1f`). Automated Lighthouse + keyboard/DOM proxy checks done; report at [docs/prelaunch-audit-2026-09-27.md](../docs/prelaunch-audit-2026-09-27.md) with 8 findings, feeding plans 038–042 below. **The actual manual screen-reader pass (VoiceOver/NVDA) — this plan's core ask — was correctly reported as un-runnable by an AI agent (its own STOP condition) and is still outstanding.** A human still needs to walk through Steps 4–5 of this plan with a real screen reader; also unresolved: Finding 8 (whether the lightbox's native `<dialog>` role is actually announced as "dialog"). |
 
-None of these four are merged to `main` yet — each sits in its own
-worktree/branch. Before starting any of plans 038–042 below (which build
-on 037's findings), merge these worktrees (or at least 034, since 038's
-lightbox fix and 039–041 touch files near, but not overlapping, 034's) in
-whatever order suits, resolving any conflicts, then re-run the full
-verification sweep (`tsc`/`lint`/`test`/`build`) once on `main` before
-continuing.
+All four plans above are now merged into `main` (in order 034 → 035 →
+036 → 037, each `--no-ff`). Full verification re-run once on `main` after
+all four: see the note below this batch.
 
 ### Findings downgraded to operational (not planned as code)
 
@@ -410,11 +405,8 @@ continuing.
 ## Pre-launch audit follow-up batch (2026-09-27)
 
 Generated by the `improve` skill from plan 037's own findings report
-(`docs/prelaunch-audit-2026-09-27.md`, currently only present in worktree
-`claude/competent-einstein-d0ec1f` — merge that worktree, or otherwise
-pull the report over, before an executor needs to read it directly; each
-plan below also inlines the specific excerpt it needs, so execution isn't
-blocked on the report file itself). Every finding was independently
+([docs/prelaunch-audit-2026-09-27.md](../docs/prelaunch-audit-2026-09-27.md),
+now merged to `main`). Every finding was independently
 re-verified against the live source by this session before planning —
 report evidence (selectors, line numbers) is a lead, not a fact, and two
 of the report's 8 findings did not survive that check (see "Findings
