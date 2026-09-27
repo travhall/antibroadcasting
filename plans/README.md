@@ -364,8 +364,15 @@ Contact/Privacy/Terms layout it measures.
 | 037  | [Pre-launch production Lighthouse pass + manual screen-reader check](037-prelaunch-lighthouse-and-screenreader-pass.md) | P2 | S | LOW | — | PARTIAL — merged to `main` 2026-09-27 (`claude/competent-einstein-d0ec1f`). Automated Lighthouse + keyboard/DOM proxy checks done; report at [docs/prelaunch-audit-2026-09-27.md](../docs/prelaunch-audit-2026-09-27.md) with 8 findings, feeding plans 038–042 below. **The actual manual screen-reader pass (VoiceOver/NVDA) — this plan's core ask — was correctly reported as un-runnable by an AI agent (its own STOP condition) and is still outstanding.** A human still needs to walk through Steps 4–5 of this plan with a real screen reader; also unresolved: Finding 8 (whether the lightbox's native `<dialog>` role is actually announced as "dialog"). |
 
 All four plans above are now merged into `main` (in order 034 → 035 →
-036 → 037, each `--no-ff`). Full verification re-run once on `main` after
-all four: see the note below this batch.
+036 → 037, each `--no-ff`, commits `1ef63ea`/`cc6880a`/`4d84ff6`/`e498284`
+respectively, merged at `c296269`). Full verification re-run once, fresh,
+on `main` after all four: `pnpm exec tsc --noEmit` ✓, `pnpm lint` ✓ (0
+errors, 7 pre-existing `MailIcon`-unused warnings — one per nested
+worktree still on disk, a known pre-existing issue plan 032 addresses but
+hasn't yet merged), `pnpm test` ✓ (42 passed, 10 files — vitest is
+currently picking up nested worktrees too, same pre-existing plan-032
+issue, not new), `pnpm build` ✓ (16 routes, unchanged from baseline). Not
+pushed to `origin/main` yet.
 
 ### Findings downgraded to operational (not planned as code)
 
