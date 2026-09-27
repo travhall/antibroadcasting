@@ -359,7 +359,7 @@ Contact/Privacy/Terms layout it measures.
 | Plan | Title | Priority | Effort | Risk | Depends on | Status |
 |------|-------|----------|--------|------|------------|--------|
 | 034  | [Fix orphaned gap between content and footer on short pages](034-fix-sticky-footer-gap-on-short-pages.md) | P1 | M | LOW | — | DONE — merged to `main` 2026-09-27 (`claude/reverent-ishizaka-8e1702`). `pnpm exec tsc --noEmit` ✓, `pnpm lint` ✓ (0 errors, pre-existing unrelated `MailIcon` warning only), `pnpm test` ✓ (21 passed), `pnpm build` ✓. Manually confirmed at 1440×900: `/contact`, `/privacy`, `/terms` render with a computed 0px gap between `<main>` and `<footer>` (previously ~700-800px); `/` and `/portfolio` unaffected; mobile (390px) unchanged. |
-| 035  | [Auto-collapse the sitewide alert banner after the first scroll](035-alert-banner-scroll-collapse.md) | P2 | S | LOW | — | DONE — executed 2026-09-27 in worktree `claude/nifty-swanson-6aca77`, not yet merged to `main`. tsc/lint/test(21)/build clean, manual check confirmed one-way scroll-collapse latch. |
+| 035  | [Auto-collapse the sitewide alert banner after the first scroll](035-alert-banner-scroll-collapse.md) | P2 | S | LOW | — | DONE — merged to `main` 2026-09-27 (`claude/nifty-swanson-6aca77`). `pnpm exec tsc --noEmit` ✓, `pnpm lint` ✓ (0 errors, pre-existing unrelated `MailIcon` warning only), `pnpm test` ✓ (21 passed), `pnpm build` ✓. Manually verified: banner collapses after ~24px scroll, doesn't reappear on scroll-back-to-top **or on client-side navigation to another route** (module-singleton state persists across SPA route changes, same as the existing `dismissedThisLoad` behavior — only a hard reload/new tab resets it), reappears correctly after a hard reload, and the explicit dismiss button still works and persists independently via `localStorage`. |
 | 036  | [Fix mismatched description on gallery item three](036-fix-gallery-item-three-description-typo.md) | P3 | S | LOW | — | DONE — executed 2026-09-27 in worktree `claude/trusting-bardeen-9fbc5e`, not yet merged to `main`. tsc/test(21)/build clean, only that file modified. |
 | 037  | [Pre-launch production Lighthouse pass + manual screen-reader check](037-prelaunch-lighthouse-and-screenreader-pass.md) | P2 | S | LOW | — | PARTIAL — executed 2026-09-27 in worktree `claude/competent-einstein-d0ec1f`, not yet merged. Automated Lighthouse + keyboard/DOM proxy checks done; report at `docs/prelaunch-audit-2026-09-27.md` (that worktree only) with 8 findings, feeding plans 038–042 below. **The actual manual screen-reader pass (VoiceOver/NVDA) — this plan's core ask — was correctly reported as un-runnable by an AI agent (its own STOP condition) and is still outstanding.** A human still needs to walk through Steps 4–5 of this plan with a real screen reader; also unresolved: Finding 8 (whether the lightbox's native `<dialog>` role is actually announced as "dialog"). |
 
@@ -483,34 +483,3 @@ fixes and a good place to start.
 - `app/api/send/route.ts`'s in-memory per-IP rate limiter: already
   documented in-code as a deliberate Fluid-Compute-instance-reuse tradeoff.
   Not re-flagged.
-
-## External site audit batch (2026-09-27)
-
-An external site audit found the sitewide alert banner permanently fixed
-above the header on every route. Plan 035 (scroll-collapse fix, executed
-below) addresses that finding. Sibling plans 034 (sticky-footer gap on
-short pages), 036 (gallery item three description typo), and 037
-(pre-launch Lighthouse + screen-reader pass) came from the same audit
-batch but are tracked/executed separately — not reflected in this row.
-
-| Plan | Title | Priority | Effort | Risk | Depends on | Status |
-|------|-------|----------|--------|------|------------|--------|
-| 035  | [Auto-collapse the sitewide alert banner after the first scroll](035-alert-banner-scroll-collapse.md) | P2 | S | LOW | — | DONE — 2026-09-27, not yet committed |
-
-Executed directly in an isolated worktree (`claude/nifty-swanson-6aca77`).
-`lib/alert-visibility.ts` extended with a `scrolledPastThreshold` module
-flag + passive `window` scroll listener (24px threshold), following the
-file's existing `dismissedThisLoad`/manual-store convention exactly as the
-plan specified — no `useEffect` added, `Header.tsx`'s separate scroll-hide
-listener left untouched. Full verification: `pnpm exec tsc --noEmit` ✓,
-`pnpm lint` ✓ (0 errors, pre-existing unrelated `MailIcon` warning only),
-`pnpm test` ✓ (21 passed), `pnpm build` ✓. Manually verified in-browser:
-banner visible on load, collapses after ~24px scroll (in the same tick as
-the header/margin offset), does not reappear on scroll-back-to-top or on
-client-side navigation to another route (matches the existing
-`dismissedThisLoad` module-singleton behavior — collapse persists across
-SPA route changes, only resets on a true hard reload/new tab), reappears
-correctly after a hard reload, and the explicit dismiss button still works
-and persists independently via `localStorage` across reload. `git status`
-confirms only `lib/alert-visibility.ts` was modified. Not committed —
-this worktree's branch has no commit yet for this change.
