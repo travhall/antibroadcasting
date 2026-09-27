@@ -337,6 +337,7 @@ code cleanliness).
 | 031  | [Fix "Last updated" showing today's date on Privacy/Terms pages](031-fix-privacy-terms-last-updated-date.md) | P1 | S | LOW | — | DONE |
 | 032  | [Remove stale git worktree and scope vitest away from it](032-remove-stale-worktree-and-scope-vitest.md) | P2 | S | LOW | — | DONE — 2026-09-04, commit `cc81cc8` on `claude/cool-golick-975853` (not yet merged to `main`) |
 | 033  | [Override transitive fast-uri to patch 4 high-severity CVEs](033-override-fast-uri-cves.md) | P3 | S | LOW | — | DONE — 2026-09-04, commit `7476a3c` on `claude/friendly-fermi-7902ec` (not yet merged to `main`) |
+| 037  | [Pre-launch production Lighthouse pass + manual screen-reader check](037-prelaunch-lighthouse-and-screenreader-pass.md) | P2 | S | LOW | none | DONE — 2026-09-27, report at [docs/prelaunch-audit-2026-09-27.md](../docs/prelaunch-audit-2026-09-27.md); screen-reader pass could not be completed (no VoiceOver/NVDA interpretation available in this execution environment — reported per STOP condition), 8 findings recorded, 7 follow-up plans recommended |
 
 Note: plan 032 also explains a loose end in this file's own history — the
 "88/88 passed, 17 files" figure recorded in the 2026-08-24 status update
