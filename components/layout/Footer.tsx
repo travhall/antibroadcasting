@@ -16,7 +16,7 @@ const COL_LINK = `relative text-sm text-text-secondary hover:text-text-accent tr
 export function Footer({ siteInfo }: { siteInfo: SiteInfo }) {
   return (
     <footer
-      className="bg-bg-subtle lg:sticky lg:bottom-0 z-0 border-t border-foreground/10"
+      className="bg-bg-subtle z-0 border-t border-foreground/10"
       onFocus={(e) => {
         // Only trigger when focus enters the footer from outside — not on every
         // child re-focus. This prevents the jarring scroll-to-bottom firing on
