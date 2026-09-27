@@ -343,6 +343,18 @@ Note: plan 032 also explains a loose end in this file's own history — the
 above was inflated by the same stale-worktree double-counting bug plan 032
 fixes. The real count at that time was roughly half those numbers.
 
+## Site audit follow-up (2026-09-27)
+
+Found while verifying an external site audit's finding that the Portfolio
+page still shows placeholder data (confirmed, real photography/copy
+replacement is a separate content-owner-driven effort — see plan 036's
+"Maintenance notes"). A copy-paste description mismatch in one gallery item
+was caught that the audit itself didn't flag.
+
+| Plan | Title | Priority | Effort | Risk | Depends on | Status |
+|------|-------|----------|--------|------|------------|--------|
+| 036  | [Fix mismatched description on gallery item three](036-fix-gallery-item-three-description-typo.md) | P3 | S | LOW | — | DONE — 2026-09-27, verified (`tsc` ✓, `pnpm test` 21/21 ✓, `pnpm build` ✓, only `content/gallery/gallery-item-number-three.json` modified), not yet committed |
+
 ### Findings considered and rejected
 
 - `script-src 'self' 'unsafe-inline' ...` always allowing `'unsafe-inline'`
