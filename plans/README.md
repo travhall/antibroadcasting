@@ -357,3 +357,34 @@ fixes. The real count at that time was roughly half those numbers.
 - `app/api/send/route.ts`'s in-memory per-IP rate limiter: already
   documented in-code as a deliberate Fluid-Compute-instance-reuse tradeoff.
   Not re-flagged.
+
+## External site audit batch (2026-09-27)
+
+An external site audit found the sitewide alert banner permanently fixed
+above the header on every route. Plan 035 (scroll-collapse fix, executed
+below) addresses that finding. Sibling plans 034 (sticky-footer gap on
+short pages), 036 (gallery item three description typo), and 037
+(pre-launch Lighthouse + screen-reader pass) came from the same audit
+batch but are tracked/executed separately — not reflected in this row.
+
+| Plan | Title | Priority | Effort | Risk | Depends on | Status |
+|------|-------|----------|--------|------|------------|--------|
+| 035  | [Auto-collapse the sitewide alert banner after the first scroll](035-alert-banner-scroll-collapse.md) | P2 | S | LOW | — | DONE — 2026-09-27, not yet committed |
+
+Executed directly in an isolated worktree (`claude/nifty-swanson-6aca77`).
+`lib/alert-visibility.ts` extended with a `scrolledPastThreshold` module
+flag + passive `window` scroll listener (24px threshold), following the
+file's existing `dismissedThisLoad`/manual-store convention exactly as the
+plan specified — no `useEffect` added, `Header.tsx`'s separate scroll-hide
+listener left untouched. Full verification: `pnpm exec tsc --noEmit` ✓,
+`pnpm lint` ✓ (0 errors, pre-existing unrelated `MailIcon` warning only),
+`pnpm test` ✓ (21 passed), `pnpm build` ✓. Manually verified in-browser:
+banner visible on load, collapses after ~24px scroll (in the same tick as
+the header/margin offset), does not reappear on scroll-back-to-top or on
+client-side navigation to another route (matches the existing
+`dismissedThisLoad` module-singleton behavior — collapse persists across
+SPA route changes, only resets on a true hard reload/new tab), reappears
+correctly after a hard reload, and the explicit dismiss button still works
+and persists independently via `localStorage` across reload. `git status`
+confirms only `lib/alert-visibility.ts` was modified. Not committed —
+this worktree's branch has no commit yet for this change.
