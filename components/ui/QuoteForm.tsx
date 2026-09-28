@@ -303,7 +303,7 @@ export function QuoteForm({
           No art yet? No problem — you can submit without it. Check our{" "}
           <a
             href="/how-it-works#art-requirements"
-            className="text-text-accent hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="text-text-accent underline hover:text-text-primary hover:no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             artwork requirements
           </a>{" "}
