@@ -33,7 +33,7 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
     return (
       <div
         role="status"
-        className="fixed top-0 inset-x-0 z-101 h-11 flex items-center bg-bg-warning border-b border-border-warning overflow-hidden"
+        className="h-11 flex items-center bg-bg-warning border-b border-border-warning overflow-hidden"
       >
         <div
           className="marquee-track"
@@ -66,7 +66,7 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
   return (
     <div
       role="status"
-      className="fixed top-0 inset-x-0 z-101 h-11 flex items-center gap-3 bg-bg-warning border-b border-border-warning px-4 md:px-6 lg:px-8 xl:px-12"
+      className="h-11 flex items-center gap-3 bg-bg-warning border-b border-border-warning px-4 md:px-6 lg:px-8 xl:px-12"
     >
       <PulseDot color="bg-text-warning" />
       <div

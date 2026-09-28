@@ -16,8 +16,6 @@ import { Logo } from "../ui/Logo";
 import { DotOverlay } from "../ui/DotOverlay";
 import { PhoneIcon, MailIcon } from "@/components/ui/Icons";
 import { useBodyScrollLock } from "@/lib/hooks/useBodyScrollLock";
-import type { ActiveAlert } from "@/lib/get-active-alert";
-import { useAlertVisible } from "@/lib/alert-visibility";
 
 const nav = siteConfig.navigation;
 const DRAWER_ID = "mobile-nav";
@@ -59,12 +57,9 @@ function NavLink({
 
 export function Header({
   siteInfo,
-  activeAlert = null,
 }: {
   siteInfo: SiteInfo;
-  activeAlert?: ActiveAlert | null;
 }) {
-  const hasAlert = useAlertVisible(activeAlert);
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
@@ -230,7 +225,7 @@ export function Header({
       </a>
 
       <header
-        className={`fixed ${hasAlert ? "top-11" : "top-0"} left-0 right-0 z-100 px-4 md:px-6 lg:px-8 xl:px-12 flex items-center justify-between bg-bg-base border-b border-foreground/10 transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
+        className={`sticky top-0 z-100 px-4 md:px-6 lg:px-8 xl:px-12 flex items-center justify-between bg-bg-base border-b border-foreground/10 transition-transform duration-300 ease-in-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
         onFocus={() => setHidden(false)}
       >
         <div className="w-full max-w-300 xl:max-w-360 2xl:max-w-400 mx-auto flex flex-1 items-center gap-2">
