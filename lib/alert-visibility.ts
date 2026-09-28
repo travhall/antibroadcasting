@@ -19,32 +19,12 @@ function hashContent(alert: ActiveAlert): string {
 // in the same tick as the alert itself, so all three read from one shared
 // store instead of each re-deriving "is it dismissed" independently.
 let dismissedThisLoad = false;
-
-// Once a visitor has scrolled past a small threshold, the banner has done
-// its job of being seen — collapse it for the rest of this page load so it
-// doesn't permanently eat viewport height. Not persisted to localStorage:
-// unlike an explicit dismiss, this should not follow the visitor to their
-// next visit or next page navigation.
-let scrolledPastThreshold = false;
-const SCROLL_COLLAPSE_THRESHOLD_PX = 24;
-
 const listeners = new Set<() => void>();
 const notify = () => listeners.forEach((l) => l());
 const subscribe = (cb: () => void) => {
   listeners.add(cb);
   return () => listeners.delete(cb);
 };
-
-if (typeof window !== "undefined") {
-  const handleScroll = () => {
-    if (window.scrollY > SCROLL_COLLAPSE_THRESHOLD_PX) {
-      scrolledPastThreshold = true;
-      notify();
-      window.removeEventListener("scroll", handleScroll);
-    }
-  };
-  window.addEventListener("scroll", handleScroll, { passive: true });
-}
 
 function isStoredAsDismissed(alert: ActiveAlert): boolean {
   if (!alert.dismissible) return false;
@@ -55,10 +35,7 @@ function isStoredAsDismissed(alert: ActiveAlert): boolean {
 export function useAlertVisible(alert: ActiveAlert | null): boolean {
   const dismissed = useSyncExternalStore(
     subscribe,
-    () =>
-      dismissedThisLoad ||
-      scrolledPastThreshold ||
-      (alert !== null && isStoredAsDismissed(alert)),
+    () => dismissedThisLoad || (alert !== null && isStoredAsDismissed(alert)),
     () => false,
   );
   return alert !== null && !dismissed;
