@@ -429,6 +429,15 @@ fixes and a good place to start.
 | 041  | [Fix the color-only "artwork requirements" link on the quote form](041-fix-art-requirements-link-contrast.md) | P2 | S | LOW | — | DONE — merged to `main` 2026-09-27 (`claude/inspiring-albattani-7b97ac`). Added `underline` (default) + `hover:no-underline` to the link in `components/ui/QuoteForm.tsx`, matching `AlertBanner.tsx`'s existing pattern. tsc/lint/test(21)/build clean; manually confirmed underline at rest, color+underline swap on hover, focus ring intact. |
 | 042  | [Reproduce and diagnose the Content-Security-Policy issue on /contact](042-investigate-contact-csp-issue.md) | P3 | S | LOW | — | DONE — merged to `main` 2026-09-27 (`claude/heuristic-roentgen-3f59cd`), **could not reproduce**. Turnstile ruled out (site key unset locally; its origin is already CSP-allowed anyway). Plain load + async-timing check: zero console errors, zero third-party requests. No `next.config.ts` change made. Findings in [docs/prelaunch-audit-2026-09-27.md](../docs/prelaunch-audit-2026-09-27.md#5-plan-042-addendum--csp-investigation-on-contact-2026-09-27) §5. A human should re-check with DevTools' Issues panel in a clean profile before treating this as fully closed. |
 
+All five plans above (038-042) are now merged into `main`, each `--no-ff`
+(commits `d8bf3d5`/`e997704`/`9b11acc`/`2e0bc56`/`444ba97`, merged through
+`30e71e8`). Full verification re-run fresh on `main` afterward: `pnpm exec
+tsc --noEmit` ✓, `pnpm lint` ✓ (0 errors, 12 pre-existing `MailIcon`-unused
+warnings — one per nested worktree on disk, same pre-existing plan-032
+issue as before, not new), `pnpm test` ✓ (42 passed, 10 files, unchanged
+from the pre-merge baseline), `pnpm build` ✓ (16 routes, unchanged). Not
+pushed to `origin/main` yet.
+
 ### Findings downgraded (did not survive independent verification)
 
 - **Report's Finding 4 — `label-content-name-mismatch` on gallery "View
