@@ -225,10 +225,81 @@ what ARIA attributes are wired up) but not what a screen reader actually
   by this execution environment.
 - Confirming or discarding Finding 8 (dialog role) using Chrome DevTools'
   Accessibility panel or the actual screen-reader pass.
-- Reproducing Finding 6 (CSP issue) directly in Chrome DevTools to get the
-  specific blocked directive.
+- Re-checking Finding 6 (CSP issue) with actual Chrome DevTools' Issues
+  panel in a clean/incognito profile — Plan 042 (Section 5) could not
+  reproduce it via console/network inspection alone.
 
-## 5. Recommended follow-up plans
+## 5. Plan 042 addendum — CSP investigation on `/contact` (2026-09-27)
+
+Plan 042 was run as a direct follow-up to Finding 6 above, to reproduce the
+CSP issue in a real browser and identify the specific blocked
+directive/resource. **Outcome: could not reproduce.**
+
+- **Step 1 — Turnstile check**: `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is unset in
+  this execution environment (no value in the shell env, no `.env.local`).
+  Per `components/ui/QuoteForm.tsx:57,176-182`, the Turnstile `<Script>` and
+  widget are both gated behind `siteKey` being truthy — with it unset,
+  Turnstile does not render at all on `/contact` here, so it cannot be the
+  cause of anything observed in this environment. If the original Lighthouse
+  run (Finding 6) used the same convention (this repo's established pattern
+  of leaving optional-integration env vars unset locally), Turnstile can be
+  ruled out as the cause of that run's issue too.
+- **Step 2 — Reproduction attempt**: ran `pnpm build && pnpm start` (clean
+  `.next` rebuild) and loaded `/contact` in a real Chromium-based browser.
+  Checked `read_console_messages` (CSP violations surface there as console
+  errors in Chromium, in addition to the dedicated Issues panel) and
+  `read_network_requests` after full load plus a several-second wait (to
+  cover `strategy="lazyOnload"` timing). Result: **zero console errors,
+  zero third-party network requests** — the page made no requests to any
+  origin outside `localhost:3000`. Did not proceed to the form-submission
+  fallback step: `QuoteForm`'s `handleSubmit` calls `e.preventDefault()` and
+  uses `fetch("/api/send")` (no native `<form action>`), so submission can
+  only ever exercise `connect-src 'self'` (already allowed) and never
+  `form-action` — code inspection confirms submitting would add no new CSP
+  surface, so it wasn't run (avoids sending a real test email through the
+  live Resend-backed send pipeline for no diagnostic gain).
+- **Additional check on the Turnstile lead**: rather than stopping at "it
+  didn't render here," checked whether Turnstile *could* have been the
+  cause if it had been enabled. All of Turnstile's known request origins
+  (`https://challenges.cloudflare.com` for the widget script, the
+  challenge iframe, and its own XHR calls) are already explicitly present
+  in `script-src`, `frame-src`, and `connect-src` in the current CSP — so
+  even a fully-rendered Turnstile widget would not be expected to trigger a
+  CSP violation against this header. (A live re-render test using
+  Cloudflare's public "always passes" test site key, `1x00000000000000000000AA`
+  — a published test value, not a credential — was attempted but hit an
+  unrelated `next start` artifact in this sandbox: the dev/prod server
+  intermittently served a stale pre-rebuild bundle from a lingering worker
+  process rather than the freshly-built one, making that specific test
+  inconclusive. Given the static CSP analysis above already covers
+  Turnstile's known origins, this wasn't pursued further as it isn't
+  necessary to answer the plan's question.)
+- **Conclusion**: no CSP violation reproduces on `/contact` at commit
+  `0dc6441` in this environment, with a plain load or expected async
+  script timing. This matches the plan's outcome (c) — issue could not be
+  reproduced. Likely explanations: a transient/environment-specific
+  condition in the original Lighthouse run (e.g. a browser extension in
+  that run's profile injecting a script, which is common false-positive
+  noise for strict CSPs and matches the plan's own noted risk), or an
+  artifact of that specific headless Lighthouse pass rather than a real,
+  persistent issue in this app's own code.
+- **No `next.config.ts` change was made** — per the plan's explicit
+  instruction not to guess-fix the CSP header without confirming what's
+  blocked, and because nothing reproduced to fix.
+- **Browser/tooling used**: Claude's built-in Chromium-based browser pane,
+  driven via its console/network inspection tools (`read_console_messages`,
+  `read_network_requests`); no dedicated Chrome DevTools "Issues" panel
+  access was available in this environment beyond what surfaces in the
+  console, which is the documented limitation carried into the note below.
+- **Recommendation for a human**: re-run this check with actual Chrome
+  DevTools' Issues panel open (not just console) in a clean/incognito
+  profile, since that panel can occasionally surface CSP report-only or
+  edge-case violations that don't always mirror to the console, and a
+  clean profile rules out extension noise definitively. If it reproduces
+  there, the exact blocked directive/URL from that panel should drive a
+  new, narrowly-scoped fix plan.
+
+## 6. Recommended follow-up plans
 
 Per this plan's "Maintenance notes," each of these should become its own
 numbered plan rather than being fixed inline:
@@ -243,6 +314,9 @@ numbered plan rather than being fixed inline:
    (Finding 4).
 5. Fix the low-contrast, color-only "art requirements" link on the contact
    form (Finding 5).
-6. Investigate the CSP issue on `/contact` (Finding 6).
+6. ~~Investigate the CSP issue on `/contact` (Finding 6).~~ Done via Plan
+   042 (Section 5) — could not reproduce; a human should re-check with
+   DevTools' Issues panel in a clean profile before this is fully closed
+   out.
 7. Complete the human screen-reader pass this plan could not perform
    (Section 2/4), and resolve Finding 8.
