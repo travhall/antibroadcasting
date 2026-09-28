@@ -48,7 +48,7 @@ function Hero({ siteInfo }: { siteInfo: SiteInfo }) {
         {siteInfo.booking.visible && (
           <TransitionLink
             href="/contact"
-            className="flex items-center gap-2 font-mono text-xs lg:text-sm xl:text-base font-black tracking-widest uppercase text-text-inverse bg-button-primary-surface px-3 py-1 hover:bg-button-primary-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="flex items-center gap-2 font-mono text-xs lg:text-sm xl:text-base font-black tracking-widest uppercase text-button-primary-text bg-button-primary-surface px-3 py-1 hover:bg-button-primary-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <PulseDot color="bg-bg-base" opacity="opacity-60" />
             Now Booking — {siteInfo.booking.label}
@@ -211,7 +211,7 @@ function ProcessStrip() {
         <SectionLabel
           className="mb-16"
           lineColor="bg-text-inverse/30"
-          textColor="text-text-inverse/40"
+          textColor="text-text-tertiary"
         >
           Index 02 — How It Works
         </SectionLabel>
@@ -224,7 +224,7 @@ function ProcessStrip() {
             Process<span className="text-gold">.</span>
           </h2>
           <div className="flex flex-col items-start lg:items-end gap-3 lg:pb-2 shrink-0">
-            <p className="font-mono text-xs uppercase tracking-widest text-text-inverse/40">
+            <p className="font-mono text-xs uppercase tracking-widest text-text-tertiary">
               Three Steps, Start to Finish
             </p>
             <TransitionLink
