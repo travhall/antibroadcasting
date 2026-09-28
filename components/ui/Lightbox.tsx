@@ -47,10 +47,10 @@ export function Lightbox({
   }, []);
 
   const handleClose = useCallback(() => {
-    onRestoreFocus();
     setIsVisible(false);
     setTimeout(() => {
       dialogRef.current?.close();
+      onRestoreFocus();
       onClose();
     }, 200);
   }, [onClose, onRestoreFocus]);

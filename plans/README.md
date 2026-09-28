@@ -423,7 +423,7 @@ fixes and a good place to start.
 
 | Plan | Title | Priority | Effort | Risk | Depends on | Status |
 |------|-------|----------|--------|------|------------|--------|
-| 038  | [Fix lightbox focus not returning to its trigger after close](038-fix-lightbox-focus-restore.md) | P1 | S | LOW | — | TODO |
+| 038  | [Fix lightbox focus not returning to its trigger after close](038-fix-lightbox-focus-restore.md) | P1 | S | LOW | — | DONE — 2026-09-27. Reordered `handleClose` in `components/ui/Lightbox.tsx` so `onRestoreFocus()` runs after `dialogRef.current.close()` (inside the same `setTimeout`) and before `onClose()`. tsc/lint/test/build all pass; manual browser check confirmed focus returns to the correct triggering thumbnail (tested items 3 and 5, not just item 0) on both Escape-close and button-close. No test infra (`@testing-library/*`) exists in this repo, so no automated regression test was added per the plan's guidance — manual-only coverage. |
 | 039  | [Fix two homepage color-contrast failures](039-fix-homepage-color-contrast.md) | P1 | S | LOW | — | TODO |
 | 040  | [Investigate and likely fix the homepage/contact LCP regression via the display font's `font-display` strategy](040-investigate-lcp-display-font.md) | P2 | S/M | LOW-MED | — | TODO |
 | 041  | [Fix the color-only "artwork requirements" link on the quote form](041-fix-art-requirements-link-contrast.md) | P2 | S | LOW | — | TODO |
