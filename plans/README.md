@@ -508,7 +508,7 @@ none found) before writing the plan.
 
 | Plan | Title | Priority | Effort | Risk | Depends on | Status |
 |------|-------|----------|--------|------|------------|--------|
-| 043  | [Make the alert banner scroll with the page instead of staying fixed](043-alert-banner-scrolls-with-page.md) | P1 | M | MED | — | TODO |
+| 043  | [Make the alert banner scroll with the page instead of staying fixed](043-alert-banner-scrolls-with-page.md) | P1 | M | MED | — | DONE — 2026-09-28, commit `fea6708` on `main`. The dispatched executor (worktree `claude/optimistic-blackwell-919e27`) hit a platform-side "classifier gave no verdict" outage that blocked every mutating tool call for its whole session — it correctly made zero changes and reported blocked rather than forcing anything through, but its own status replies were also swallowed by the same outage. Implemented directly instead, exactly per this plan's diff: `tsc`/`lint`/`test`(42)/`build` all clean, and manually verified live in-browser (banner visible on load, scrolls away naturally on scroll-down, header sticks at `top:0` once past it, banner reappears smoothly scrolling back up, no gap/overlap on page content). |
 
 Supersedes plan 035 structurally (035 stays in the index, marked
 REVERTED, as the record of what was tried and why it didn't work — not
