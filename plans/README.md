@@ -427,7 +427,7 @@ fixes and a good place to start.
 | 039  | [Fix two homepage color-contrast failures](039-fix-homepage-color-contrast.md) | P1 | S | LOW | — | TODO |
 | 040  | [Investigate and likely fix the homepage/contact LCP regression via the display font's `font-display` strategy](040-investigate-lcp-display-font.md) | P2 | S/M | LOW-MED | — | TODO |
 | 041  | [Fix the color-only "artwork requirements" link on the quote form](041-fix-art-requirements-link-contrast.md) | P2 | S | LOW | — | TODO |
-| 042  | [Reproduce and diagnose the Content-Security-Policy issue on /contact](042-investigate-contact-csp-issue.md) | P3 | S | LOW | — | TODO |
+| 042  | [Reproduce and diagnose the Content-Security-Policy issue on /contact](042-investigate-contact-csp-issue.md) | P3 | S | LOW | — | DONE (2026-09-27) — investigated, could not reproduce. Turnstile ruled out (site key unset; its origin is already CSP-allowed anyway). Plain load + async-timing check: zero console errors, zero third-party requests. No `next.config.ts` change made. Findings in [docs/prelaunch-audit-2026-09-27.md](../docs/prelaunch-audit-2026-09-27.md#5-plan-042-addendum--csp-investigation-on-contact-2026-09-27) §5. A human should re-check with DevTools' Issues panel in a clean profile before treating this as fully closed. |
 
 ### Findings downgraded (did not survive independent verification)
 
