@@ -425,7 +425,7 @@ fixes and a good place to start.
 |------|-------|----------|--------|------|------------|--------|
 | 038  | [Fix lightbox focus not returning to its trigger after close](038-fix-lightbox-focus-restore.md) | P1 | S | LOW | — | TODO |
 | 039  | [Fix two homepage color-contrast failures](039-fix-homepage-color-contrast.md) | P1 | S | LOW | — | TODO |
-| 040  | [Investigate and likely fix the homepage/contact LCP regression via the display font's `font-display` strategy](040-investigate-lcp-display-font.md) | P2 | S/M | LOW-MED | — | TODO |
+| 040  | [Investigate and likely fix the homepage/contact LCP regression via the display font's `font-display` strategy](040-investigate-lcp-display-font.md) | P2 | S/M | LOW-MED | — | DONE (hypothesis not confirmed, change reverted — see [report](../docs/lcp-font-display-investigation-2026-09-27.md)) |
 | 041  | [Fix the color-only "artwork requirements" link on the quote form](041-fix-art-requirements-link-contrast.md) | P2 | S | LOW | — | TODO |
 | 042  | [Reproduce and diagnose the Content-Security-Policy issue on /contact](042-investigate-contact-csp-issue.md) | P3 | S | LOW | — | TODO |
 
