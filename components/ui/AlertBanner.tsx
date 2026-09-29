@@ -33,7 +33,7 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
     return (
       <div
         role="status"
-        className="h-11 flex items-center bg-bg-warning border-b border-border-warning overflow-hidden"
+        className="h-11 flex items-center bg-bg-warning border-b border-border-warning overflow-hidden relative z-5000"
       >
         <div
           className="marquee-track"
@@ -51,7 +51,10 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
                   className="flex items-center shrink-0 font-mono text-xs uppercase tracking-widest whitespace-nowrap text-text-warning"
                 >
                   {alert.message}
-                  <span aria-hidden="true" className="mx-8 text-text-warning/40">
+                  <span
+                    aria-hidden="true"
+                    className="mx-8 text-text-warning/40"
+                  >
                     •
                   </span>
                 </span>
@@ -66,12 +69,14 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
   return (
     <div
       role="status"
-      className="h-11 flex items-center gap-3 bg-bg-warning border-b border-border-warning px-4 md:px-6 lg:px-8 xl:px-12"
+      className="h-11 flex items-center gap-3 bg-bg-warning border-b border-border-warning px-4 md:px-6 lg:px-8 xl:px-12 relative z-5000"
     >
       <PulseDot color="bg-text-warning" />
       <div
         className="flex-1 min-w-0 truncate"
-        title={alert.title ? `${alert.title} — ${alert.message}` : alert.message}
+        title={
+          alert.title ? `${alert.title} — ${alert.message}` : alert.message
+        }
       >
         {alert.title && (
           <span className="font-mono text-xs uppercase tracking-widest font-bold text-text-warning mr-2">
@@ -95,8 +100,18 @@ export function AlertBanner({ alert }: { alert: ActiveAlert }) {
           aria-label="Dismiss"
           className="tap-target shrink-0 text-text-warning/70 hover:text-text-warning focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg-warning"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.5" />
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M1 1L13 13M13 1L1 13"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
           </svg>
         </button>
       )}
