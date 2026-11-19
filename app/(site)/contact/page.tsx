@@ -91,10 +91,10 @@ export default async function ContactPage() {
               href={`https://maps.google.com/?q=${encodeURIComponent(contact.address.full)}`}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open ${contact.address.full} in Google Maps (opens in new tab)`}
+              aria-label={`${contact.address.street} ${contact.address.city}, ${contact.address.state} ${contact.address.zip}, opens in Google Maps in a new tab`}
               className="tap-target flex flex-col gap-1 mb-6 self-start font-mono text-xs uppercase tracking-widest text-text-tertiary hover:text-text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <span>{contact.address.street}</span>
+              <span>{contact.address.street}</span>{" "}
               <span>
                 {contact.address.city}, {contact.address.state}{" "}
                 {contact.address.zip}

@@ -69,10 +69,10 @@ export function Footer({ siteInfo }: { siteInfo: SiteInfo }) {
               href={`https://maps.google.com/?q=${encodeURIComponent(siteInfo.contact.address.full)}`}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open ${siteInfo.contact.address.full} in Google Maps (opens in new tab)`}
+              aria-label={`${siteInfo.contact.address.street} ${siteInfo.contact.address.city}, ${siteInfo.contact.address.state} ${siteInfo.contact.address.zip}, opens in Google Maps in a new tab`}
               className={COL_LINK}
             >
-              <span className="block">{siteInfo.contact.address.street}</span>
+              <span className="block">{siteInfo.contact.address.street}</span>{" "}
               <span className="block">
                 {siteInfo.contact.address.city},{" "}
                 {siteInfo.contact.address.state} {siteInfo.contact.address.zip}

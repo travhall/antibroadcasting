@@ -95,7 +95,7 @@ function GalleryCard({
       <button
         ref={triggerRef}
         onClick={() => onOpen(index)}
-        aria-label={`View ${item.client ?? item.title}`}
+        aria-label={`No. ${String(index + 1).padStart(2, "0")}, view ${item.client ?? item.title}`}
         className="relative w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <div
@@ -105,7 +105,7 @@ function GalleryCard({
           {item.image && (
             <Image
               src={item.image}
-              alt={item.imageAlt || `${item.client ?? item.title} screen print`}
+              alt=""
               fill
               sizes={imageSizes[size]}
               className="object-cover transition-transform duration-slow group-hover:scale-105 motion-reduce:group-hover:scale-100"
