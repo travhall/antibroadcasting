@@ -25,7 +25,7 @@ export function FeaturedWorkGrid({ items }: { items: GalleryItem[] }) {
             <button
               ref={setTriggerRef(i)}
               onClick={() => open(i)}
-              aria-label={`View ${item.client ?? item.title}`}
+              aria-label={`No. ${String(i + 1).padStart(2, "0")}, view ${item.client ?? item.title}`}
               className="group relative w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <div
@@ -35,7 +35,7 @@ export function FeaturedWorkGrid({ items }: { items: GalleryItem[] }) {
                 {item.image && (
                   <Image
                     src={item.image}
-                    alt={item.imageAlt || `${item.client ?? item.title} screen print`}
+                    alt=""
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover z-0 transition-transform duration-500 group-hover:scale-105 motion-reduce:group-hover:scale-100"
